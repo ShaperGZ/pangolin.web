@@ -1,10 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>$Title$</title>
+<meta charset="UTF-8">
 </head>
-<body>
-$END$
-</body>
+<frameset cols="300px,*">
+    <frame src="" style="width:30%">
+    <frame src="app.html">
+</frameset>
+
+<script>
+    frames = document.getElementsByTagName('frame')
+    frames[0].location = 'http://localhost:5567/test_inspector'
+</script>
+
+
 </html>

@@ -8,13 +8,24 @@ Viewer=function(){
     this.camera = new THREE.PerspectiveCamera( 75, this.canvasW/this.canvasH, 0.1, 1000 );
     this.renderer = new THREE.WebGLRenderer();
     this.container = document.getElementById("threejs_container")
+    this.manager = new ObjectManager(this.scene)
     var self=this;
     this.init=function(){
         console.log("initializing")
         var geometries=[]
         var object3ds=[]
 
-        this.controls = new THREE.TrackballControls( this.camera );
+        //create HUD
+        this.hud = new HUD(self)
+        this.hud.enable = false
+
+        //dat.gui
+        this.datgui = new DATGUIS(self)
+
+        console.log('HUD is not working, it is added to Viewer, remember to fix later')
+
+
+        // this.controls = new THREE.TrackballControls( this.camera );
         this.controls = new THREE.OrbitControls( this.camera, this.renderer.domElement );
         this.controls.enableDamping = true; // an animation loop is required when either damping or auto-rotation are enabled
         this.controls.dampingFactor = 1;
@@ -23,7 +34,10 @@ Viewer=function(){
         this.controls.maxDistance = 500;
         this.controls.maxPolarAngle = Math.PI / 2;
 
+        //selector to select object
+        var selector = new SelectionControls(this.camera, this.renderer.domElement, this)
 
+        //camera
         this.camera.position.set(-20,28,43)
         this.camera.lookAt(new THREE.Vector3(0,0,0))
         this.camera.far=10000
@@ -37,6 +51,7 @@ Viewer=function(){
 
 
         this.container.appendChild(this.renderer.domElement);
+        this.canvas=this.renderer.domElement
 
         //---------------------------------------------
         var points = [];
@@ -77,7 +92,6 @@ Viewer=function(){
 
         //lighting
         sunLight=this.lighting_setup();
-
         window.addEventListener( 'resize', this.onWindowResize, false );
 
         //add grid
@@ -98,6 +112,7 @@ Viewer=function(){
     this.render=function() {
 
         self.renderer.render( self.scene, self.camera );
+        self.hud.render(self.renderer)
 
     }
 
@@ -125,7 +140,8 @@ Viewer=function(){
         this.scene.add( new THREE.AmbientLight( 0x404080 ) );
 
         return dirLight;
-    }
+    };
+    
     this.sky_ground_setup=function(){
         // GROUND
 
@@ -139,7 +155,6 @@ Viewer=function(){
         scene.add( ground );
 
         ground.receiveShadow = true;
-
     };
 
     this.update_camera=function(pos,trg=[0,0,0],fov=35){
@@ -148,19 +163,34 @@ Viewer=function(){
         self.camera.position.set(pos[0],pos[2],pos[1])
         self.camera.lookAt(new THREE.Vector3(trg[0],trg[2],trg[1]))
     };
-    this.onWindowResize=function() {
 
+    this.onWindowResize=function() {
         self.camera.aspect = window.innerWidth / window.innerHeight;
         self.camera.updateProjectionMatrix();
         self.renderer.setSize( window.innerWidth, window.innerHeight );
-
     };
 
+    this.select_objects=function(selected_objects){
+        if(selected_objects.length>0){
+            self.manager.set_selected_objects(selected_objects)
+            var sel = selected_objects[0].object
+            var objid = self.manager.get_id_by_threejs_object(sel)
+            self.inspect_object(objid)
+        }
+        else{
+            self.datgui.set_inspector(null,null)
+        }
+    }
 
-
-
-
-
+    this.inspect_object = function(objid){
+        console.log('inspecting:'+objid)
+        // url = 'http://localhost:5567/inspector?id='+objid 
+        // console.log(url)
+        // parent.frames[0].location=url
+        msg = 'inspect_inplace("'+objid+'")' 
+        console.log(msg)
+        socket.send(msg)
+    }
 
 }
 
