@@ -7,7 +7,23 @@ class ObjectManager{
         //this.id_by_threejs_object={}
 
         this.scene=scene;
+        this.model_container=new THREE.Group()
+        this.model_container.scale.set(1,1,-1)
+        this.scene.add(this.model_container)
+
+        this.selection_bbox_lines = new THREE.Group()
+        
         // var self=this;
+    }
+
+    clear(){
+        // for(var i in this.objects){
+        //     this.scene.remove(this.objects[i])
+        // }
+        for(var i in this.model_container.children){
+            this.model_container.remove(this.model_container[i])
+        }
+        
     }
 
     set_selected_objects(selected_objects){
@@ -53,6 +69,27 @@ class ObjectManager{
         return null
     }
 
+    set_transform(data){
+        var id = data.id
+        console.log('transform:',id)
+        if ( id in this.objects){
+            var obj = this.objects[id];
+            if ('t' in data.transform){
+                var position = data.transform.t
+                obj.position.set(position[0],position[2],position[1])
+            }
+            if('s' in data.transform){
+                var scale = data.transform.s
+                obj.scale.set(scale[0],scale[2],scale[1])
+                // scale
+            }   
+            if('r' in data.transform){
+                var rotation = data.transform.r
+            }
+        } // end if id in this.objects
+        
+    }
+
     set_line(data){
         var id=data['g']['id']
         var obj
@@ -76,13 +113,15 @@ class ObjectManager{
         return id
     }
 
-    set_line_group(data){
+    set_line_group(data, group=null){
         var id = data['g']['id']
         var existings=[]
         var style
         var item
         // group_object_reference will be added to mapper and indexed by id
-        var group_object_reference=[]
+        if(group == null){
+            group = new THREE.Group()
+        }
 
         var position = data['transform']['t']
 
@@ -121,7 +160,8 @@ class ObjectManager{
                 obj.material=new THREE.LineBasicMaterial(style)
             }
             obj.position.set(position[0],position[1],position[2])
-            group_object_reference.push(obj)
+            group.add(obj)
+            this.model_container.add(group)
         }
         this.objects[id]=group_object_reference
     }
@@ -129,13 +169,14 @@ class ObjectManager{
     set_polygon_mesh(data){
         console.log('set_polygon_mesh')
         console.log(data)
-        var id = data.g.id
+        var id = data.id
         var pts = data.g.p
         var faces = data.g.f
         var holes = data.g.holes
         if(holes==null) holes=[]
         var geometry, mat, obj
         var color = [255,255,255]
+        var obj
         if ('s' in data && 'color' in data.s)
             color = data.s.color
         if ( id in this.objects){
@@ -144,9 +185,20 @@ class ObjectManager{
         }
         else{
             geometry = new THREE.Geometry()
-            mat = new THREE.MeshPhongMaterial( { color: 'rgb(0,255,0)', emissive: 0x000020 } );
+            mat = new THREE.MeshPhongMaterial( { color: 'rgb(255,255,255)', emissive: 0x000020 } );
             obj = new THREE.Mesh(geometry, mat)
-            this.scene.add(obj)
+            obj.name = id
+            // this.scene.add(obj)
+            // this.objects[id]=obj
+
+            if('parent' in data){
+                parent = this.objects[data.parent]
+                parent.add(obj)
+            }
+            else{
+                // this.scene.add(obj)
+                this.model_container.add(obj)
+            }
             this.objects[id]=obj
             
         }
@@ -193,11 +245,14 @@ class ObjectManager{
         //console.log(nfaces)
         this.set_geometry_vertices(geometry, pts)
         this.set_geometry_faces(geometry, nfaces)
-        if (data['transform']!=undefined && data['transform']['t']!=undefined) 
-        {
-            var position = data['transform']['t']
-            obj.position.set(position[0],position[1],position[2])
-        }
+        // if (data['transform']!=undefined && data['transform']['t']!=undefined) 
+        // {
+        //     var position = data['transform']['t']
+        //     obj.position.set(position[0],position[2],-position[1])
+        // }
+        obj.scale.set(1,1,-1);
+        obj.castShadow=true;
+        obj.receiveShadow = true;
         geometry.computeBoundingSphere();
         geometry.computeVertexNormals();
         // geometry.computeFaceNormals();
@@ -231,8 +286,10 @@ class ObjectManager{
         if (data['transform']!=undefined && data['transform']['t']!=undefined) 
         {
             var position = data['transform']['t']
-            obj.position.set(position[0],position[1],position[2])
+            console.log('position=',position)
+            obj.position.set(position[0],position[2],-position[1])
         } 
+        obj.scale.set(1,1,-1)
         
         geometry.computeBoundingSphere()
         geometry.computeVertexNormals();

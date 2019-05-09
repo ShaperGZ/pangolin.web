@@ -1,0 +1,37 @@
+.fullWidth{
+    width:100%;
+    display: block;
+    padding:8px 16px;
+    text-align:left;
+    border:none;
+    white-space:normal;
+    float:none;
+    outline:0
+}
+.float{
+    position:fixed;
+    z-index:10;
+    overflow:auto
+}
+.content{
+    font: 11px sans-serif;
+}
+.chartText{
+    font: 10px sans-serif;
+}
+.threejsCanvas{position: absolute;top:0px; }
+
+.overlayMessagePanel{
+    position:fixed;
+    z-index:10;
+    overflow:auto;
+    display:inline-block
+}
+.barChart div{
+    font: 9px sans-serif;
+    background-color: orange;
+    text-align: right;
+    padding: 0px;
+    margin: 1px;
+    color: white;
+}

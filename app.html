@@ -4,6 +4,14 @@
     <meta charset="UTF-8">
     <title>Title</title>
     <link rel="stylesheet" type="text/css"href="ArchProto.css">
+    <style>
+        .label{
+                    color: #FFF;
+                    font-family: sans-serif;
+                    padding: 2px;
+                    background: rgba( 0, 0, 0, .6 );
+                }
+    </style>
     <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/socket.io/1.3.6/socket.io.min.js"></script>
 </head>
 <script src="three.min.js"></script>
@@ -11,29 +19,147 @@
 <script src="controls/DragControls.js"></script>
 <script src="controls/OrbitControls.js"></script>
 <script src="controls/SelectionControls.js"></script>
+<script src="controls/TransformControls.js"></script>
 <script src="./interpretor.js"></script>
 <script src="object_manager.js"></script>
 <script src="threejsViewer.js"></script>
+<script src="widgets/transform.js"></script>
 <script src="utilities.js"></script>
 <script src="materials.js"></script>
 <script src="tests/test_geometries.js"></script>
 <script src="libs/dat.gui/dat.gui.min.js"></script>
+<script src="libs/postprocessing/EffectComposer.js"></script>
+<script src="libs/postprocessing/RenderPass.js"></script>
+<script src="libs/postprocessing/SAOPass.js"></script>
+<script src="libs/postprocessing/ShaderPass.js"></script>
+<script src="libs/shaders/CopyShader.js"></script>
+<script src="libs/shaders/SAOShader.js"></script>
+<script src="libs/shaders/DepthLimitedBlurShader.js"></script>
+<script src="libs/shaders/UnpackDepthRGBAShader.js"></script>
+<script src="libs/renderers/CSS2DRenderer.js"></script>
 <script src="libs/labels.js"></script>
 <script src="hud.js"></script>
 <script src="gui_manager.js"></script>
+<link rel="stylesheet" href="w3.css">
+<link rel="stylesheet" href="w3-color-flat.css">
+<link rel="stylesheet" href="main.css">
 
 <body>
-    <div id="threejs_container" style="width: 100%; height: 100%;">
-        <!--<input id='slider_u' type='range' min='5' max='50' step='1' value='10'>-->
-        <!--<input id='slider_v' type='range' min='5' max='50' step='1' value='10'>-->
-        <!--<input id='slider_w' type='range' min='1' max='20' step='1' value='10'>-->
-    
+
+<div id='side_bar' style="display:none" class="w3-sidebar w3-bar-block w3-card w3-animate-left content">
+    <button onclick="close_sidebar()" class="w3-bar-item w3-button w3-blue">Close &times;</button>
+    <p> this is a side bar</p>
+    <a href="#" class='fullWidth w3-button'>Link 1</a>
+    <a href="#" class='fullWidth w3-button'>Link 2</a>
+    <a href="#" class='fullWidth w3-button'>Link 2</a>
+    <a href="#" class='fullWidth w3-button'>Link 2</a>
+    <a href="#" class='fullWidth w3-button'>Link 2</a>
+    <a href="#" class='fullWidth w3-button'>Link 2</a>
+    <a href="#" class='fullWidth w3-button'>Link 2</a>
+    <a href="#" class='fullWidth w3-button'>Link 2</a>
+    <a href="#" class='fullWidth w3-button'>Link 2</a>
+    <a href="#" class='fullWidth w3-button'>Link 2</a>
+    <a href="#" class='fullWidth w3-button'>Link 2</a>
+    <a href="#" class='fullWidth w3-button'>Link 2</a>
+    <a href="#" class='fullWidth w3-button'>Link 2</a>
+    <a href="#" class='fullWidth w3-button'>Link 2</a>
+    <a href="#" class='fullWidth w3-button'>Link 2</a>
+    <a href="#" class='fullWidth w3-button'>Link 2</a>
+    <a href="#" class='fullWidth w3-button'>Link 2</a>
+    <a href="#" class='fullWidth w3-button'>Link 2</a>
+    <a href="#" class='fullWidth w3-button'>Link 2</a>
+    <a href="#" class='fullWidth w3-button'>Link 2</a>
+    <a href="#" class='fullWidth w3-button'>Link 2</a>
+    <a href="#" class='fullWidth w3-button'>Link 2</a>
+    <a href="#" class='fullWidth w3-button'>Link 2</a>
+    <a href="#" class='fullWidth w3-button'>Link 2</a>
+    <a href="#" class='fullWidth w3-button'>Link 2</a>
+    <a href="#" class='fullWidth w3-button'>Link 2</a>
+    <a href="#" class='fullWidth w3-button'>Link 2</a>
+    <a href="#" class='fullWidth w3-button'>Link 2</a>
+    <a href="#" class='fullWidth w3-button'>Link 2</a>
+    <a href="#" class='fullWidth w3-button'>Link 2</a>
+    <a href="#" class='fullWidth w3-button'>Link 2</a>
+    <a href="#" class='fullWidth w3-button'>Link 2</a>
+    <a href="#" class='fullWidth w3-button'>Link 2</a>
+    <a href="#" class='fullWidth w3-button'>Link 2</a>
+    <a href="#" class='fullWidth w3-button'>Link 2</a>
+    <a href="#" class='fullWidth w3-button'>Link 2</a>
+    <a href="#" class='fullWidth w3-button'>Link 2</a>
+    <a href="#" class='fullWidth w3-button'>Link 2</a>
+    <div class='fullWidth w3-button content'>
+        <span >title</span><input type='input' value =123 ></div>
     </div>
+   
+</div>
+
+
+<div>
+    <div>
+        <button id="open_sidebar" onclick="open_sidebar()" class="w3-button w3-blue w3-xlarge float" >&#9776;</button>
+    </div>
+    <div id='overlay_div' class="overlayMessagePanel content" 
+            style="width:300px; height:200px; margin-left:60px">
+            
+        <table class = 'chartText'>
+            <tr>
+                <td>Marker A</td>
+                <td style="width:100px">
+                    <div class='barChart' >
+                        <div  style='width:30px; height:10px'>30</div>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>Marker B</td>
+                <td>
+                    <div class='barChart'>
+                        <div  style='width:60px; height:10px'>60</div>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td><span>Marker C</span></td>
+                <td>
+                    <div class='barChart'>
+                        <div  style='width:50px; height:10px'>50</div>
+                    </div>
+                </td>
+                
+            </tr>
+        </table>
+        <p >
+            line1 <br>
+            line2 <br>
+        </p>
+    </div>
+    <div id="threejs_container" style="height: 100%, top:0px" ></div>
+</div>
+            
+
+    
 </body>
 
 <script>
+
+    function open_sidebar(){
+        //document.getElementById("threejs_container").style.marginLeft = "300px";
+        document.getElementById("side_bar").style.width = "200px";
+        document.getElementById("side_bar").style.display = "block";
+        document.getElementById("open_sidebar").style.display = 'none';
+        document.getElementById("overlay_div").style.marginLeft = '210px'
+        this.onWindowResize()
+        
+    }
+    function close_sidebar(){
+        document.getElementById("threejs_container").style.marginLeft = "0%";
+        document.getElementById("side_bar").style.display = "none";
+        document.getElementById("open_sidebar").style.display = "inline-block";
+        document.getElementById("overlay_div").style.marginLeft = '60px'
+        this.onWindowResize()
+    }
+
     //create 3d viewer
-    
     var viewer=new Viewer();
     viewer.init();
     viewer.animate();
@@ -52,7 +178,8 @@
     //create socketio and handling functions
     handle_connect=function(data){
         console.log('connected');
-        socket.send('update_all()')
+        viewer.clear_scene()
+        socket.send('app.load_scene()')
         }
 
     handle_message=function(data){
@@ -68,27 +195,7 @@
     socket=io('http://localhost:5567/',false)
     socket.on('connect',handle_connect)
     socket.on('message',handle_message)
-    socket.send('hello server')
-
-
-    
-    //message = JSON.stringify(datas)
-    //var ids=inter.parse_multiple(message)
-    //console.log(ids[0])
-    //var objects=[manager.mapper[ids[0]]]
-    //var dragControls = new THREE.DragControls( objects, viewer.camera, viewer.renderer.domElement );
-    //dragControls.addEventListener( 'dragstart', function () {
-    //    viewer.controls.enabled = false;
-    //
-    //} );
-    //dragControls.addEventListener( 'dragend', function () {
-
-      //  viewer.controls.enabled = true;
-
-    //} );
-
-    //console.log(ids[0])
-
+    //socket.send('hello server')
 
     function python(script){
         var data = {'cmd':'eval','script':script}
@@ -97,96 +204,11 @@
     }
 
     
-
-//    var variables={'u':10,'v':10}
-//    function assign_slider_handlers(slider_id){
-//        var slider = document.getElementById(slider_id);
-//        slider.onchange = function(){
-//            var value = slider.value;
-//            key = slider_id.split('_')[1]
-//            variables[key]= value
-//            var u,v
-//            u = variables['u']
-//            v = variables['v']
-//            //test_line_group(manager,u,v)
-//            //test_point_clouds(manager,u*2,v*2,0.5)
-//            test_mesh(manager,u*2,v*2,0.5)
-//        }
-//
-//        slider.ondrag = function(){
-//            console.log(slider.value)
-//        }
-//    }
-
-
-
-
-//    function assign_slider_handler_set_count_d(slider_id){
-//        var slider = document.getElementById(slider_id);
-//        slider.onchange = function(){
-//            var value = slider.value;
-//            msg = 'set_d('+value+')'
-//            socket.send(msg)
-//        }
-//
-//        slider.ondrag = function(){
-//            console.log(slider.value)
-//        }
-//    }
-//    assign_slider_handlers('slider_u')
-//    assign_slider_handlers('slider_v')
-//    assign_slider_handler_set_count_d('slider_w')
-    //test_lines(manager)
-    //test_line_group(manager,10,10)
-    //test_point_clouds(manager,20,10,0.8)
-    //meshid = test_mesh(manager,10,10)
-    //poygon_mesh = test_polygon_mesh(manager)
-
-
-
-    set_gui = function(id, parameters){
-        viewer.datgui.set_inspector(id,parameters)
-//        console.log('set_gui')
-//        //clear the gui
-//        for(var i=0;i<gui_controls.length;i++){
-//            gui.remove(gui_controls[i])
-//        }
-//
-//        gui_obj={}
-//        gui_obj_domain={}
-//        for(var k  in parameters){
-//            var value = parameters[k].value
-//            var lower = Math.round(value/4)
-//            var higher = value*4
-//            if(parameters[k].type=='integer')
-//                step=1
-//            else
-//                step=1
-//                //step = value/10.0
-//            gui_obj[k] = value
-//            gui_obj_domain[k] = [higher,lower,step]
-//        }
-//        for(var k in gui_obj){
-//            var max = gui_obj_domain[k][0]
-//            var min = gui_obj_domain[k][1]
-//            var step = gui_obj_domain[k][2]
-//            if (min<1) min =1
-//            var control = gui.add(gui_obj,k, min, max)
-//
-//            control.step(1)
-//            gui_controls.push(control)
-//
-//            function assign_onchange(id,k,control){
-//                control.onChange(function(){
-//                    var value = gui_obj[k]
-//                    var msg = 'set_state_value("'+id+'","'+k+'",'+value+')'
-//                    console.log(msg)
-//                    socket.send(msg)
-//                })
-//            }
-//            assign_onchange(id,k,control)
-//
-
+    set_gui = function(parameters){
+        var id = parameters['root']['id']
+        console.log('app.set_gui', id,parameters)
+        viewer.datgui.set_inspector(parameters, id)
+        viewer.transformWidget.create(parameters['root'].value['Transform'].value, id)
     }
 
 
@@ -194,7 +216,7 @@
     viewer.scene.add(sp);
     sp.position.set(10,0,0);
 
-
+    //test_bounding_widgets(viewer,w=10,d=10,h=4)
 
 </script>
 </html>

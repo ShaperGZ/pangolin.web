@@ -130,3 +130,47 @@ function test_mesh(manager,u=10,v=10,w=1){
     id = manager.set_mesh(data)
     return id
 }
+
+
+function test_bounding_widgets(viewer,w=10,d=10,h=4){
+    var pts = [
+        new THREE.Vector3(0,0,0),
+        new THREE.Vector3(w,0,0),
+        new THREE.Vector3(w,h,0),
+        new THREE.Vector3(0,h,0),
+        new THREE.Vector3(0,0,d),
+        new THREE.Vector3(w,0,d),
+        new THREE.Vector3(w,h,d),
+        new THREE.Vector3(0,h,d)
+    ]
+    var segment_pts=[
+        pts[0],pts[1],
+        pts[1],pts[2],
+        pts[2],pts[3],
+        pts[3],pts[0],
+        pts[4],pts[5],
+        pts[5],pts[6],
+        pts[6],pts[7],
+        pts[7],pts[4],
+        pts[0],pts[4],
+        pts[1],pts[5],
+        pts[2],pts[6],
+        pts[3],pts[7]
+    ]
+    
+    var line_geometry = new THREE.Geometry()
+    line_geometry.vertices = segment_pts
+    var widget = new THREE.Group()
+
+    var widget_color = 0xdddd00
+    //var basicMaterial = new THREE.BasicMaterial({color:widget_color})
+    var lines = new THREE.LineSegments(line_geometry, new THREE.LineBasicMaterial({color:widget_color, linewidth:3}))
+
+    var centers=[
+        pts[0]
+    ]
+
+
+    widget.add(lines)
+    viewer.scene.add(widget)
+}

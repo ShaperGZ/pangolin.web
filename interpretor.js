@@ -10,15 +10,27 @@ class Interpretor{
         if (parse){
             msg=JSON.parse(jsonMessage);
         }
-        var cmd =msg['cmd']
-        console.log('interpreting: cmd='+cmd)
-        if (cmd == 'set_line_group') this.manager.set_line_group(msg)
-        else if (cmd == 'set_mesh') this.manager.set_mesh(msg)
-        else if (cmd == 'set_polygon_mesh') this.manager.set_polygon_mesh(msg)
-        else if (cmd == 'inspect_inplace') {
-            console.log('inspecting inplace')
-            set_gui(msg['id'],msg['parameters'])
+        var cmd = msg['cmd']
+        if(cmd=='set_geometry'){
+            // set geometry
+            if('g' in msg){
+                if (msg['g']['type']=='mesh'){
+                    this.manager.set_polygon_mesh(msg)
+                }
+            }
+            // set transform
+            if('transform' in msg){
+                this.manager.set_transform(msg)
+            }
         }
+        else if (cmd == 'inspect_inplace') set_gui(msg['parameters'])
+        
+        // var cmd =msg['cmd']
+        // console.log('interpreting: cmd='+cmd)
+        // if (cmd == 'set_line_group') this.manager.set_line_group(msg)
+        // else if (cmd == 'set_mesh') this.manager.set_mesh(msg)
+        // else if (cmd == 'set_polygon_mesh') this.manager.set_polygon_mesh(msg)
+        
     }
 
 
