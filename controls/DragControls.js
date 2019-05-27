@@ -4,18 +4,11 @@
  * Running this will allow you to drag three.js objects around the screen.
  */
 
-THREE.DragControls = function ( _objects, _camera, _domElement ) {
-
-	if ( _objects instanceof THREE.Camera ) {
-
-		console.warn( 'THREE.DragControls: Constructor now expects ( objects, camera, domElement )' );
-		var temp = _objects; _objects = _camera; _camera = temp;
-
-	}
+THREE.DragControls = function ( _camera, _domElement, _viewer ) {
 
 	var _plane = new THREE.Plane();
 	var _raycaster = new THREE.Raycaster();
-
+    var _activated = false
 	var _mouse = new THREE.Vector2();
 	var _offset = new THREE.Vector3();
 	var _intersection = new THREE.Vector3();
@@ -27,7 +20,7 @@ THREE.DragControls = function ( _objects, _camera, _domElement ) {
 	var scope = this;
 
 	function activate() {
-
+        _activated = true
 		_domElement.addEventListener( 'mousemove', onDocumentMouseMove, false );
 		_domElement.addEventListener( 'mousedown', onDocumentMouseDown, false );
 		_domElement.addEventListener( 'mouseup', onDocumentMouseCancel, false );
@@ -39,7 +32,7 @@ THREE.DragControls = function ( _objects, _camera, _domElement ) {
 	}
 
 	function deactivate() {
-
+        _activated = false
 		_domElement.removeEventListener( 'mousemove', onDocumentMouseMove, false );
 		_domElement.removeEventListener( 'mousedown', onDocumentMouseDown, false );
 		_domElement.removeEventListener( 'mouseup', onDocumentMouseCancel, false );
@@ -56,9 +49,16 @@ THREE.DragControls = function ( _objects, _camera, _domElement ) {
 
 	}
 
+    function toggle(){
+        if(_activated) deactivate();
+        else activate();
+    }
+
 	function onDocumentMouseMove( event ) {
 
 		event.preventDefault();
+		var objects = [_viewer.get_transform_widget()];
+		if (objects[0] == null) return ;
 
 		var rect = _domElement.getBoundingClientRect();
 
@@ -70,9 +70,13 @@ THREE.DragControls = function ( _objects, _camera, _domElement ) {
 		if ( _selected && scope.enabled ) {
 
 			if ( _raycaster.ray.intersectPlane( _plane, _intersection ) ) {
+				let new_pos = _intersection.sub( _offset ).toArray()
+				new_pos=[new_pos[0],-new_pos[2],new_pos[1]]
 
-				_selected.position.copy( _intersection.sub( _offset ) );
 
+				console.log('new_position:',new_pos)
+				//_selected.position.copy( _intersection.sub( _offset ) );
+				_viewer.set_selected_transform('translation',new_pos)
 			}
 
 			scope.dispatchEvent( { type: 'drag', object: _selected } );
@@ -83,14 +87,16 @@ THREE.DragControls = function ( _objects, _camera, _domElement ) {
 
 		_raycaster.setFromCamera( _mouse, _camera );
 
-		var intersects = _raycaster.intersectObjects( _objects );
+		var intersects = _raycaster.intersectObjects( objects );
 
 		if ( intersects.length > 0 ) {
 
 			var object = intersects[ 0 ].object;
 
-			_plane.setFromNormalAndCoplanarPoint( _camera.getWorldDirection( _plane.normal ), object.position );
-
+			// following lines defines the plane which used to intersect with mouse ray
+			_plane.setFromNormalAndCoplanarPoint(new THREE.Vector3(0,1,0), object.position);
+			// _plane.setFromNormalAndCoplanarPoint( _camera.getWorldDirection( _plane.normal ), object.position );
+			// console.log('new position:', object.position);
 			if ( _hovered !== object ) {
 
 				scope.dispatchEvent( { type: 'hoveron', object: object } );
@@ -117,29 +123,32 @@ THREE.DragControls = function ( _objects, _camera, _domElement ) {
 
 	function onDocumentMouseDown( event ) {
 
-		event.preventDefault();
+		// event.preventDefault();
+		var objects = [_viewer.get_transform_widget()];
+		if (objects[0] == null) return ;
 
 		_raycaster.setFromCamera( _mouse, _camera );
 
-		var intersects = _raycaster.intersectObjects( _objects );
+		var intersects = _raycaster.intersectObjects( objects );
 
 		if ( intersects.length > 0 ) {
 
 			_selected = intersects[ 0 ].object;
 
 			if ( _raycaster.ray.intersectPlane( _plane, _intersection ) ) {
-
-				_offset.copy( _intersection ).sub( _selected.position );
+			    console.log('_intersection.position', _intersection)
+			    console.log('_selected.position', _selected.position)
+                var pos = _selected.position.toArray()
+                pos[2]*=-1
+//				_offset.copy( _intersection ).sub( _selected.position );
+                _offset.copy( _intersection ).sub( new THREE.Vector3(pos[0],pos[1],pos[2]));
 
 			}
 
 			_domElement.style.cursor = 'move';
 
 			scope.dispatchEvent( { type: 'dragstart', object: _selected } );
-
 		}
-
-
 	}
 
 	function onDocumentMouseCancel( event ) {
@@ -187,6 +196,8 @@ THREE.DragControls = function ( _objects, _camera, _domElement ) {
 	}
 
 	function onDocumentTouchStart( event ) {
+        var objects = [_viewer.get_transform_widget()];
+        if (objects[0] == null) return ;
 
 		event.preventDefault();
 		event = event.changedTouches[ 0 ];
@@ -198,7 +209,7 @@ THREE.DragControls = function ( _objects, _camera, _domElement ) {
 
 		_raycaster.setFromCamera( _mouse, _camera );
 
-		var intersects = _raycaster.intersectObjects( _objects );
+		var intersects = _raycaster.intersectObjects( objects );
 
 		if ( intersects.length > 0 ) {
 

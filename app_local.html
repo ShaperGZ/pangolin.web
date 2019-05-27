@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" type="text/css"href="ArchProto.css">
+    <style>
+        .label{
+                    color: #FFF;
+                    font-family: sans-serif;
+                    padding: 2px;
+                    background: rgba( 0, 0, 0, .6 );
+                }
+    </style>
+    <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/socket.io/1.3.6/socket.io.min.js"></script>
+</head>
+<script src="three.min.js"></script>
+<script src="controls/TrackballControls.js"></script>
+<script src="controls/DragControls.js"></script>
+<script src="controls/OrbitControls.js"></script>
+<script src="controls/SelectionControls.js"></script>
+<script src="controls/TransformControls.js"></script>
+<script src="./interpretor.js"></script>
+<script src="object_manager.js"></script>
+<script src="threejsViewer.js"></script>
+<script src="widgets/transform.js"></script>
+<script src="utilities.js"></script>
+<script src="materials.js"></script>
+<script src="tests/test_geometries.js"></script>
+
+<script src="libs/dat.gui/dat.gui.min.js"></script>
+<script src="libs/postprocessing/EffectComposer.js"></script>
+<script src="libs/postprocessing/RenderPass.js"></script>
+<script src="libs/postprocessing/SAOPass.js"></script>
+<script src="libs/postprocessing/ShaderPass.js"></script>
+<script src="libs/shaders/CopyShader.js"></script>
+<script src="libs/shaders/SAOShader.js"></script>
+<script src="libs/shaders/DepthLimitedBlurShader.js"></script>
+<script src="libs/shaders/UnpackDepthRGBAShader.js"></script>
+<script src="libs/renderers/CSS2DRenderer.js"></script>
+<script src="libs/labels.js"></script>
+<script src='libs/lines/LineSegmentsGeometry.js'></script>
+<script src='libs/lines/LineGeometry.js'></script>
+<script src='libs/lines/WireframeGeometry2.js'></script>
+<script src='libs/lines/LineMaterial.js'></script>
+<script src='libs/lines/LineSegments2.js'></script>
+<script src='libs/lines/Line2.js'></script>
+<script src='libs/lines/Wireframe.js'></script>
+
+<script src="hud.js"></script>
+<script src="gui_manager.js"></script>
+<link rel="stylesheet" href="w3.css">
+<link rel="stylesheet" href="w3-color-flat.css">
+<link rel="stylesheet" href="main.css">
+
+<body>
+
+<div>
+    <div id="threejs_container" style="height: 100%, top:0px" ></div>
+</div>
+
+    
+</body>
+
+<script src = "widgets/ring.js"></script>
+<script src = "libs/THREE.MeshLine.js"></script>
+<script>
+
+    //create 3d viewer
+    var viewer=new Viewer();
+    viewer.init();
+    viewer.animate();
+
+    // create object3d manager
+    // and set the scene to be managed
+    // the manager creates, edits and removes object3d from the scene
+    var manager=viewer.manager
+    
+    ring_test(viewer.scene)
+
+
+</script>
+</html>

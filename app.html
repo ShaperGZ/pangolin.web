@@ -27,6 +27,7 @@
 <script src="utilities.js"></script>
 <script src="materials.js"></script>
 <script src="tests/test_geometries.js"></script>
+
 <script src="libs/dat.gui/dat.gui.min.js"></script>
 <script src="libs/postprocessing/EffectComposer.js"></script>
 <script src="libs/postprocessing/RenderPass.js"></script>
@@ -38,6 +39,25 @@
 <script src="libs/shaders/UnpackDepthRGBAShader.js"></script>
 <script src="libs/renderers/CSS2DRenderer.js"></script>
 <script src="libs/labels.js"></script>
+<script src='libs/lines/LineSegmentsGeometry.js'></script>
+<script src='libs/lines/LineGeometry.js'></script>
+<script src='libs/lines/WireframeGeometry2.js'></script>
+<script src='libs/lines/LineMaterial.js'></script>
+<script src='libs/lines/LineSegments2.js'></script>
+<script src='libs/lines/Line2.js'></script>
+<script src='libs/lines/Wireframe.js'></script>
+
+<!--百度地图-->
+<!--加载基础地图component-->
+<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=sKy1jTEskG3XbRwiPRgoAedpp9Ko9l6Q"></script>
+<!--加载鼠标绘制工具-->
+<script type="text/javascript" src="http://api.map.baidu.com/library/DrawingManager/1.4/src/DrawingManager_min.js"></script>
+<script src='baidu_component/map.js'></script>
+
+<link rel="stylesheet" href="http://api.map.baidu.com/library/DrawingManager/1.4/src/DrawingManager_min.css" />
+<script src="map_update.js"></script>
+<script src="map_data.js"></script>
+
 <script src="hud.js"></script>
 <script src="gui_manager.js"></script>
 <link rel="stylesheet" href="w3.css">
@@ -94,7 +114,7 @@
 </div>
 
 
-<div>
+<div id = 'scene'>
     <div>
         <button id="open_sidebar" onclick="open_sidebar()" class="w3-button w3-blue w3-xlarge float" >&#9776;</button>
     </div>
@@ -106,7 +126,7 @@
                 <td>Marker A</td>
                 <td style="width:100px">
                     <div class='barChart' >
-                        <div  style='width:30px; height:10px'>30</div>
+                        <div  style='width:20px; height:10px'>30</div>
                     </div>
                 </td>
             </tr>
@@ -133,14 +153,28 @@
             line2 <br>
         </p>
     </div>
+
     <div id="threejs_container" style="height: 100%, top:0px" ></div>
 </div>
+<div id="map_container" class="overlayMessagePanel content"
+     style="width:100%; height:100%; margin-left:0px"
+>Map Selector</div>
             
 
     
 </body>
 
 <script>
+    var map = new BaiduMap('map_container')
+
+    function openMap(){
+        map.show()
+        document.getElementById('scene').style.display='none'
+    }
+    function closeMap(){
+        map.hide()
+        document.getElementById('scene').style.display='block'
+    }
 
     function open_sidebar(){
         //document.getElementById("threejs_container").style.marginLeft = "300px";
@@ -179,7 +213,7 @@
     handle_connect=function(data){
         console.log('connected');
         viewer.clear_scene()
-        socket.send('app.load_scene()')
+        socket.send('scene.load_scene()')
         }
 
     handle_message=function(data){
@@ -192,21 +226,20 @@
     }
 
 
-    socket=io('http://localhost:5567/',false)
+    socket = io('http://localhost:5567/',false)
     socket.on('connect',handle_connect)
     socket.on('message',handle_message)
-    //socket.send('hello server')
+    // socket.send('hello server')
 
     function python(script){
         var data = {'cmd':'eval','script':script}
         var message = JSON.stringify(data)
         socket.send(message)
     }
-
     
     set_gui = function(parameters){
         var id = parameters['root']['id']
-        console.log('app.set_gui', id,parameters)
+        console.log('scene.set_gui', id,parameters)
         viewer.datgui.set_inspector(parameters, id)
         viewer.transformWidget.create(parameters['root'].value['Transform'].value, id)
     }
@@ -217,6 +250,7 @@
     sp.position.set(10,0,0);
 
     //test_bounding_widgets(viewer,w=10,d=10,h=4)
+    // test_mesh_faceColored(manager,u=10,v=20,w=1)
 
 </script>
 </html>

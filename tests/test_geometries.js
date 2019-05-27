@@ -131,6 +131,50 @@ function test_mesh(manager,u=10,v=10,w=1){
     return id
 }
 
+function test_mesh_faceColored(manager,u=10,v=10,w=1){
+    var pts=[]
+    var faces=[]
+    var r=[]
+    var fc=[]
+    var sw=w*0.8
+    for(var i=0;i<u;i++){
+        for(var j=0;j<v;j++){
+            sw = 0.01 + (w * (j/v) )
+            pl = [
+                [i*w, j*w, 0 ],
+                [i*w + sw, j*w, 0 ],
+                [i*w + sw, j*w + sw, 0 ],
+                [i*w, j*w + sw, 0 ]
+            ]
+            pts = pts.concat(pl)
+            var index= pts.length-4
+            f = [index,index+3, index+2]
+            f2 = [index,index+2, index+1]
+            faces.push(f)
+            faces.push(f2)
+
+            fc.push([i/u,j/v,0])
+            fc.push([i/u,j/v,0])
+
+
+        }
+        // console.log(fc)
+    }
+    data = {
+        'cmd':'set_mesh',
+        'id':415,
+        'g':{
+            'p':pts,
+            'f':faces,
+            'fc':fc,
+            'r':r,
+            'c':[0xaaff00]
+        }
+    }
+    id = manager.set_polygon_mesh(data)
+    return id
+}
+
 
 function test_bounding_widgets(viewer,w=10,d=10,h=4){
     var pts = [

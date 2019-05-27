@@ -133,6 +133,7 @@ class DATGUIS{
                     this._inspection_groups[name]=group
                     this._inspection_object_folders.push(group)
                     this._set_inspector_recursion(value, group, data[key]['id'], mode)
+
                 }
                 else{
                     if(key!='root') {
@@ -142,7 +143,27 @@ class DATGUIS{
                 }
             }
             else {
-                if (value instanceof Array && value.length==3){
+                if('selections' in data[key]){
+                    var selections = data[key]['selections']
+                    console.log('mode:', mode, ' selections:', selections)
+
+                    var gui_obj={}
+                    gui_obj[key]=value
+                    if(mode == 0){
+                        var control = gui.add(gui_obj,key,selections).name(key)
+                        control.setValue(value)
+                        console.log('control',control)
+                        callback = this._assign_value_change_handler(id,key,control,gui_obj)
+                        this._inspection_controls[id+'.'+key] = control
+                        this._inspection_control_callbacks[id+'.'+key] = callback
+                    }
+                    else{
+                        var control = this._inspection_controls[id+'.'+key]
+                        var callback = this._inspection_control_callbacks[id+'.'+key]
+                        this.set_control_value(control, value, callback)
+                    }
+                }
+                else if (value instanceof Array && value.length==3){
                     var xyz = ['x','y','z']
                     var sub_gui_obj={'x':value[0],'y':value[1],'z':value[2]}
                     if (mode ==0 ){
@@ -165,8 +186,6 @@ class DATGUIS{
                             this.set_control_value(control, v, callback)
                         } 
                     }
-                    
-                    
                 }
                 else{
                     gui_obj[key]=value
@@ -174,8 +193,6 @@ class DATGUIS{
                         var control, callback
                         console.log('gui_obj=',gui_obj)
                         // control = gui.add(gui_obj,key)
-                        
-                        
                         //control = gui.add(gui_obj,key)
                         if ('max' in data[key]){
                             control = gui.add(gui_obj,key,data[key]['min'],data[key]['max'],data[key]['step'])
@@ -220,11 +237,14 @@ class DATGUIS{
     _assign_value_change_handler(id, key, control, gui_obj){
         var callback = function () {
             var value = gui_obj[key]
+            if (typeof(value) == 'string'){
+                value = '"'+value+'"';
+            }
             var msg = 'GraphNode.set_state_value("' + id + '","' + key + '",' + value + ')'
             console.log(msg)
             socket.send(msg)
         }
-        console.log('assign control callback: id='+id+' key='+key+' control='+control+' func'+callback)
+        // console.log('assign control callback: id='+id+' key='+key+' control='+control+' func'+callback)
         control.onChange(callback)
         return callback
     }
