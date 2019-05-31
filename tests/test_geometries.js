@@ -218,3 +218,19 @@ function test_bounding_widgets(viewer,w=10,d=10,h=4){
     widget.add(lines)
     viewer.scene.add(widget)
 }
+
+
+function test_textured_plane(){
+    var g = {}
+    g['p']=[[0,0,0],[0,10,0],[10,10,0],[10,0,0]]
+    g['f']=[[0,1,2],[0,2,3]]
+    g['fuv']=[[[0,0],[0,1],[1,1]],[[0,0],[1,1],[1,0]]]
+    g['type']='mesh'
+
+    var data={}
+    data['id']=456432342
+    data['cmd']='set_geometry'
+    data['g']=g
+    id = manager.set_polygon_mesh(data)
+    return id
+}

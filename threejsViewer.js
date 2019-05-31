@@ -141,6 +141,7 @@ Viewer = function () {
         this.scene.add(helper)
 
         this.renderer.render(this.scene, this.camera);
+        this.texture_lib = new TextureLibrary(this)
     }
 
     // this.create_label=function(){

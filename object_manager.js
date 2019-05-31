@@ -250,6 +250,8 @@ class ObjectManager {
         //console.log(nfaces)
         this.set_geometry_vertices(geometry, pts)
         this.set_geometry_faces(geometry, nfaces)
+        if ('fuv' in data.g && data.g.fuv.length== geometry.faces.length)
+            this.set_geometry_face_uv(geometry,data.g.fuv)
 
         if ('fc' in data.g) {
             var nfc=[]
@@ -265,12 +267,11 @@ class ObjectManager {
             }
             this.set_geometry_face_color(geometry, nfc)
         }
-        // if (data['transform']!=undefined && data['transform']['t']!=undefined) 
-        // {
-        //     var position = data['transform']['t']
-        //     obj.position.set(position[0],position[2],-position[1])
-        // }
-        obj.scale.set(1, 1, -1);
+
+
+
+
+        // obj.scale.set(1, 1, -1);
         obj.castShadow = true;
         obj.receiveShadow = true;
         geometry.computeBoundingSphere();
@@ -393,7 +394,7 @@ class ObjectManager {
     }
 
     set_geometry_vertices(geometry, pts) {
-        geometry.vertices = []
+        geometry.vertices = [];
         pts.forEach(function (p) {
             geometry.vertices.push(new THREE.Vector3(p[0], p[2], p[1]))
         });
@@ -409,10 +410,30 @@ class ObjectManager {
         geometry.elementsNeedUpdate = true
     }
 
+    set_geometry_face_uv(geometry, fuv){
+        geometry.faceVertexUvs[0]=[]
+        for(var i=0;i<geometry.faces.length;i++){
+            // var face = geometry.faces[i]
+            var ifuv = [];
+
+            for(var j=0;j<fuv[i].length;j++){
+                ifuv.push(new THREE.Vector2(fuv[i][j][0],fuv[i][j][1]));
+                // ifuv.push(fuv[i][j]);
+                // ifuv.push({'x':fuv[i][j][0],'y':fuv[i][j][1]});
+            }
+            console.log('ifuv',ifuv)
+            geometry.faceVertexUvs[0].push(ifuv)
+        }
+        console.log('geometry.faceVertexUvs[0]',geometry.faceVertexUvs[0])
+        geometry.uvsNeedUpdate = true;
+
+    }
+
+
     make_buffer_array(data_array, second_dimension = 2) {
-        var length = data_array.length * second_dimension
+        var length = data_array.length * second_dimension;
         var new_array = new Float32Array(length);
-        for (var i; i < second_dimension.length; i++) {
+        for (var i=0; i < second_dimension.length; i++) {
             if (second_dimension > 1) {
                 for (var j; j < second_dimension.length; j++) {
                     new_array.push(data_array[i][j])

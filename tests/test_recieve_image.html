@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" type="text/css"href="ArchProto.css">
+    <style>
+        .label{
+                    color: #FFF;
+                    font-family: sans-serif;
+                    padding: 2px;
+                    background: rgba( 0, 0, 0, .6 );
+                }
+    </style>
+    <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/socket.io/1.3.6/socket.io.min.js"></script>
+</head>
+
+
+<body>
+<img id="img" src="file:///d:/a.jpg" />
+</body>
+
+<script>
+    var textures={}
+    function show_bytes(){
+        var key = Object.keys(textures)[0]
+        var dom = document.getElementById('img')
+        var url = "data:image/png;base64,"+textures[key]['texture']
+        console.log(url)
+        dom.src = url
+    }
+    function show_file(){
+        var key = Object.keys(textures)[0]
+        var dom = document.getElementById('img')
+        var url = textures[key]['texture']
+        console.log(url)
+        dom.src = url
+    }
+
+    function interpret(data){
+        //console.log(jsonMessage)
+        var messages = JSON.parse(data)
+
+        var self = this
+        messages.forEach(function(msg){
+            if (msg.cmd == 'set_lib_textures') {
+                for (var name in msg['textures']) {
+                    console.log('interpretor setting texture:',name)
+                    textures[name]=msg['textures'][name]
+
+                }
+                key = Object.keys(textures)[0]
+                if(textures[key].type == 'bytes')
+                    show_bytes()
+                else
+                    show_file()
+            }
+        });
+    }
+
+    //create socketio and handling functions
+    handle_connect=function(data){
+        console.log('connected');
+        socket.send('scene.load_scene()')
+        }
+
+    handle_message=function(data){
+        console.log('recieved:'+data)
+        console.log(typeof(data))
+        if(data.includes('[') && data.includes('{')){
+            interpret(data)
+        }
+        
+    }
+
+
+    socket = io('http://localhost:5567/',false)
+    socket.on('connect',handle_connect)
+    socket.on('message',handle_message)
+    // socket.send('hello server')
+
+
+
+</script>
+</html>
