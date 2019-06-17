@@ -47,18 +47,22 @@
 <script src='libs/lines/Line2.js'></script>
 <script src='libs/lines/Wireframe.js'></script>
 
+<!-- libraries -->
+<script src='library.js'></script>
 <script src='texture_library.js'></script>
+<script src='geometry_library.js'></script>
+<script src='component_library.js'></script>
 
 <!--百度地图-->
 <!--加载基础地图component-->
-<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=sKy1jTEskG3XbRwiPRgoAedpp9Ko9l6Q"></script>
+<!--<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=sKy1jTEskG3XbRwiPRgoAedpp9Ko9l6Q"></script>-->
 <!--加载鼠标绘制工具-->
-<script type="text/javascript" src="http://api.map.baidu.com/library/DrawingManager/1.4/src/DrawingManager_min.js"></script>
-<script src='baidu_component/map.js'></script>
+<!--<script type="text/javascript" src="http://api.map.baidu.com/library/DrawingManager/1.4/src/DrawingManager_min.js"></script>-->
+<!--<script src='baidu_component/map.js'></script>-->
 
-<link rel="stylesheet" href="http://api.map.baidu.com/library/DrawingManager/1.4/src/DrawingManager_min.css" />
-<script src="map_update.js"></script>
-<script src="map_data.js"></script>
+<!--<link rel="stylesheet" href="http://api.map.baidu.com/library/DrawingManager/1.4/src/DrawingManager_min.css" />-->
+<!--<script src="map_update.js"></script>-->
+<!--<script src="map_data.js"></script>-->
 
 <script src="hud.js"></script>
 <script src="gui_manager.js"></script>
@@ -120,40 +124,40 @@
     <div>
         <button id="open_sidebar" onclick="open_sidebar()" class="w3-button w3-blue w3-xlarge float" >&#9776;</button>
     </div>
-    <div id='overlay_div' class="overlayMessagePanel content" 
+    <div id='hud01' class="overlayMessagePanel content"
             style="width:300px; height:200px; margin-left:60px">
-            
-        <table class = 'chartText'>
-            <tr>
-                <td>Marker A</td>
-                <td style="width:100px">
-                    <div class='barChart' >
-                        <div  style='width:20px; height:10px'>30</div>
-                    </div>
-                </td>
-            </tr>
-            <tr>
-                <td>Marker B</td>
-                <td>
-                    <div class='barChart'>
-                        <div  style='width:60px; height:10px'>60</div>
-                    </div>
-                </td>
-            </tr>
-            <tr>
-                <td><span>Marker C</span></td>
-                <td>
-                    <div class='barChart'>
-                        <div  style='width:50px; height:10px'>50</div>
-                    </div>
-                </td>
-                
-            </tr>
-        </table>
-        <p >
-            line1 <br>
-            line2 <br>
-        </p>
+            <div id="hud01_content">qweqwe</div>
+        <!--<table class = 'chartText'>-->
+            <!--<tr>-->
+                <!--<td>Marker A</td>-->
+                <!--<td style="width:100px">-->
+                    <!--<div class='barChart' >-->
+                        <!--<div  style='width:20px; height:10px'>30</div>-->
+                    <!--</div>-->
+                <!--</td>-->
+            <!--</tr>-->
+            <!--<tr>-->
+                <!--<td>Marker B</td>-->
+                <!--<td>-->
+                    <!--<div class='barChart'>-->
+                        <!--<div  style='width:60px; height:10px'>60</div>-->
+                    <!--</div>-->
+                <!--</td>-->
+            <!--</tr>-->
+            <!--<tr>-->
+                <!--<td><span>Marker C</span></td>-->
+                <!--<td>-->
+                    <!--<div class='barChart'>-->
+                        <!--<div  style='width:50px; height:10px'>50</div>-->
+                    <!--</div>-->
+                <!--</td>-->
+                <!---->
+            <!--</tr>-->
+        <!--</table>-->
+        <!--<p >-->
+            <!--line1 <br>-->
+            <!--line2 <br>-->
+        <!--</p>-->
     </div>
 
     <div id="threejs_container" style="height: 100%, top:0px" ></div>
@@ -167,7 +171,7 @@
 </body>
 
 <script>
-    var map = new BaiduMap('map_container')
+    // var map = new BaiduMap('map_container')
 
     function openMap(){
         map.show()
@@ -219,8 +223,8 @@
         }
 
     handle_message=function(data){
-        console.log('recieved:'+data)
-        console.log(typeof(data))
+        // console.log('recieved:'+data)
+        // console.log(typeof(data))
         if(data.includes('[') && data.includes('{')){
             inter.parse_multiple(data)
         }
@@ -241,7 +245,7 @@
     
     set_gui = function(parameters){
         var id = parameters['root']['id']
-        console.log('scene.set_gui', id,parameters)
+        // console.log('scene.set_gui', id,parameters)
         viewer.datgui.set_inspector(parameters, id)
         viewer.transformWidget.create(parameters['root'].value['Transform'].value, id)
     }

@@ -40,7 +40,7 @@ SelectionControls = function(camera, dom, viewer){
                                                     
             _raycaster.setFromCamera( _mouse, _camera );
             var intersects = _raycaster.intersectObjects( selectables );
-            console.log(intersects)
+            // console.log(intersects)
     
             if ( intersects.length > 0 ) {
                 _viewer.select_objects([intersects[0]])

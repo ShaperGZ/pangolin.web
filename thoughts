@@ -1,0 +1,13 @@
+set_Object3d:
+    set_geometry
+        set_vertices
+        set_faces
+        set_faceuvs
+        set_vertexcolors
+    set_material
+        set_material
+        set_map
+    set_transform
+        set_position
+        set_rotation
+        set_scale

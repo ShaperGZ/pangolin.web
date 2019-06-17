@@ -1,0 +1,79 @@
+
+// 几何信息存放格式
+geometry_data = //几何信息
+    {
+        'type': 'mesh'
+        ’p':  [ [0,0,0], [1,1,0], [0,1,1] ,[0,1,0]], // 顶点列表
+        'vc': [ [1,1,1], [1,1,1], [1,1,1] ,[1,1,1]]，// 顶点颜色列表，可以无此项，或长度等于定点列表
+        'uv': [ [0,0],   [1,0],   [1,1]   ,[1,0]  ], // 顶点贴图坐标，可以无此项，或长度等于定点列表
+        'f':  [
+                    [0,1,2],
+                    [0,2,3]
+              ]//面的顶点index列表
+        ‘fuv':[
+                    [[0,0],[1,0],[1,1]],
+                    [[0,0],[1,1],[0,1]]
+              ]//面的顶点贴图坐标列表， 如果有fuv， uv则被忽略
+    }
+
+
+// 材质与风格
+style_data =
+    {
+        'm': 'basic'   // 材质类型: basic, vertexcolor, phong
+        'c': (1,0.4,0) // 颜色
+        'texture':     // 贴图, 每个贴图的名称对应帖图库的key
+        {
+            'diffuse':      diffuse_texture_name
+            'bump':         bump_texture_name
+            'transparent':  transparent_texture_name
+            'reflection':   reflection_texture_name
+        }
+        ’cl':          // 边线颜色，mesh可以没有
+        'cf':          // 填充颜色，mesh可以没有
+        'lw': 2        // 线宽，mesh可以没有
+        'fs': 8        // 字体大小，mesh可以没有
+        'ff': 'aerial' // 字体，mesh可以没有
+    }
+
+
+// 一般更新个体几何信息的data格式：
+set_mesh_object_data =
+{
+    ‘cmd': 'set_mesh_object', //这个是通用的client（显示）端用于更新个体模型的命令
+    'di' : 123132,            //在服务器上（暂时或是建模软件上）的物体guid或uui
+    'g'  : geometry_data,      //此项详见几何信息存放格式
+    's'  : style_data,
+    ’transform':
+    {
+        't': [10,20,30] // 偏移
+        's': [1,2,1]    // 缩放
+        'r': [0.2,0.5,0] //对应三轴的旋转角度 in degrees
+    }
+}
+
+
+// 更新几何信息库
+set_geometry_lib_data =
+{
+    'cmd' : 'set_geometry_lib', // 更新几何库某项的命令名称
+    'name': 'entity1',          // 在几何库中用来找到这个几何体的key
+    'g'   : geometry_data       // 此项详见几何信息存放格式
+    's'   : style_data,
+    ’transform':                // 初始化的transform
+        {
+            't': [10,20,30] // 偏移
+            's': [1,2,1]    // 缩放
+            'r': [0.2,0.5,0] //对应三轴的旋转角度 in degrees
+        }
+}
+
+////////////////////////////////////
+///////   Sketchup API： ///////////
+////////////////////////////////////
+
+geometry_data           = DataEncoder.get_geometry_data(mesh)
+style_data              = DataEncoder.get_style_data(material)
+set_mesh_object_data    = DataEncoder.set_mesh_object_data(object)
+
+

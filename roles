@@ -1,0 +1,31 @@
+
+
+Interpretor:
+    convert transform data into js commands
+        // environment related commnads:
+        set_sky
+
+        // object related commands:
+        set_object
+        set_object_geometry
+        set_object_material
+        set_object_texture
+        set_object_transform
+
+        // library related commands:
+        set_texture_lib_entry
+        set_geometry_lib_entry
+        set_component_lib_entry
+
+
+
+
+ObjectManager:
+    holds a model container
+    keep references of created objects
+    add object
+    delete object
+    find THREE id from object
+    find THREE id from server id
+    find server id from object
+    find server id from THREE id

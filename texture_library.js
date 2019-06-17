@@ -1,22 +1,16 @@
-class TextureLibrary {
+class TextureLibrary extends Library{
     constructor(viewer) {
-        this.viewer = viewer;
-        this.data = {};
-        this.texture_references = {};
+        super(viewer, THREE.Texture)
     }
 
-    set_texture(name, data) {
-        var texture = data['texture'];
-        var data_type = data['type'];
-        if (data_type == 'file') this.load_file(name, texture);
-        else if (data_type == 'bytes') this.load_bytes(name, texture);
-    }
 
-    load_file(name, filename) {
-        var texture = new THREE.TextureLoader().load(
+    load_file(item, filename) {
+        new THREE.TextureLoader().load(
             filename,
             function (texture) {
-                this.data[name] = texture
+                item.image = texture.image
+                item.needsUpdate = true
+                self.update_related_objects(name)
             },
             undefined,
             function (xhr) {
@@ -27,19 +21,8 @@ class TextureLibrary {
 
     }
 
-    // load_bytes(name,data){
-    //     var img = new Image();
-    //     var lib_data = this.data;
-    //     img.src = "data:image/png;base64," + data;
-    //     img.onload =function(){
-    //         var texture = new THREE.Texture()
-    //         texture.image = img;
-    //         lib_data[name] = texture
-    //     }
-    //     img.load()
-    // }
 
-    load_bytes(name, data) {
+    load_bytes(item, data) {
         var self = this;
         var lib_data = this.data;
 
@@ -52,11 +35,12 @@ class TextureLibrary {
             data_uri,
             // Function when resource is loaded
             function (texture) {
-                texture.type = THREE.UnsignedByteType;
-                texture.format = THREE.RGBAFormat;
+                // texture.format = THREE.RGBAFormat;
+                texture.format = THREE.RGBFormat;
                 console.log('assigning texture, name =',name)
-                lib_data[name] = texture
-                self.update_related_materials(name)
+                item.image = texture.image
+                item.needsUpdate = true
+                self.update_related_objects(name)
             },
             // onProgress callback currently not supported
             // Please note three.js r84 dropped support for TextureLoader progress events.
@@ -69,47 +53,33 @@ class TextureLibrary {
 
     }
 
-    add_ref(name, obj) {
-        if ((name in this.texture_references) == false) {
-            this.texture_references[name] = []
-        }
-        this.texture_references[name].push(obj)
+
+    on_set(item,data){
+        // override this method
+        // called when set an item to the library
+        // TODO: you have extract the the correct content from data and set to the item
+        // the item might be a texture or a THREE.Mesh
+        if (data.type == 'file')
+            this.load_file(item, data.texture);
+        else if (data.type == 'bytes') this.load_bytes(item, data.texture);
     }
 
-    remove_ref(name, obj) {
-        if (name in this.texture_references) {
-            var objs = this.texture_references[name]
-            var index = objs.indexOf(objs)
-            if (index > -1) {
-                objs.splice(index, 1)
-            }
-        }
+    on_set_item_to_object(item,obj){
+        if (obj == undefined) return;
+        // override this method
+        // TODO: apply this item to a given object
+        // the item might be a texture or a THREE.Mesh
+        console.log('on_set_item_to_object, object:',obj)
+        obj.material.map = item
+        obj.material.needsUpdate = true
     }
 
-    set_obj_texture_by_id(id, name){
-        console.log('setting object texture id :',id)
-        var obj = this.viewer.manager.objects[id]
-        if( obj != undefined){
-            this.set_obj_texture(obj, name)
-            console.log('setting object texture for :',obj)
-        }
-    }
-
-    set_obj_texture(obj, name) {
-        this.remove_ref(name, obj);
-        this.add_ref(name, obj);
-
-        obj.material.map = this.data[name];
-        obj.material.needsUpdate = true;
-    }
-
-    update_related_materials(name) {
-        if (name in this.texture_references) {
-            var objs = this.texture_references[name];
-            for (var i in objs) {
-                objs[i].material.needsUpdate = true;
-            }
-        }
+    on_update_related_objects(obj, item){
+        // override this method
+        // TODO: when the library item is updated, all related objects should update too
+        // this method deals with single object
+        // an example usage might be: 'obj.textureNeedUpdate = true' when texture is changed
+        obj.material.needsUpdate = true
     }
 
 

@@ -7,7 +7,7 @@ Viewer = function () {
 
     this.scene = new THREE.Scene();
     this.camera = new THREE.PerspectiveCamera(75, canvasW / canvasH, 0.1, 1000);
-    this.renderer = new THREE.WebGLRenderer();
+    this.renderer = new THREE.WebGLRenderer({ antialias: true });
     this.manager = new ObjectManager(this.scene)
     this.selected_objects = []
 
@@ -16,8 +16,8 @@ Viewer = function () {
 
     this.init = function () {
         console.log("initializing")
-        var geometries = []
-        var object3ds = []
+
+
 
 
         //create HUD
@@ -26,8 +26,6 @@ Viewer = function () {
 
         //dat.gui
         this.datgui = new DATGUIS(self)
-
-        console.log('HUD is not working, it is added to Viewer, remember to fix later')
 
 
         // this.controls = new THREE.TrackballControls( this.camera );
@@ -42,30 +40,6 @@ Viewer = function () {
 
         this.drag_control =  new THREE.DragControls(this.camera, this.renderer.domElement,self)
         this.drag_control.activate()
-//        var _drag_control = this.drag_control
-//        var self = this
-
-        //Transform controls
-        //transformControl = new THREE.TransformControls(this.camera, this.renderer.domElement)
-        // this.transformControl=transformControl
-        // this.transformControl.addEventListener( 'change', this.render );
-        // this.transformControl.addEventListener( 'dragging-changed', function ( event ) {
-        //     transformControl.enabled = ! event.value;
-        //         } );
-//         window.addEventListener( 'keydown', function ( event ) {
-//             switch ( event.keyCode ) {
-//                 case 87: // W
-////                    control.setMode( "translate" );
-//                    break;
-        //         case 69: // E
-        //             control.setMode( "rotate" );
-        //             break;
-        //         case 82: // R
-        //             control.setMode( "scale" );
-        //             break;
-//             }
-//         });
-
 
 
         this.transformWidget = new TransformWidget(this.manager, this.camera, this.domElement)
@@ -83,10 +57,10 @@ Viewer = function () {
         this.camera.lookAt(new THREE.Vector3(0, 0, 0))
         this.camera.far = 10000
         this.camera.setFocalLength(35)
-        this.renderer.setSize(this.canvasW, this.canvasH);
-        this.onWindowResize()
+        // this.renderer.setSize(this.canvasW, this.canvasH);
 
 
+        this.renderer.setClearColor( 0x000000 );
         this.renderer.shadowMap.enabled = true;
         this.renderer.shadowMap.type = THREE.PCFShadowMap;
 
@@ -115,33 +89,28 @@ Viewer = function () {
 
         this.scene.background = new THREE.Color(0xaaaaaa);
 
-        SAO:
-
-            // composer = new THREE.EffectComposer( this.renderer );
-            // renderPass = new THREE.RenderPass( this.scene, this.camera );
-            // composer.addPass( renderPass );
-            // saoPass = new THREE.SAOPass( this.scene, this.camera, false, true );
-            // saoPass.renderToScreen = true;
-            // saoPass.params.saoScale=1.7;
-            // saoPass.params.saoBias=0;
-            // saoPass.params.saoKernelRadius=100
-            // saoPass.params.saoIntensity=0.002
-            // saoPass.params.saoBlurRadius=2
-            // saoPass.params.saoBlurDepthCutoff=0.008
-            // composer.addPass( saoPass );
-            // this.composer = composer
 
 
-            //lighting
-            sunLight = this.lighting_setup();
+
+        //lighting
+        this.lighting_setup();
+        // this.sao_setup()
+
+
         window.addEventListener('resize', this.onWindowResize, false);
 
         //add grid
         var helper = new THREE.GridHelper(160, 10);
         this.scene.add(helper)
 
-        this.renderer.render(this.scene, this.camera);
+        // this.renderer.render(this.scene, this.camera);
+
+        //libraries
         this.texture_lib = new TextureLibrary(this)
+        this.geometry_lib = new GeometryLibrary(this)
+        this.component_lib = new ComponentLibrary(this)
+
+        this.onWindowResize()
     }
 
     // this.create_label=function(){
@@ -164,39 +133,96 @@ Viewer = function () {
     }
 
     this.render = function () {
-
-        //self.composer.render()
+        // this.composer.render()
         self.renderer.render(self.scene, self.camera);
-        self.hud.render(self.renderer)
+        // self.hud.render(self.renderer)
 
     }
 
+    this.sao_setup = function(){
+        //SAO:
+
+        this.composer = new THREE.EffectComposer( this.renderer );
+        var renderPass = new THREE.RenderPass( this.scene, this.camera );
+        this.composer.addPass( renderPass );
+        var saoPass = new THREE.SAOPass( this.scene, this.camera, false, true );
+        saoPass.renderToScreen = true;
+        this.composer.addPass( saoPass );
+
+        saoPass.params.output = THREE.SAOPass.OUTPUT.Default;
+        saoPass.params.saoScale=3;
+        saoPass.params.saoBlur = false;
+        saoPass.params.saoBias=1;
+        saoPass.params.saoKernelRadius=3
+        saoPass.params.saoIntensity=0.2
+        saoPass.params.saoBlurRadius=0
+        saoPass.params.saoBlurDepthCutoff=0
+
+
+        var gui = new dat.GUI();
+        gui.add( saoPass.params, 'output', {
+            'Beauty': THREE.SAOPass.OUTPUT.Beauty,
+            'Beauty+SAO': THREE.SAOPass.OUTPUT.Default,
+            'SAO': THREE.SAOPass.OUTPUT.SAO,
+            'Depth': THREE.SAOPass.OUTPUT.Depth,
+            'Normal': THREE.SAOPass.OUTPUT.Normal
+        } ).onChange( function ( value ) {
+
+            saoPass.params.output = parseInt( value );
+
+        } );
+        gui.add( saoPass.params, 'saoBias', - 1, 1 );
+        gui.add({'toggle render to screen':function(){
+                console.log('toggle button pressed');
+                saoPass.renderToScreen = !saoPass.renderToScreen;
+            }},'toggle render to screen')
+        gui.add( saoPass.params, 'saoIntensity', 0, 1 );
+        gui.add( saoPass.params, 'saoScale', 0, 10 );
+        gui.add( saoPass.params, 'saoKernelRadius', 1, 100 );
+        gui.add( saoPass.params, 'saoMinResolution', 0, 1 );
+        gui.add( saoPass.params, 'saoBlur' );
+        gui.add( saoPass.params, 'saoBlurRadius', 0, 200 );
+        gui.add( saoPass.params, 'saoBlurStdDev', 0.5, 150 );
+        gui.add( saoPass.params, 'saoBlurDepthCutoff', 0.0, 0.1 );
+    }
 
     this.lighting_setup = function () {
-        //sky
-        // hemiLight = new THREE.HemisphereLight( 0xffffff, 0xffffff, 0.3 );
-        // hemiLight.color.setHSL( 0.6, 0.6, 1 );
-        // hemiLight.groundColor.setHSL( 0.7, 0.7, 0.7 );
-        // hemiLight.position.set( 0, 50, 0 );
-        // //scene.add( hemiLight );
-        var ambient = new THREE.AmbientLight(0x8800aa)
-        this.scene.add(ambient)
+
+        this.ambient = new THREE.AmbientLight(0x606090)
+        this.scene.add(this.ambient)
 
         //sun
-        dirLight = new THREE.DirectionalLight(0xffffff, 1);
-        dirLight.color.setHSL(1, 1, 1);
-        dirLight.position.set(1, 2, 0.5);
-        dirLight.position.multiplyScalar(1);
-        this.scene.add(dirLight);
-        this.scene.add(dirLight.target);
+        var intensty = 0.8
+        this.sun = new THREE.DirectionalLight(0xffffff, 1);
+        this.sun.color.setRGB(intensty, intensty, intensty*0.8)
+        //self.sun.color.setHSL(intensty, intensty, intensty);
+        this.sun.position.set(1, 2, 0.3);
+        this.sun.position.multiplyScalar(10000);
+        this.scene.add(this.sun);
+        this.scene.add(this.sun.target);
 
-        dirLight.castShadow = true;
-        dirLight.shadow.mapSize.width = 750;
-        dirLight.shadow.mapSize.height = 750;
+        this.sun.castShadow = true;
+        var d = 1000
+        // var mapSize = 2048
+        var mapSize = 4096
+        this.sun.shadow.camera.top = d;
+        this.sun.shadow.camera.bottom =-d;
+        this.sun.shadow.camera.left = -d;
+        this.sun.shadow.camera.right =d;
+        this.sun.shadow.camera.far = 35000;
+        // this.sun.shadow.bias = - 0.0001;
+        this.sun.shadow.camera.near = 0;
+        this.sun.shadow.mapSize.width = mapSize;
+        this.sun.shadow.mapSize.height = mapSize;
 
-        this.scene.add(new THREE.AmbientLight(0x404080));
+        var camHelper = new THREE.CameraHelper(this.sun.shadow.camera)
+        var dirLightHelper = new THREE.DirectionalLightHelper( this.sun, 10 );
+        this.scene.add( dirLightHelper );
+        this.scene.add( camHelper );
 
-        return dirLight;
+        // this.scene.add(new THREE.AmbientLight(0x404080));
+
+        return self.sun;
     };
 
     this.sky_ground_setup = function () {
@@ -241,13 +267,11 @@ Viewer = function () {
         self.camera.updateProjectionMatrix();
 
         self.renderer.setSize(canvasW, canvasH);
+        // self.composer.setSize(canvasW, canvasH);
     };
 
     this.clear_scene = function () {
         this.manager.clear()
-        // while(self.scene.children.length > 0){ 
-        //     self.scene.remove(self.scene.children[0]); 
-        // }
     }
 
     this.select_objects = function (selected_objects) {
@@ -270,18 +294,18 @@ Viewer = function () {
 
 
     this.inspect_object = function (objid) {
-        console.log('inspecting:' + objid);
+        // console.log('inspecting:' + objid);
         // url = 'http://localhost:5567/inspector?id='+objid 
         // console.log(url)
         // parent.frames[0].location=url
         msg = 'scene.inspect_id("' + objid + '")'
-        console.log(msg)
+        // console.log(msg)
         socket.send(msg)
     }
 
     this.get_transform_widget = function () {
         if (this.selected_objects.length < 1) return null;
-//        console.log('selected', this.selected_objects[0]);
+        //console.log('selected', this.selected_objects[0]);
         return this.selected_objects[0].object;
         //return this.transformWidget.widget;
     }
@@ -290,7 +314,6 @@ Viewer = function () {
         let msg = 'scene.set_selected_transform("'+transform_type+'",['+value+'])';
         console.log('translation msg =',msg)
         socket.send(msg)
-
     }
 
 

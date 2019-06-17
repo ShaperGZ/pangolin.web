@@ -166,7 +166,8 @@ THREE.OrbitControls = function ( object, domElement ) {
 			spherical.radius *= scale;
 
 			// restrict radius to be between desired limits
-			spherical.radius = Math.max( scope.minDistance, Math.min( scope.maxDistance, spherical.radius ) );
+			// spherical.radius = Math.max( scope.minDistance, Math.min( scope.maxDistance, spherical.radius ) );
+			spherical.radius = Math.max( scope.minDistance, spherical.radius);
 
 			// move target to panned location
 			scope.target.add( panOffset );
@@ -386,6 +387,7 @@ THREE.OrbitControls = function ( object, domElement ) {
 		if ( scope.object.isPerspectiveCamera ) {
 
 			scale /= dollyScale;
+            console.log('dollyScale=',dollyScale,'  scale=',scale)
 
 		} else if ( scope.object.isOrthographicCamera ) {
 
@@ -407,6 +409,7 @@ THREE.OrbitControls = function ( object, domElement ) {
 		if ( scope.object.isPerspectiveCamera ) {
 
 			scale *= dollyScale;
+			console.log('dollyScale=',dollyScale,'  scale=',scale)
 
 		} else if ( scope.object.isOrthographicCamera ) {
 
@@ -519,14 +522,14 @@ THREE.OrbitControls = function ( object, domElement ) {
 
 	function handleMouseWheel( event ) {
 
-		// console.log( 'handleMouseWheel' );
+		console.log( 'handleMouseWheel' );
 
 		if ( event.deltaY < 0 ) {
-
+			console.log('dollyout')
 			dollyOut( getZoomScale() );
 
 		} else if ( event.deltaY > 0 ) {
-
+            console.log('dollyin')
 			dollyIn( getZoomScale() );
 
 		}

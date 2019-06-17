@@ -46,11 +46,11 @@ class DATGUIS{
         if(id == this.inspecting_id) 
         {
             mode = 1
-            console.log('set values for existing GUI')
+            // console.log('set values for existing GUI')
         }
         else{
             this.clear_inspector()
-            console.log('creating new GUI')
+            // console.log('creating new GUI')
 
             // add button to inspect parent object
             var container_obj={}
@@ -76,11 +76,11 @@ class DATGUIS{
                 this._inspection_object_folders.push(folder)
                 
                 for(var i in obj.children){
-                    console.log('i=',i)
+                    // console.log('i=',i)
                     var child = obj.children[i]
                     if(child.name != undefined && child.name.length == 36)
                     {
-                        console.log('added child.name = ',child.name)
+                        // console.log('added child.name = ',child.name)
                         var short_id = '►► '+child.name.split('-')[1]
                         var assign_button_callback=function(child){
                             container_obj[short_id]=function(){
@@ -126,7 +126,7 @@ class DATGUIS{
                         name += data[key]['id'].split('-')[1]
                     }
                     var group = gui.addFolder(name)
-                    console.log(name,group)
+                    // console.log(name,group)
                     if(key=='root' || key.indexOf('rule')>=0) {
                         group.open()
                     }
@@ -191,7 +191,7 @@ class DATGUIS{
                     gui_obj[key]=value
                     if(mode == 0){
                         var control, callback
-                        console.log('gui_obj=',gui_obj)
+                        // console.log('gui_obj=',gui_obj)
                         // control = gui.add(gui_obj,key)
                         //control = gui.add(gui_obj,key)
                         if ('max' in data[key]){
@@ -241,7 +241,7 @@ class DATGUIS{
                 value = '"'+value+'"';
             }
             var msg = 'GraphNode.set_state_value("' + id + '","' + key + '",' + value + ')'
-            console.log(msg)
+            // console.log(msg)
             socket.send(msg)
         }
         // console.log('assign control callback: id='+id+' key='+key+' control='+control+' func'+callback)
@@ -257,7 +257,7 @@ class DATGUIS{
                 gui.removeFolder(this._inspection_object_folders[f])
             }
             catch(err){
-                console.log('ERROR! f=',this._inspection_object_folders[f])
+                //console.log('ERROR! f=',this._inspection_object_folders[f])
             }
             
         }
@@ -265,7 +265,7 @@ class DATGUIS{
             gui.remove(this._inspection_controls['parent'])
         }
         catch(err){
-            console.log('ERROR! f=',this._inspection_object_folders[f])
+            // console.log('ERROR! f=',this._inspection_object_folders[f])
         }
 
         this.inspecting_id = null

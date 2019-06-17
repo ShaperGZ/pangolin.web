@@ -16,7 +16,7 @@ class TransformWidget{
     }
 
     create(data=null, id){
-        console.log('@creat transform widget data=',data)
+        // console.log('@creat transform widget data=',data)
         if(data==null){
             this._remove()
         }

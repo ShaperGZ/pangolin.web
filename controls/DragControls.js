@@ -136,8 +136,8 @@ THREE.DragControls = function ( _camera, _domElement, _viewer ) {
 			_selected = intersects[ 0 ].object;
 
 			if ( _raycaster.ray.intersectPlane( _plane, _intersection ) ) {
-			    console.log('_intersection.position', _intersection)
-			    console.log('_selected.position', _selected.position)
+			    // console.log('_intersection.position', _intersection)
+			    // console.log('_selected.position', _selected.position)
                 var pos = _selected.position.toArray()
                 pos[2]*=-1
 //				_offset.copy( _intersection ).sub( _selected.position );
