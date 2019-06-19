@@ -64,8 +64,25 @@ class Interpretor {
     }
 
     static set_camera(viewer,msg){
-        viewer.camera.position.set(msg.position[0],msg.position[2],-msg.position[1] )
-        viewer.camera.lookAt(msg.target[0],msg.target[2],-msg.target[1])
+        // viewer.camera.position.set(msg.position[0],msg.position[2],-msg.position[1] )
+        // viewer.camera.lookAt(msg.target[0],msg.target[2],-msg.target[1])
+        if (msg.name=='main'){
+            pos = msg['position']
+            viewer.camera.position.set(pos[0], pos[2], -pos[1])
+
+            if('target' in msg) {
+                trg = msg['target']
+                self.camera.lookAt(new THREE.Vector3(trg[0], trg[2], -trg[1]))
+            }
+
+            viewer.camera.fov = msg.fov
+            viewer.camera.frustumCulled = msg.frustumCulled
+            viewer.camera.near = msg.near
+            viewer.camera.far = msg.far
+
+            viewer.camera.updateProjectionMatrix()
+        }
+
     }
 
     static remove(manager,msg){

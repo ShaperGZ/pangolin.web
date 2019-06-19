@@ -2,23 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="9704c9cd-3809-4f65-afd7-cb5d8155de3a" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/component_library.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/create_objects_sample_code.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/geometry_format" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/geometry_library.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/library.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/roles" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app.html" beforeDir="false" afterPath="$PROJECT_DIR$/app.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/controls/DragControls.js" beforeDir="false" afterPath="$PROJECT_DIR$/controls/DragControls.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/controls/OrbitControls.js" beforeDir="false" afterPath="$PROJECT_DIR$/controls/OrbitControls.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/controls/SelectionControls.js" beforeDir="false" afterPath="$PROJECT_DIR$/controls/SelectionControls.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gui_manager.js" beforeDir="false" afterPath="$PROJECT_DIR$/gui_manager.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/interpretor.js" beforeDir="false" afterPath="$PROJECT_DIR$/interpretor.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/object_manager.js" beforeDir="false" afterPath="$PROJECT_DIR$/object_manager.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/texture_library.js" beforeDir="false" afterPath="$PROJECT_DIR$/texture_library.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/threejsViewer.js" beforeDir="false" afterPath="$PROJECT_DIR$/threejsViewer.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/widgets/transform.js" beforeDir="false" afterPath="$PROJECT_DIR$/widgets/transform.js" afterDir="false" />
     </list>
     <ignored path=".idea/dataSources.local.xml" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -41,16 +28,8 @@
           <file leaf-file-name="interpretor.js" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/interpretor.js">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="-1152">
-                  <caret line="67" column="43" selection-start-line="67" selection-start-column="43" selection-end-line="67" selection-end-column="43" />
-                  <folding>
-                    <element signature="n#!!block;n#parse_multiple#0;n#Interpretor#0" />
-                    <element signature="n#!!block;n#set_object_material#0;n#Interpretor#0" />
-                    <element signature="n#!!block;n#_set_geometry_vertices#0;n#Interpretor#0" />
-                    <element signature="n#!!block;n#_set_geometry_faces#0;n#Interpretor#0" />
-                    <element signature="n#!!block;n#_set_geometry_face_uv#0;n#Interpretor#0" />
-                    <element signature="n#!!block;n#_set_geometry_face_color#0;n#Interpretor#0" />
-                  </folding>
+                <state relative-caret-position="664">
+                  <caret line="82" column="50" selection-start-line="82" selection-start-column="50" selection-end-line="82" selection-end-column="50" />
                 </state>
               </provider>
             </entry>
@@ -70,8 +49,8 @@
           <file leaf-file-name="gui_manager.js" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/gui_manager.js">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="3904">
-                  <caret line="244" column="28" selection-start-line="244" selection-start-column="28" selection-end-line="244" selection-end-column="28" />
+                <state relative-caret-position="317">
+                  <caret line="230" column="28" lean-forward="true" selection-start-line="230" selection-start-column="28" selection-end-line="230" selection-end-column="28" />
                 </state>
               </provider>
             </entry>
@@ -97,7 +76,7 @@
           <file leaf-file-name="DragControls.js" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/controls/DragControls.js">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="395">
+                <state relative-caret-position="880">
                   <caret line="59" column="30" selection-start-line="59" selection-start-column="23" selection-end-line="59" selection-end-column="30" />
                 </state>
               </provider>
@@ -106,8 +85,8 @@
           <file leaf-file-name="threejsViewer.js" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/threejsViewer.js">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="912">
-                  <caret line="198" column="39" selection-start-line="198" selection-start-column="39" selection-end-line="198" selection-end-column="39" />
+                <state relative-caret-position="274">
+                  <caret line="265" lean-forward="true" selection-start-line="265" selection-end-line="265" />
                 </state>
               </provider>
             </entry>
@@ -146,8 +125,17 @@
           <file leaf-file-name="OrbitControls.js" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/controls/OrbitControls.js">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="-165">
-                  <caret line="317" lean-forward="true" selection-start-line="317" selection-end-line="317" />
+                <state relative-caret-position="635">
+                  <caret line="473" lean-forward="true" selection-start-line="473" selection-end-line="473" />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="map_update.js" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/baidu_component/map_update.js">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="748">
+                  <caret line="34" selection-start-line="34" selection-end-line="34" />
                 </state>
               </provider>
             </entry>
@@ -166,11 +154,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>_viewer.</find>
-      <find>_plane</find>
-      <find>event.preventDefault();</find>
-      <find>prevt</find>
-      <find>onDocumentMouseDown</find>
       <find>_assign_value_change_handler</find>
       <find>set_geometry_vertex_color</find>
       <find>vertexColot:</find>
@@ -193,9 +176,14 @@
       <find>scale</find>
       <find>_camera</find>
       <find>_camera.</find>
-      <find>camera</find>
       <find>_viewer</find>
       <find>this.object</find>
+      <find>camera</find>
+      <find>translation</find>
+      <find>target</find>
+      <find>this.pan</find>
+      <find>target0</find>
+      <find>scope.target</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -235,9 +223,9 @@
         <option value="$PROJECT_DIR$/controls/DragControls.js" />
         <option value="$PROJECT_DIR$/gui_manager.js" />
         <option value="D:/three.js-master/three.js-master/examples/webgl_postprocessing_sao.html" />
-        <option value="$PROJECT_DIR$/controls/OrbitControls.js" />
         <option value="$PROJECT_DIR$/interpretor.js" />
         <option value="$PROJECT_DIR$/threejsViewer.js" />
+        <option value="$PROJECT_DIR$/controls/OrbitControls.js" />
       </list>
     </option>
   </component>
@@ -247,11 +235,11 @@
     <detection-done>true</detection-done>
     <sorting>DEFINITION_ORDER</sorting>
   </component>
-  <component name="ProjectFrameBounds">
-    <option name="x" value="-5" />
-    <option name="y" value="2" />
-    <option name="width" value="2351" />
-    <option name="height" value="1406" />
+  <component name="ProjectFrameBounds" extendedState="6">
+    <option name="x" value="-3" />
+    <option name="y" value="1" />
+    <option name="width" value="1176" />
+    <option name="height" value="703" />
   </component>
   <component name="ProjectLevelVcsManager">
     <ConfirmationsSetting value="2" id="Add" />
@@ -261,7 +249,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -274,15 +261,11 @@
               <item name="pangolin.web" type="462c0819:PsiDirectoryNode" />
               <item name="controls" type="462c0819:PsiDirectoryNode" />
             </path>
-            <path>
-              <item name="pangolin.web" type="b2602c69:ProjectViewProjectNode" />
-              <item name="pangolin.web" type="462c0819:PsiDirectoryNode" />
-              <item name="widgets" type="462c0819:PsiDirectoryNode" />
-            </path>
           </expand>
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -373,18 +356,18 @@
       <workItem from="1560576569076" duration="106000" />
       <workItem from="1560576679308" duration="2178000" />
       <workItem from="1560739532970" duration="9903000" />
-      <workItem from="1560762873999" duration="3266000" />
+      <workItem from="1560762873999" duration="3866000" />
+      <workItem from="1560849544918" duration="6331000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="154463000" />
+    <option name="totallyTimeSpent" value="161394000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-5" y="2" width="2351" height="1406" extended-state="0" />
-    <editor active="true" />
+    <frame x="-8" y="-8" width="3456" height="1416" extended-state="6" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.46129543" visible="true" weight="0.11434689" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.46081504" visible="true" weight="0.07965116" />
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Docker" order="11" show_stripe_button="false" />
       <window_info anchor="bottom" id="Event Log" order="7" side_tool="true" />
@@ -392,7 +375,7 @@
       <window_info anchor="bottom" id="Database Changes" order="12" />
       <window_info anchor="bottom" id="Version Control" order="10" />
       <window_info anchor="bottom" id="Run" order="2" />
-      <window_info id="Structure" order="1" sideWeight="0.5387046" side_tool="true" visible="true" weight="0.11434689" />
+      <window_info id="Structure" order="1" sideWeight="0.5391849" side_tool="true" visible="true" weight="0.07965116" />
       <window_info anchor="bottom" id="Terminal" order="9" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
@@ -606,13 +589,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/baidu_component/map_update.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="480">
-          <caret line="30" selection-start-line="30" selection-end-line="30" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/tests/test_recieve_image.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="800">
@@ -708,13 +684,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/gui_manager.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3904">
-          <caret line="244" column="28" selection-start-line="244" selection-start-column="28" selection-end-line="244" selection-end-column="28" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/object_manager.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="512">
@@ -731,8 +700,8 @@
     </entry>
     <entry file="file://D:/three.js-master/three.js-master/examples/webgl_lights_hemisphere.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1312">
-          <caret line="82" column="13" selection-start-line="82" selection-start-column="13" selection-end-line="82" selection-end-column="13" />
+        <state relative-caret-position="1632">
+          <caret line="102" selection-start-line="102" selection-end-line="102" />
         </state>
       </provider>
     </entry>
@@ -745,15 +714,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/controls/DragControls.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="395">
+        <state relative-caret-position="880">
           <caret line="59" column="30" selection-start-line="59" selection-start-column="23" selection-end-line="59" selection-end-column="30" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/controls/OrbitControls.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-165">
-          <caret line="317" lean-forward="true" selection-start-line="317" selection-end-line="317" />
         </state>
       </provider>
     </entry>
@@ -769,23 +731,36 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/interpretor.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1152">
-          <caret line="67" column="43" selection-start-line="67" selection-start-column="43" selection-end-line="67" selection-end-column="43" />
-          <folding>
-            <element signature="n#!!block;n#parse_multiple#0;n#Interpretor#0" />
-            <element signature="n#!!block;n#set_object_material#0;n#Interpretor#0" />
-            <element signature="n#!!block;n#_set_geometry_vertices#0;n#Interpretor#0" />
-            <element signature="n#!!block;n#_set_geometry_faces#0;n#Interpretor#0" />
-            <element signature="n#!!block;n#_set_geometry_face_uv#0;n#Interpretor#0" />
-            <element signature="n#!!block;n#_set_geometry_face_color#0;n#Interpretor#0" />
-          </folding>
+        <state relative-caret-position="664">
+          <caret line="82" column="50" selection-start-line="82" selection-start-column="50" selection-end-line="82" selection-end-column="50" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/baidu_component/map_update.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="748">
+          <caret line="34" selection-start-line="34" selection-end-line="34" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/gui_manager.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="317">
+          <caret line="230" column="28" lean-forward="true" selection-start-line="230" selection-start-column="28" selection-end-line="230" selection-end-column="28" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/threejsViewer.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="912">
-          <caret line="198" column="39" selection-start-line="198" selection-start-column="39" selection-end-line="198" selection-end-column="39" />
+        <state relative-caret-position="274">
+          <caret line="265" lean-forward="true" selection-start-line="265" selection-end-line="265" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/controls/OrbitControls.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="635">
+          <caret line="473" lean-forward="true" selection-start-line="473" selection-end-line="473" />
         </state>
       </provider>
     </entry>

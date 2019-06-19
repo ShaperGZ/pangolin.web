@@ -240,11 +240,17 @@ Viewer = function () {
         ground.receiveShadow = true;
     };
 
-    this.update_camera = function (pos, trg = [0, 0, 0], fov = 35) {
+    this.update_camera = function (pos, trg = [0, 0, 0], fov = null, cull=null, near=null, far=null) {
         pos[1] *= -1;
         trg[1] *= -1;
         self.camera.position.set(pos[0], pos[2], pos[1])
         self.camera.lookAt(new THREE.Vector3(trg[0], trg[2], trg[1]))
+        if(fov != null)self.camera.fov = fov
+        if(cull != null) self.camera.frustumCulled = cull
+        if(near != null) self.camera.near = near
+        if(far != null) self.camera.far = far
+
+        if (fov != null || cull != null || near != null || far != null) self.camera.updateProjectionMatrix()
     };
 
     this.get_container_size = function () {

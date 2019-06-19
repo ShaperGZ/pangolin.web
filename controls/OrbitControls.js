@@ -409,7 +409,7 @@ THREE.OrbitControls = function ( object, domElement ) {
 		if ( scope.object.isPerspectiveCamera ) {
 
 			scale *= dollyScale;
-			console.log('dollyScale=',dollyScale,'  scale=',scale)
+			// console.log('dollyScale=',dollyScale,'  scale=',scale)
 
 		} else if ( scope.object.isOrthographicCamera ) {
 
@@ -736,8 +736,7 @@ THREE.OrbitControls = function ( object, domElement ) {
 	}
 
 	function onMouseMove( event ) {
-
-		if ( scope.enabled === false ) return;
+        if ( scope.enabled === false ) return;
 
 		event.preventDefault();
 
@@ -768,6 +767,11 @@ THREE.OrbitControls = function ( object, domElement ) {
 				break;
 
 		}
+        msg1 = 'scene.cameras["main"].transform.set("translation",('+ scope.object.position.toArray() + '),False)'
+        msg2 = 'scene.cameras["main"].target_position.set(('+ scope.target.toArray() + '),False)'
+        socket.send(msg1)
+        socket.send(msg2)
+
 
 	}
 
@@ -798,6 +802,11 @@ THREE.OrbitControls = function ( object, domElement ) {
 		handleMouseWheel( event );
 
 		scope.dispatchEvent( endEvent );
+
+        msg1 = 'scene.cameras["main"].transform.set("translation",('+ scope.object.position.toArray() + '),False)'
+        msg2 = 'scene.cameras["main"].target_position.set(('+ scope.target.toArray() + '),False)'
+        socket.send(msg1)
+        socket.send(msg2)
 
 	}
 
