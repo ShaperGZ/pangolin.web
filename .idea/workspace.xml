@@ -3,9 +3,8 @@
   <component name="ChangeListManager">
     <list default="true" id="9704c9cd-3809-4f65-afd7-cb5d8155de3a" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/controls/OrbitControls.js" beforeDir="false" afterPath="$PROJECT_DIR$/controls/OrbitControls.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/interpretor.js" beforeDir="false" afterPath="$PROJECT_DIR$/interpretor.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/threejsViewer.js" beforeDir="false" afterPath="$PROJECT_DIR$/threejsViewer.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/object_manager.js" beforeDir="false" afterPath="$PROJECT_DIR$/object_manager.js" afterDir="false" />
     </list>
     <ignored path=".idea/dataSources.local.xml" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -28,8 +27,8 @@
           <file leaf-file-name="interpretor.js" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/interpretor.js">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="664">
-                  <caret line="82" column="50" selection-start-line="82" selection-start-column="50" selection-end-line="82" selection-end-column="50" />
+                <state relative-caret-position="614">
+                  <caret line="142" column="46" selection-start-line="142" selection-start-column="46" selection-end-line="142" selection-end-column="46" />
                 </state>
               </provider>
             </entry>
@@ -37,7 +36,7 @@
           <file leaf-file-name="app.html" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/app.html">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="16">
+                <state relative-caret-position="592">
                   <caret line="37" column="31" selection-start-line="37" selection-start-column="26" selection-end-line="37" selection-end-column="31" />
                   <folding>
                     <element signature="n#style#0;n#div#1;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
@@ -46,20 +45,11 @@
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="gui_manager.js" pinned="false" current-in-tab="false">
+          <file leaf-file-name="gui_manager.js" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/gui_manager.js">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="317">
-                  <caret line="230" column="28" lean-forward="true" selection-start-line="230" selection-start-column="28" selection-end-line="230" selection-end-column="28" />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="transform.js" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/widgets/transform.js">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="304">
-                  <caret line="19" column="23" selection-start-line="19" selection-start-column="23" selection-end-line="19" selection-end-column="23" />
+                <state relative-caret-position="754">
+                  <caret line="230" column="28" selection-start-line="230" selection-start-column="28" selection-end-line="230" selection-end-column="28" />
                 </state>
               </provider>
             </entry>
@@ -67,8 +57,17 @@
           <file leaf-file-name="object_manager.js" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/object_manager.js">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="512">
-                  <caret line="32" column="28" selection-start-line="32" selection-start-column="28" selection-end-line="32" selection-end-column="28" />
+                <state relative-caret-position="262">
+                  <caret line="87" column="4" selection-start-line="87" selection-start-column="4" selection-end-line="87" selection-end-column="4" />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="create_objects_sample_code.js" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/create_objects_sample_code.js">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="416">
+                  <caret line="26" column="50" selection-start-line="26" selection-start-column="50" selection-end-line="26" selection-end-column="50" />
                 </state>
               </provider>
             </entry>
@@ -82,11 +81,11 @@
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="threejsViewer.js" pinned="false" current-in-tab="true">
+          <file leaf-file-name="threejsViewer.js" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/threejsViewer.js">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="274">
-                  <caret line="265" lean-forward="true" selection-start-line="265" selection-end-line="265" />
+                <state relative-caret-position="3360">
+                  <caret line="210" column="40" selection-start-line="210" selection-start-column="40" selection-end-line="210" selection-end-column="40" />
                 </state>
               </provider>
             </entry>
@@ -125,8 +124,8 @@
           <file leaf-file-name="OrbitControls.js" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/controls/OrbitControls.js">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="635">
-                  <caret line="473" lean-forward="true" selection-start-line="473" selection-end-line="473" />
+                <state relative-caret-position="390">
+                  <caret line="455" selection-start-line="455" selection-end-line="455" />
                 </state>
               </provider>
             </entry>
@@ -134,7 +133,7 @@
           <file leaf-file-name="map_update.js" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/baidu_component/map_update.js">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="748">
+                <state relative-caret-position="544">
                   <caret line="34" selection-start-line="34" selection-end-line="34" />
                 </state>
               </provider>
@@ -219,13 +218,13 @@
         <option value="$PROJECT_DIR$/widgets/transform.js" />
         <option value="$PROJECT_DIR$/app.html" />
         <option value="$PROJECT_DIR$/controls/SelectionControls.js" />
-        <option value="$PROJECT_DIR$/object_manager.js" />
         <option value="$PROJECT_DIR$/controls/DragControls.js" />
         <option value="$PROJECT_DIR$/gui_manager.js" />
         <option value="D:/three.js-master/three.js-master/examples/webgl_postprocessing_sao.html" />
-        <option value="$PROJECT_DIR$/interpretor.js" />
         <option value="$PROJECT_DIR$/threejsViewer.js" />
         <option value="$PROJECT_DIR$/controls/OrbitControls.js" />
+        <option value="$PROJECT_DIR$/object_manager.js" />
+        <option value="$PROJECT_DIR$/interpretor.js" />
       </list>
     </option>
   </component>
@@ -236,10 +235,9 @@
     <sorting>DEFINITION_ORDER</sorting>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="-3" />
-    <option name="y" value="1" />
+    <option name="x" value="-4" />
     <option name="width" value="1176" />
-    <option name="height" value="703" />
+    <option name="height" value="704" />
   </component>
   <component name="ProjectLevelVcsManager">
     <ConfirmationsSetting value="2" id="Add" />
@@ -258,8 +256,7 @@
             </path>
             <path>
               <item name="pangolin.web" type="b2602c69:ProjectViewProjectNode" />
-              <item name="pangolin.web" type="462c0819:PsiDirectoryNode" />
-              <item name="controls" type="462c0819:PsiDirectoryNode" />
+              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
             </path>
           </expand>
           <select />
@@ -357,17 +354,20 @@
       <workItem from="1560576679308" duration="2178000" />
       <workItem from="1560739532970" duration="9903000" />
       <workItem from="1560762873999" duration="3866000" />
-      <workItem from="1560849544918" duration="6331000" />
+      <workItem from="1560849544918" duration="7070000" />
+      <workItem from="1561000916244" duration="3523000" />
+      <workItem from="1561011190554" duration="4568000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="161394000" />
+    <option name="totallyTimeSpent" value="170224000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="3456" height="1416" extended-state="6" />
+    <frame x="-6" y="-6" width="1513" height="973" extended-state="6" />
+    <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.46081504" visible="true" weight="0.07965116" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.45933014" visible="true" weight="0.07938626" />
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Docker" order="11" show_stripe_button="false" />
       <window_info anchor="bottom" id="Event Log" order="7" side_tool="true" />
@@ -375,7 +375,7 @@
       <window_info anchor="bottom" id="Database Changes" order="12" />
       <window_info anchor="bottom" id="Version Control" order="10" />
       <window_info anchor="bottom" id="Run" order="2" />
-      <window_info id="Structure" order="1" sideWeight="0.5391849" side_tool="true" visible="true" weight="0.07965116" />
+      <window_info active="true" id="Structure" order="1" sideWeight="0.54066986" side_tool="true" visible="true" weight="0.07938626" />
       <window_info anchor="bottom" id="Terminal" order="9" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
@@ -406,13 +406,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/utilities.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="112">
-          <caret line="7" column="9" selection-start-line="7" selection-start-column="9" selection-end-line="7" selection-end-column="9" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="3200">
@@ -631,13 +624,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/create_objects_sample_code.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="512">
-          <caret line="354" selection-start-line="354" selection-end-line="354" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/geometry_library.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="224">
@@ -684,13 +670,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/object_manager.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="512">
-          <caret line="32" column="28" selection-start-line="32" selection-start-column="28" selection-end-line="32" selection-end-column="28" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://D:/three.js-master/three.js-master/examples/webgl_postprocessing_sao.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="386">
@@ -700,8 +679,8 @@
     </entry>
     <entry file="file://D:/three.js-master/three.js-master/examples/webgl_lights_hemisphere.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1632">
-          <caret line="102" selection-start-line="102" selection-end-line="102" />
+        <state relative-caret-position="1312">
+          <caret line="82" column="13" selection-start-line="82" selection-start-column="13" selection-end-line="82" selection-end-column="13" />
         </state>
       </provider>
     </entry>
@@ -721,7 +700,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="16">
+        <state relative-caret-position="592">
           <caret line="37" column="31" selection-start-line="37" selection-start-column="26" selection-end-line="37" selection-end-column="31" />
           <folding>
             <element signature="n#style#0;n#div#1;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
@@ -729,38 +708,59 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/interpretor.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="664">
-          <caret line="82" column="50" selection-start-line="82" selection-start-column="50" selection-end-line="82" selection-end-column="50" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/baidu_component/map_update.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="748">
+        <state relative-caret-position="544">
           <caret line="34" selection-start-line="34" selection-end-line="34" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/gui_manager.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="317">
-          <caret line="230" column="28" lean-forward="true" selection-start-line="230" selection-start-column="28" selection-end-line="230" selection-end-column="28" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/threejsViewer.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="274">
-          <caret line="265" lean-forward="true" selection-start-line="265" selection-end-line="265" />
+        <state relative-caret-position="3360">
+          <caret line="210" column="40" selection-start-line="210" selection-start-column="40" selection-end-line="210" selection-end-column="40" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/create_objects_sample_code.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="416">
+          <caret line="26" column="50" selection-start-line="26" selection-start-column="50" selection-end-line="26" selection-end-column="50" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/controls/OrbitControls.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="635">
-          <caret line="473" lean-forward="true" selection-start-line="473" selection-end-line="473" />
+        <state relative-caret-position="390">
+          <caret line="455" selection-start-line="455" selection-end-line="455" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/three.module.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="262">
+          <caret line="726" column="4" selection-start-line="726" selection-start-column="4" selection-end-line="726" selection-end-column="4" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/object_manager.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="262">
+          <caret line="87" column="4" selection-start-line="87" selection-start-column="4" selection-end-line="87" selection-end-column="4" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/interpretor.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="614">
+          <caret line="142" column="46" selection-start-line="142" selection-start-column="46" selection-end-line="142" selection-end-column="46" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/gui_manager.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="754">
+          <caret line="230" column="28" selection-start-line="230" selection-start-column="28" selection-end-line="230" selection-end-column="28" />
         </state>
       </provider>
     </entry>

@@ -13,10 +13,10 @@ class Interpretor {
 
         switch (msg.cmd) {
             case 'set_camera':
-                Interpretor.set_camera(this.viewer,msg)
+                Interpretor.set_camera(this.viewer, msg)
                 break;
             case 'remove':
-                Interpretor.remove(this.manager,msg);
+                Interpretor.remove(this.manager, msg);
                 break;
             case 'hud':
                 Interpretor.set_hud(msg);
@@ -47,7 +47,6 @@ class Interpretor {
     }
 
 
-
     parse_multiple(jsonMessage) {
         //console.log(jsonMessage)
         var messages = JSON.parse(jsonMessage)
@@ -63,14 +62,14 @@ class Interpretor {
         return ids;
     }
 
-    static set_camera(viewer,msg){
+    static set_camera(viewer, msg) {
         // viewer.camera.position.set(msg.position[0],msg.position[2],-msg.position[1] )
         // viewer.camera.lookAt(msg.target[0],msg.target[2],-msg.target[1])
-        if (msg.name=='main'){
+        if (msg.name == 'main') {
             pos = msg['position']
             viewer.camera.position.set(pos[0], pos[2], -pos[1])
 
-            if('target' in msg) {
+            if ('target' in msg) {
                 trg = msg['target']
                 self.camera.lookAt(new THREE.Vector3(trg[0], trg[2], -trg[1]))
             }
@@ -85,23 +84,23 @@ class Interpretor {
 
     }
 
-    static remove(manager,msg){
+    static remove(manager, msg) {
         // console.log('remove msg:',msg)
-        if('parent' in msg){
+        if ('parent' in msg) {
             var parent = manager.get_mesh_object(msg.parent)
             var subject = manager.get_mesh_object(msg.id)
-            console.log('parent =',parent)
-            console.log('pre remove subject =',subject, 'parent=',subject.parent)
+            console.log('parent =', parent)
+            console.log('pre remove subject =', subject, 'parent=', subject.parent)
             parent.remove(subject)
-            console.log('post remove subject =',subject, 'parent=',subject.parent)
+            console.log('post remove subject =', subject, 'parent=', subject.parent)
         }
-        else{
+        else {
             manager.delete(msg['id'])
         }
     }
 
     static set_object(viewer, manager, data) {
-         console.log('setting object id=', data.id, 'msg=', data)
+        console.log('setting object id=', data.id, 'msg=', data)
         if ('ref' in data) {
             Interpretor.set_mesh_component_object_reference(manager, data.id, data.ref)
         }
@@ -112,6 +111,8 @@ class Interpretor {
                     case 'mesh':
                         Interpretor.set_mesh_object_geometry(manager, data.id, geo_data)
                         break;
+                    case 'polyline':
+                        Interpretor.set_line_object_geometry(manager,data.id,geo_data)
                     default:
                         break;
                 }
@@ -119,6 +120,13 @@ class Interpretor {
             if ('material' in data) {
                 Interpretor.set_object_material(viewer, manager, data.id, data.material)
             }
+            if ('line_style' in data) {
+                Interpretor.set_object_line_style(viewer, manager, data.id, data.line_style)
+            }
+            if ('segments' in data) {
+
+            }
+
         }
 
         if ('transform' in data) {
@@ -130,6 +138,15 @@ class Interpretor {
         }
     }
 
+    static set_object_line_style(viewer, manager, id, style_data) {
+        if(style_data == null){
+            console.log('style_data is null');
+            return;
+        }
+        var obj = manager.get_line_object(id, true)
+        obj.material.color = style_data.color
+
+    }
 
     static set_mesh_component_object_reference(manager, id, ref) {
         if (ref in viewer.component_lib.objects) {
@@ -142,6 +159,12 @@ class Interpretor {
             console.log('ERROR! component for found for ' + ref)
             return;
         }
+    }
+
+    static set_line_object_geometry(manager, id ,geo_data){
+        var obj = manager.get_line_object(id, true)
+        Interpretor._set_geometry_vertices(obj.geometry, geo_data.p)
+        obj.geometry.computeBoundingSphere();
     }
 
     static set_mesh_object_geometry(manager, id, geo_data) {

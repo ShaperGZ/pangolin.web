@@ -85,10 +85,33 @@ class ObjectManager {
         return null
     }
 
+    get_line_object(id, create_if_not_exist=false){
+        var obj;
+        if (id in this.objects) {
+            return this.objects[id];
+        }
+        else if(create_if_not_exist){
+            var geometry = new THREE.Geometry()
+            var mat = new THREE.LineBasicMaterial();
+            obj = new THREE.Line(geometry, mat)
+            obj.name = id
+            this.objects[id] = obj
+            this.model_container.add(obj)
+            obj.castShadow = false;
+            obj.receiveShadow = false;
+            return obj
+        }
+        return null
+    }
+
+
     delete(id) {
         if (id in this.objects) {
-            this.model_container.remove(this.objects[id])
+            var obj = this.objects[id]
+            this.model_container.remove(obj)
+            this.objects.pop(obj)
         }
+
     }
 
 
