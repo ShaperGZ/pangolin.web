@@ -55,6 +55,7 @@ class DATGUIS{
             // add button to inspect parent object
             var container_obj={}
             var obj = this.viewer.manager.model_container.getObjectByName(id)
+            if(obj == undefined) return
             var gui = this.object_inspector
             if (obj.parent != this.viewer.manager.model_container){
                 var parent_id = obj.parent.name
@@ -71,8 +72,8 @@ class DATGUIS{
 
         if(mode ==0){
             if (obj.children.length>0){
-                var folder = gui.addFolder('►► children')
-                folder.open()
+                var folder = gui.addFolder('►► children('+obj.children.length+')')
+                folder.close()
                 this._inspection_object_folders.push(folder)
                 
                 for(var i in obj.children){
@@ -81,7 +82,7 @@ class DATGUIS{
                     if(child.name != undefined && child.name.length == 36)
                     {
                         // console.log('added child.name = ',child.name)
-                        var short_id = '►► '+child.name.split('-')[1]
+                        var short_id = child.name.split('-')[1]
                         var assign_button_callback=function(child){
                             container_obj[short_id]=function(){
                                 console.log('gui send: inspect',child.name)

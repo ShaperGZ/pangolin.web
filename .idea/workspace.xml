@@ -3,8 +3,15 @@
   <component name="ChangeListManager">
     <list default="true" id="9704c9cd-3809-4f65-afd7-cb5d8155de3a" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app.html" beforeDir="false" afterPath="$PROJECT_DIR$/app.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/controls/DragControls.js" beforeDir="false" afterPath="$PROJECT_DIR$/controls/DragControls.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/controls/OrbitControls.js" beforeDir="false" afterPath="$PROJECT_DIR$/controls/OrbitControls.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/controls/SelectionControls.js" beforeDir="false" afterPath="$PROJECT_DIR$/controls/SelectionControls.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gui_manager.js" beforeDir="false" afterPath="$PROJECT_DIR$/gui_manager.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/interpretor.js" beforeDir="false" afterPath="$PROJECT_DIR$/interpretor.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/object_manager.js" beforeDir="false" afterPath="$PROJECT_DIR$/object_manager.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/threejsViewer.js" beforeDir="false" afterPath="$PROJECT_DIR$/threejsViewer.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/widgets/transform.js" beforeDir="false" afterPath="$PROJECT_DIR$/widgets/transform.js" afterDir="false" />
     </list>
     <ignored path=".idea/dataSources.local.xml" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -21,127 +28,97 @@
     <favorites_list name="pangolin.web" />
   </component>
   <component name="FileEditorManager">
-    <splitter split-orientation="horizontal" split-proportion="0.5">
-      <split-first>
-        <leaf SIDE_TABS_SIZE_LIMIT_KEY="600">
-          <file leaf-file-name="interpretor.js" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/interpretor.js">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="614">
-                  <caret line="142" column="46" selection-start-line="142" selection-start-column="46" selection-end-line="142" selection-end-column="46" />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="app.html" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/app.html">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="592">
-                  <caret line="37" column="31" selection-start-line="37" selection-start-column="26" selection-end-line="37" selection-end-column="31" />
-                  <folding>
-                    <element signature="n#style#0;n#div#1;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
-                  </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="gui_manager.js" pinned="false" current-in-tab="true">
-            <entry file="file://$PROJECT_DIR$/gui_manager.js">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="754">
-                  <caret line="230" column="28" selection-start-line="230" selection-start-column="28" selection-end-line="230" selection-end-column="28" />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="object_manager.js" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/object_manager.js">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="262">
-                  <caret line="87" column="4" selection-start-line="87" selection-start-column="4" selection-end-line="87" selection-end-column="4" />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="create_objects_sample_code.js" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/create_objects_sample_code.js">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="416">
-                  <caret line="26" column="50" selection-start-line="26" selection-start-column="50" selection-end-line="26" selection-end-column="50" />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="DragControls.js" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/controls/DragControls.js">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="880">
-                  <caret line="59" column="30" selection-start-line="59" selection-start-column="23" selection-end-line="59" selection-end-column="30" />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="threejsViewer.js" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/threejsViewer.js">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="3360">
-                  <caret line="210" column="40" selection-start-line="210" selection-start-column="40" selection-end-line="210" selection-end-column="40" />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="webgl_lights_hemisphere.html" pinned="false" current-in-tab="false">
-            <entry file="file://D:/three.js-master/three.js-master/examples/webgl_lights_hemisphere.html">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="1312">
-                  <caret line="82" column="13" selection-start-line="82" selection-start-column="13" selection-end-line="82" selection-end-column="13" />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="SelectionControls.js" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/controls/SelectionControls.js">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="688">
-                  <caret line="43" column="4" selection-start-line="43" selection-start-column="4" selection-end-line="43" selection-end-column="4" />
-                </state>
-              </provider>
-            </entry>
-          </file>
-        </leaf>
-      </split-first>
-      <split-second>
-        <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-          <file leaf-file-name="webgl_lights_hemisphere.html" pinned="false" current-in-tab="false">
-            <entry file="file://D:/three.js-master/three.js-master/examples/webgl_lights_hemisphere.html">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="1632">
-                  <caret line="102" selection-start-line="102" selection-end-line="102" />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="OrbitControls.js" pinned="false" current-in-tab="true">
-            <entry file="file://$PROJECT_DIR$/controls/OrbitControls.js">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="390">
-                  <caret line="455" selection-start-line="455" selection-end-line="455" />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="map_update.js" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/baidu_component/map_update.js">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="544">
-                  <caret line="34" selection-start-line="34" selection-end-line="34" />
-                </state>
-              </provider>
-            </entry>
-          </file>
-        </leaf>
-      </split-second>
-    </splitter>
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="600">
+      <file leaf-file-name="interpretor.js" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/interpretor.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="464">
+              <caret line="29" column="29" lean-forward="true" selection-start-line="29" selection-start-column="29" selection-end-line="29" selection-end-column="29" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="OrbitControls.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/controls/OrbitControls.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="2282">
+              <caret line="525" lean-forward="true" selection-start-line="525" selection-end-line="525" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="app.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="3568">
+              <caret line="269" column="18" selection-start-line="269" selection-start-column="18" selection-end-line="269" selection-end-column="18" />
+              <folding>
+                <element signature="n#div#0;n#body#0;n#html#0;n#!!top" />
+                <element signature="n#div#1;n#div#1;n#body#0;n#html#0;n#!!top" />
+                <element signature="n#style#0;n#div#1;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#input#0;n#div#1;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#div#2;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#input#0;n#div#2;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#input#1;n#div#2;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#div#3;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#div#0;n#div#3;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#div#1;n#div#3;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#div#2;n#div#3;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#div#3;n#div#3;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#div#4;n#div#3;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#div#5;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#div#2;n#body#0;n#html#0;n#!!top" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="SelectionControls.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/controls/SelectionControls.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1152">
+              <caret line="72" column="36" selection-start-line="72" selection-start-column="36" selection-end-line="72" selection-end-column="36" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="gui_manager.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/gui_manager.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="848">
+              <caret line="53" selection-start-line="52" selection-start-column="46" selection-end-line="53" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="object_manager.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/object_manager.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1952">
+              <caret line="122" column="35" selection-start-line="122" selection-start-column="35" selection-end-line="122" selection-end-column="35" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="DragControls.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/controls/DragControls.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1856">
+              <caret line="120" column="52" selection-start-line="120" selection-start-column="27" selection-end-line="120" selection-end-column="52" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="threejsViewer.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/threejsViewer.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="512">
+              <caret line="301" column="34" selection-start-line="301" selection-start-column="34" selection-end-line="301" selection-end-column="34" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -153,21 +130,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>_assign_value_change_handler</find>
-      <find>set_geometry_vertex_color</find>
-      <find>vertexColot:</find>
-      <find>app.</find>
-      <find>socketio</find>
-      <find>socket</find>
-      <find>packer</find>
-      <find>texture</find>
-      <find>phone</find>
-      <find>get</find>
-      <find>maxDistance</find>
-      <find>set_object_parent</find>
-      <find>_set_geometry_face_color</find>
-      <find>this.viewer</find>
-      <find>inspect</find>
       <find>sao</find>
       <find>render</find>
       <find>depth</find>
@@ -183,6 +145,21 @@
       <find>this.pan</find>
       <find>target0</find>
       <find>scope.target</find>
+      <find>onDocumentMouseDown</find>
+      <find>addEvent</find>
+      <find>selected</find>
+      <find>window.remove</find>
+      <find>_selected</find>
+      <find>_hovered</find>
+      <find>dragstart</find>
+      <find>_intersection</find>
+      <find>_intersected</find>
+      <find>_start_obj_pos</find>
+      <find>children</find>
+      <find>.object</find>
+      <find>_obj_mouse_offset</find>
+      <find>select</find>
+      <find>.log(</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -215,15 +192,15 @@
         <option value="$PROJECT_DIR$/library.js" />
         <option value="$PROJECT_DIR$/create_objects_sample_code.js" />
         <option value="$PROJECT_DIR$/component_library.js" />
+        <option value="D:/three.js-master/three.js-master/examples/webgl_postprocessing_sao.html" />
         <option value="$PROJECT_DIR$/widgets/transform.js" />
-        <option value="$PROJECT_DIR$/app.html" />
         <option value="$PROJECT_DIR$/controls/SelectionControls.js" />
+        <option value="$PROJECT_DIR$/object_manager.js" />
         <option value="$PROJECT_DIR$/controls/DragControls.js" />
         <option value="$PROJECT_DIR$/gui_manager.js" />
-        <option value="D:/three.js-master/three.js-master/examples/webgl_postprocessing_sao.html" />
+        <option value="$PROJECT_DIR$/app.html" />
         <option value="$PROJECT_DIR$/threejsViewer.js" />
         <option value="$PROJECT_DIR$/controls/OrbitControls.js" />
-        <option value="$PROJECT_DIR$/object_manager.js" />
         <option value="$PROJECT_DIR$/interpretor.js" />
       </list>
     </option>
@@ -234,10 +211,11 @@
     <detection-done>true</detection-done>
     <sorting>DEFINITION_ORDER</sorting>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="-4" />
-    <option name="width" value="1176" />
-    <option name="height" value="704" />
+  <component name="ProjectFrameBounds">
+    <option name="x" value="-242" />
+    <option name="y" value="-1438" />
+    <option name="width" value="1858" />
+    <option name="height" value="1402" />
   </component>
   <component name="ProjectLevelVcsManager">
     <ConfirmationsSetting value="2" id="Add" />
@@ -247,6 +225,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -256,13 +235,22 @@
             </path>
             <path>
               <item name="pangolin.web" type="b2602c69:ProjectViewProjectNode" />
+              <item name="pangolin.web" type="462c0819:PsiDirectoryNode" />
+              <item name="controls" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="pangolin.web" type="b2602c69:ProjectViewProjectNode" />
+              <item name="pangolin.web" type="462c0819:PsiDirectoryNode" />
+              <item name="widgets" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="pangolin.web" type="b2602c69:ProjectViewProjectNode" />
               <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
             </path>
           </expand>
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -357,17 +345,20 @@
       <workItem from="1560849544918" duration="7070000" />
       <workItem from="1561000916244" duration="3523000" />
       <workItem from="1561011190554" duration="4568000" />
+      <workItem from="1561443471231" duration="13398000" />
+      <workItem from="1561510973194" duration="27693000" />
+      <workItem from="1561600750702" duration="1453000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="170224000" />
+    <option name="totallyTimeSpent" value="212768000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-6" y="-6" width="1513" height="973" extended-state="6" />
+    <frame x="-242" y="-1438" width="1858" height="1402" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.45933014" visible="true" weight="0.07938626" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.4564184" visible="true" weight="0.1237785" />
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Docker" order="11" show_stripe_button="false" />
       <window_info anchor="bottom" id="Event Log" order="7" side_tool="true" />
@@ -375,7 +366,7 @@
       <window_info anchor="bottom" id="Database Changes" order="12" />
       <window_info anchor="bottom" id="Version Control" order="10" />
       <window_info anchor="bottom" id="Run" order="2" />
-      <window_info active="true" id="Structure" order="1" sideWeight="0.54066986" side_tool="true" visible="true" weight="0.07938626" />
+      <window_info id="Structure" order="1" sideWeight="0.5435816" side_tool="true" visible="true" weight="0.1237785" />
       <window_info anchor="bottom" id="Terminal" order="9" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
@@ -406,13 +397,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/app.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3200">
-          <caret line="200" column="5" selection-start-line="200" selection-start-column="5" selection-end-line="200" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/gui_manager.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2832">
@@ -610,13 +594,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/library.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="224">
-          <caret line="20" lean-forward="true" selection-start-line="20" selection-end-line="20" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/roles">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="256">
@@ -638,49 +615,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/texture_library.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="448">
-          <caret line="72" column="31" selection-start-line="72" selection-start-column="31" selection-end-line="72" selection-end-column="31" />
-          <folding>
-            <element signature="n#!!block;n#load_file#0;n#TextureLibrary#0" />
-            <element signature="n#!!block;n#load_bytes#0;n#TextureLibrary#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/component_library.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="352">
-          <caret line="22" column="22" selection-start-line="22" selection-start-column="22" selection-end-line="22" selection-end-column="22" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/widgets/transform.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="304">
-          <caret line="19" column="23" selection-start-line="19" selection-start-column="23" selection-end-line="19" selection-end-column="23" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/controls/SelectionControls.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="688">
-          <caret line="43" column="4" selection-start-line="43" selection-start-column="4" selection-end-line="43" selection-end-column="4" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://D:/three.js-master/three.js-master/examples/webgl_postprocessing_sao.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="386">
           <caret line="42" column="43" selection-start-line="42" selection-start-column="38" selection-end-line="42" selection-end-column="43" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://D:/three.js-master/three.js-master/examples/webgl_lights_hemisphere.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1312">
-          <caret line="82" column="13" selection-start-line="82" selection-start-column="13" selection-end-line="82" selection-end-column="13" />
         </state>
       </provider>
     </entry>
@@ -691,20 +629,17 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/controls/DragControls.js">
+    <entry file="file://$PROJECT_DIR$/three.module.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="880">
-          <caret line="59" column="30" selection-start-line="59" selection-start-column="23" selection-end-line="59" selection-end-column="30" />
+        <state relative-caret-position="262">
+          <caret line="726" column="4" selection-start-line="726" selection-start-column="4" selection-end-line="726" selection-end-column="4" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app.html">
+    <entry file="file://D:/three.js-master/three.js-master/examples/webgl_lights_hemisphere.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="592">
-          <caret line="37" column="31" selection-start-line="37" selection-start-column="26" selection-end-line="37" selection-end-column="31" />
-          <folding>
-            <element signature="n#style#0;n#div#1;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
-          </folding>
+        <state relative-caret-position="1312">
+          <caret line="82" column="13" selection-start-line="82" selection-start-column="13" selection-end-line="82" selection-end-column="13" />
         </state>
       </provider>
     </entry>
@@ -715,13 +650,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/threejsViewer.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3360">
-          <caret line="210" column="40" selection-start-line="210" selection-start-column="40" selection-end-line="210" selection-end-column="40" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/create_objects_sample_code.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="416">
@@ -729,38 +657,115 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/controls/OrbitControls.js">
+    <entry file="file://$PROJECT_DIR$/w3.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="390">
-          <caret line="455" selection-start-line="455" selection-end-line="455" />
+        <state relative-caret-position="412">
+          <caret line="151" column="75" lean-forward="true" selection-start-line="151" selection-start-column="68" selection-end-line="151" selection-end-column="75" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/three.module.js">
+    <entry file="file://$PROJECT_DIR$/widgets/transform.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="262">
-          <caret line="726" column="4" selection-start-line="726" selection-start-column="4" selection-end-line="726" selection-end-column="4" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/object_manager.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="262">
-          <caret line="87" column="4" selection-start-line="87" selection-start-column="4" selection-end-line="87" selection-end-column="4" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/interpretor.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="614">
-          <caret line="142" column="46" selection-start-line="142" selection-start-column="46" selection-end-line="142" selection-end-column="46" />
+        <state relative-caret-position="186">
+          <caret line="70" column="16" lean-forward="true" selection-start-line="70" selection-start-column="16" selection-end-line="70" selection-end-column="16" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/gui_manager.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="754">
-          <caret line="230" column="28" selection-start-line="230" selection-start-column="28" selection-end-line="230" selection-end-column="28" />
+        <state relative-caret-position="848">
+          <caret line="53" selection-start-line="52" selection-start-column="46" selection-end-line="53" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/controls/SelectionControls.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1152">
+          <caret line="72" column="36" selection-start-line="72" selection-start-column="36" selection-end-line="72" selection-end-column="36" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/object_manager.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1952">
+          <caret line="122" column="35" selection-start-line="122" selection-start-column="35" selection-end-line="122" selection-end-column="35" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/controls/DragControls.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1856">
+          <caret line="120" column="52" selection-start-line="120" selection-start-column="27" selection-end-line="120" selection-end-column="52" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3568">
+          <caret line="269" column="18" selection-start-line="269" selection-start-column="18" selection-end-line="269" selection-end-column="18" />
+          <folding>
+            <element signature="n#div#0;n#body#0;n#html#0;n#!!top" />
+            <element signature="n#div#1;n#div#1;n#body#0;n#html#0;n#!!top" />
+            <element signature="n#style#0;n#div#1;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#input#0;n#div#1;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#2;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#input#0;n#div#2;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#input#1;n#div#2;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#3;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#0;n#div#3;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#1;n#div#3;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#2;n#div#3;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#3;n#div#3;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#4;n#div#3;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#5;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#2;n#body#0;n#html#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/library.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="16">
+          <caret line="1" column="6" selection-start-line="1" selection-start-column="6" selection-end-line="1" selection-end-column="6" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/texture_library.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret column="31" lean-forward="true" selection-start-column="31" selection-end-column="31" />
+          <folding>
+            <element signature="n#!!block;n#load_file#0;n#TextureLibrary#0" />
+            <element signature="n#!!block;n#load_bytes#0;n#TextureLibrary#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/component_library.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="64">
+          <caret line="4" column="4" selection-start-line="4" selection-start-column="4" selection-end-line="4" selection-end-column="4" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/threejsViewer.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="512">
+          <caret line="301" column="34" selection-start-line="301" selection-start-column="34" selection-end-line="301" selection-end-column="34" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/controls/OrbitControls.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2282">
+          <caret line="525" lean-forward="true" selection-start-line="525" selection-end-line="525" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/interpretor.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="464">
+          <caret line="29" column="29" lean-forward="true" selection-start-line="29" selection-start-column="29" selection-end-line="29" selection-end-column="29" />
         </state>
       </provider>
     </entry>

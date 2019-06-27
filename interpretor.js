@@ -10,8 +10,12 @@ class Interpretor {
             msg = JSON.parse(jsonMessage);
         }
         if (msg == null) return
+        // console.log(msg)
 
         switch (msg.cmd) {
+            case 'set_scene_info':
+                Interpretor.set_scene_info(this.viewer, msg)
+                break;
             case 'set_camera':
                 Interpretor.set_camera(this.viewer, msg)
                 break;
@@ -22,12 +26,15 @@ class Interpretor {
                 Interpretor.set_hud(msg);
                 break;
             case 'set_object':
+                // console.log(msg)
                 Interpretor.set_object(this.viewer, this.manager, msg);
                 break;
             case 'set_lib_component':
+                // console.log(msg)
                 Interpretor.set_object(this.viewer, this.viewer.component_lib, msg)
                 break;
             case 'inspect_inplace':
+                // console.log(msg)
                 set_gui(msg['parameters'])
                 break;
             case 'set_lib_textures':
@@ -60,6 +67,19 @@ class Interpretor {
             ids.push(objid);
         });
         return ids;
+    }
+
+    static set_scene_info(viewer, msg){
+
+        var dom_txt = document.getElementById('txt_reloader')
+        dom_txt.value = msg.module
+
+        var dom_bt = document.getElementById('bt_reloader')
+        dom_bt.onclick = function(){
+            var dom_txt = document.getElementById('txt_reloader')
+            viewer.clear_scene()
+            socket.send("load_scene('"+dom_txt.value+"')")
+        }
     }
 
     static set_camera(viewer, msg) {
@@ -100,7 +120,9 @@ class Interpretor {
     }
 
     static set_object(viewer, manager, data) {
-        console.log('setting object id=', data.id, 'msg=', data)
+        // console.log('setting object id=', data.id, 'msg=', data)
+
+
         if ('ref' in data) {
             Interpretor.set_mesh_component_object_reference(manager, data.id, data.ref)
         }
@@ -127,6 +149,10 @@ class Interpretor {
 
             }
 
+            if('ref_key' in data){
+                manager.objects[data.id].ref_key = data.ref_key
+            }
+
         }
 
         if ('transform' in data) {
@@ -136,6 +162,8 @@ class Interpretor {
         if ('parent' in data) {
             Interpretor.set_object_parent(manager, data.id, data.parent)
         }
+
+
     }
 
     static set_object_line_style(viewer, manager, id, style_data) {
@@ -149,14 +177,28 @@ class Interpretor {
     }
 
     static set_mesh_component_object_reference(manager, id, ref) {
-        if (ref in viewer.component_lib.objects) {
-            var component = viewer.component_lib.objects[ref];
-            var obj = manager.get_mesh_object(id, true)
-            obj.geometry = component.geometry
-            obj.material = component.material
+        var obj = manager.get_mesh_object(id, true)
+        var found = false;
+        console.log('looking for ',ref)
+        for(var key in  viewer.component_lib.objects){
+            if (ref ==  viewer.component_lib.objects[key].ref_key){
+                var component = viewer.component_lib.objects[key];
+                obj.geometry = component.geometry
+                obj.material = component.material
+                found = true
+                console.log('ref found')
+            }
         }
-        else {
+
+        // if (ref in viewer.component_lib.objects) {
+        //     var component = viewer.component_lib.objects[ref];
+        //     obj.geometry = component.geometry
+        //     obj.material = component.material
+        // }
+        if (! found) {
             console.log('ERROR! component for found for ' + ref)
+            obj.geometry = new THREE.CubeGeometry(1,1,1)
+            obj.material = new THREE.MeshBasicMaterial({'color':'darkred'})
             return;
         }
     }
@@ -199,11 +241,16 @@ class Interpretor {
             parent = manager.objects[parent]
             parent.add(obj)
         }
+        else{
+            console.warn('parent not exist:', parent)
+        }
     }
 
     static set_object_transform(manager, id, transform_data) {
-        if (id in manager.objects) {
+        if(true){
+        // if (id in manager.objects) {
             var obj = manager.get_mesh_object(id, true)
+            // console.log('created obj:',id)
             // var obj = manager.objects[id]
 
             var position = transform_data.t

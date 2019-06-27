@@ -22,6 +22,7 @@ class TransformWidget{
         }
 
         var inspecting_object = this.manager.model_container.getObjectByName(id)
+        if (inspecting_object == undefined) return
         var parent = inspecting_object.parent
 
         var position = data['translation'].value

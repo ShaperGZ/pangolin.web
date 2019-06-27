@@ -10,7 +10,8 @@ Viewer = function () {
     this.renderer = new THREE.WebGLRenderer({ antialias: true });
     this.manager = new ObjectManager(this.scene)
     this.selected_objects = []
-
+    this.hud_states = {'sr':0, 'mv':0, 'sc':0, 'rt':0} //'sr□ ts□ sc□ rt□'
+    this.select_root = true; // 1:select root, 0:select item
 
     var self = this;
 
@@ -129,6 +130,24 @@ Viewer = function () {
         requestAnimationFrame(self.animate);
 
         self.render();
+
+    }
+
+    this.update_hud_states = function(data){
+        for(key in self.hud_states){
+            if(key in data){
+                self.hud_states[key] = data[key]
+            }
+            state = self.hud_states[key]
+            if(state) color='orange'  // blue:'#2196F3'
+            else color = 'grey'
+
+            var id = 'js_hud_states_'+key
+            document.getElementById(id).style.backgroundColor = color
+            // if(state)
+            //     document.getElementById(id).style.color = 'steelblue'
+        }
+
 
     }
 
@@ -278,13 +297,16 @@ Viewer = function () {
 
     this.clear_scene = function () {
         this.manager.clear()
+        self.select_objects([])
+        self.component_lib.objects = {}
+        self.texture_lib.data = {}
     }
 
     this.select_objects = function (selected_objects) {
         if (selected_objects.length > 0) {
             self.manager.set_selected_objects(selected_objects);
-            var sel = selected_objects[0].object;
-
+            // var sel = selected_objects[0].object;
+            var sel = selected_objects[0];
             var objid = self.manager.get_id_by_threejs_object(sel);
             self.inspect_object(objid);
             socket.send('scene.select_id("' + objid + '")')
@@ -305,20 +327,19 @@ Viewer = function () {
         // console.log(url)
         // parent.frames[0].location=url
         msg = 'scene.inspect_id("' + objid + '")'
-        // console.log(msg)
+        console.log(msg)
         socket.send(msg)
     }
 
     this.get_transform_widget = function () {
         if (this.selected_objects.length < 1) return null;
         //console.log('selected', this.selected_objects[0]);
-        return this.selected_objects[0].object;
+        return this.selected_objects[0];
         //return this.transformWidget.widget;
     }
 
     this.set_selected_transform = function(transform_type,value){
         let msg = 'scene.set_selected_transform("'+transform_type+'",['+value+'])';
-        console.log('translation msg =',msg)
         socket.send(msg)
     }
 

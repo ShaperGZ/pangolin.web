@@ -124,41 +124,32 @@
     <div>
         <button id="open_sidebar" onclick="open_sidebar()" class="w3-button w3-blue w3-xlarge float" >&#9776;</button>
     </div>
-    <div id='hud01' class="overlayMessagePanel content"
-            style="width:300px; height:200px; margin-left:60px">
-            <div id="hud01_content">qweqwe</div>
-        <!--<table class = 'chartText'>-->
-            <!--<tr>-->
-                <!--<td>Marker A</td>-->
-                <!--<td style="width:100px">-->
-                    <!--<div class='barChart' >-->
-                        <!--<div  style='width:20px; height:10px'>30</div>-->
-                    <!--</div>-->
-                <!--</td>-->
-            <!--</tr>-->
-            <!--<tr>-->
-                <!--<td>Marker B</td>-->
-                <!--<td>-->
-                    <!--<div class='barChart'>-->
-                        <!--<div  style='width:60px; height:10px'>60</div>-->
-                    <!--</div>-->
-                <!--</td>-->
-            <!--</tr>-->
-            <!--<tr>-->
-                <!--<td><span>Marker C</span></td>-->
-                <!--<td>-->
-                    <!--<div class='barChart'>-->
-                        <!--<div  style='width:50px; height:10px'>50</div>-->
-                    <!--</div>-->
-                <!--</td>-->
-                <!---->
-            <!--</tr>-->
-        <!--</table>-->
-        <!--<p >-->
-            <!--line1 <br>-->
-            <!--line2 <br>-->
-        <!--</p>-->
+    <div id='command_line' class="overlayMessagePanel content"
+         style="width:250px; height:20px; margin-left:60px ; margin-top: 5px">
+        <input id='txt_command_line' type="text" value="s" style="width: 250px; background-color: black; border-style: none; color: #ffc107;">
     </div>
+    <div id='reloader' class="overlayMessagePanel content"
+         style="width:250px; height:20px; margin-left:60px ; margin-top: 25px">
+        <input id='bt_reloader' type="button" value="RELOAD" style="width: 80px;border-style: none;">
+        <input id='txt_reloader' type="text" value="modulename" style="width: 166px;border-style: none;">
+    </div>
+    <div id='js_hud_states' class="overlayMessagePanel content"
+         style="width:250px; font-size: 12px; height:20px; margin-left:60px ; margin-top: 45px">
+        <div id='js_hud_states_sr' style="width:30px; height:15px; display: inline; background-color: orange"> 選組(I) </div>
+        <div id='js_hud_states_mv' style="width:30px; height:15px; display: inline; margin-left: 5px; background-color: grey"> MV </div>
+        <div id='js_hud_states_rt' style="width:30px; height:15px; display: inline; margin-left: 5px; background-color: grey"> RT </div>
+        <div id='js_hud_states_sc' style="width:30px; height:15px; display: inline; margin-left: 5px; background-color: grey"> SC </div>
+        <div id='open_component_browser' style="width:30px; height:15px; display: inline; margin-left: 5px; background-color: cornflowerblue"> COMPONENTS </div>
+    </div>
+
+    <div id='hud01' class="overlayMessagePanel content"
+            style="width:250px; height:200px; margin-left:60px; margin-top: 65px">
+            <div id="hud01_content">server generated contents ... </div>
+    </div>
+    <div id="component_browser" class="overlayMessagePanel content"
+               style="width:250px; background-color: grey; font-size:16px ; color:white; height:400px; margin-left:60px; margin-top: 65px">
+    <div>item 1 </div>
+</div>
 
     <div id="threejs_container" style="height: 100%, top:0px" ></div>
 </div>
@@ -172,6 +163,64 @@
 
 <script>
     // var map = new BaiduMap('map_container')
+    function set_command_line(){
+        dom = document.getElementById('txt_command_line')
+        dom.onkeydown = function(e){
+            if(e.keyCode == 13){
+                msg = dom.value
+                socket.send(msg)
+                dom.value=''
+            }
+        }
+
+    }
+    set_command_line()
+
+    function load_component_list(browser){
+        browser.innerHTML = ''
+
+        function assign_item_on_click(div, id){
+            div.addEventListener('mouseup', function(){
+                console.log('inspecting:',id)
+                viewer.inspect_object(id);
+            }, false);
+        }
+
+        var lib = viewer.component_lib
+        for(var key in lib.objects){
+            div = document.createElement('div')
+            div.style.cursor = 'pointer'
+            div.innerHTML = lib.objects[key].ref_key
+            browser.appendChild(div)
+            assign_item_on_click(div, key)
+        }
+
+
+    }
+
+    function set_component_browser(){
+        var operant = document.getElementById('open_component_browser')
+        var browser = document.getElementById('component_browser')
+        browser.style.display = 'none';
+        operant.style.cursor = 'pointer'
+
+        function component_browser_operant_onclick(){
+            console.log('mouse up')
+            if (browser.style.display == 'none'){
+                browser.style.display = 'block'
+                load_component_list(browser)
+            }
+            else{
+                browser.style.display = 'none';
+            }
+        }
+
+        operant.addEventListener('mouseup', component_browser_operant_onclick, false)
+
+
+
+    }
+    set_component_browser()
 
     function openMap(){
         map.show()

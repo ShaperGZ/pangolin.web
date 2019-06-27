@@ -7,6 +7,7 @@ class ObjectManager {
 
         this.scene = scene;
         this.model_container = new THREE.Group()
+        this.model_container.name='model_container'
         this.model_container.scale.set(1, 1, -1)
         this.scene.add(this.model_container)
 
@@ -49,17 +50,17 @@ class ObjectManager {
         var objects = this.objects
         for (var key in objects) {
             var obj = objects[key]
-            // console.log(obj)
-            if (Array.isArray(obj)) {
-                console.log(obj)
-                for (var k in obj) {
-                    var o = obj[k]
-                    if (o == threejs_obj) {
-                        return key
-                    }
-                }
-            }
-            else if (obj == threejs_obj) {
+            // // console.log(obj)
+            // if (Array.isArray(obj)) {
+            //     console.log(obj)
+            //     for (var k in obj) {
+            //         var o = obj[k]
+            //         if (o == threejs_obj) {
+            //             return key
+            //         }
+            //     }
+            // }
+            if (obj == threejs_obj) {
                 return key
             }
         }
@@ -102,6 +103,28 @@ class ObjectManager {
             return obj
         }
         return null
+    }
+
+    get_root_object(obj){
+        parent = obj.parent
+        // console.log('object',obj)
+        // console.log('parent',parent)
+        while(parent!=undefined && parent.type != 'Scene' && parent.name != 'model_container'){
+            obj = parent
+            parent = obj.parent
+        }
+        return obj
+    }
+    get_all_descending_children(obj){
+        var buket = []
+        var child
+        buket.concat(obj.children)
+        for(var i in obj.children){
+            child = obj.children[i]
+            buket.push(child)
+            buket.concat(this.get_all_descending_children(child))
+        }
+        return buket
     }
 
 

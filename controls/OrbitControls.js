@@ -387,7 +387,7 @@ THREE.OrbitControls = function ( object, domElement ) {
 		if ( scope.object.isPerspectiveCamera ) {
 
 			scale /= dollyScale;
-            console.log('dollyScale=',dollyScale,'  scale=',scale)
+            // console.log('dollyScale=',dollyScale,'  scale=',scale)
 
 		} else if ( scope.object.isOrthographicCamera ) {
 
@@ -522,14 +522,14 @@ THREE.OrbitControls = function ( object, domElement ) {
 
 	function handleMouseWheel( event ) {
 
-		console.log( 'handleMouseWheel' );
+		// console.log( 'handleMouseWheel' );
 
 		if ( event.deltaY < 0 ) {
-			console.log('dollyout')
+			// console.log('dollyout')
 			dollyOut( getZoomScale() );
 
 		} else if ( event.deltaY > 0 ) {
-            console.log('dollyin')
+            // console.log('dollyin')
 			dollyIn( getZoomScale() );
 
 		}
