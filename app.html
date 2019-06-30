@@ -291,7 +291,7 @@
         var message = JSON.stringify(data)
         socket.send(message)
     }
-    
+
     set_gui = function(parameters){
         var id = parameters['root']['id']
         // console.log('scene.set_gui', id,parameters)
@@ -300,12 +300,25 @@
     }
 
 
-    sp = makeTextSprite('asdasd');
-    viewer.scene.add(sp);
-    sp.position.set(10,0,0);
 
-    //test_bounding_widgets(viewer,w=10,d=10,h=4)
-    // test_mesh_faceColored(manager,u=10,v=20,w=1)
+
+    //
+    // flag1 = makeFlagLabel()
+    // viewer.scene.add(flag1)
+    // setFlagLabel(flag1,' ♣ Lets try a long phrase with special characters! ',50,10)
+    //
+    // flag2 = makeFlagLabel()
+    // viewer.scene.add(flag2)
+    // setFlagLabel(flag2,'中文字體，占用雙倍寬度',80,20,{backgroundColor:{r:1,g:0,b:0,a:1}, isChinese:true, fontsize:60})
+    // flag2.position.set(15,0,3)
+    //
+    //
+    // flag3 = makeFlagLabel()
+    // viewer.scene.add(flag3)
+    // setFlagLabel(flag3,'藍色 30號 半徑為0',60,0,{backgroundColor:{r:0.3,g:0.3,b:1,a:1}, isChinese:true, fontsize:30})
+    // flag3.position.set(8,0,18)
+
+    viewer.update_camera([-150,-130,145])
 
 </script>
 </html>

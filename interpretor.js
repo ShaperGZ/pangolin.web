@@ -13,6 +13,10 @@ class Interpretor {
         // console.log(msg)
 
         switch (msg.cmd) {
+            case 'set_flag':
+                console.log(msg)
+                Interpretor.set_flag(this.viewer,msg)
+                break;
             case 'set_scene_info':
                 Interpretor.set_scene_info(this.viewer, msg)
                 break;
@@ -109,14 +113,29 @@ class Interpretor {
         if ('parent' in msg) {
             var parent = manager.get_mesh_object(msg.parent)
             var subject = manager.get_mesh_object(msg.id)
-            console.log('parent =', parent)
-            console.log('pre remove subject =', subject, 'parent=', subject.parent)
+            // console.log('parent =', parent)
+            // console.log('pre remove subject =', subject, 'parent=', subject.parent)
             parent.remove(subject)
-            console.log('post remove subject =', subject, 'parent=', subject.parent)
+            // console.log('post remove subject =', subject, 'parent=', subject.parent)
         }
         else {
             manager.delete(msg['id'])
         }
+    }
+
+    static set_flag(viewer, data){
+        var obj = viewer.manager.get_flag_object(data.id, true)
+
+        setFlagLabel(obj,data.text, data.height, data.radius, data.style)
+
+        var parent = data.parent
+        if (parent in manager.objects && parent != obj.parent) {
+            parent = manager.objects[parent]
+            parent.add(obj)
+        }
+
+        obj.position.set(data.position[0],data.position[2],data.position[1])
+
     }
 
     static set_object(viewer, manager, data) {
@@ -270,17 +289,17 @@ class Interpretor {
         switch (mat_data.type) {
             case 'lambert':
                 if (mat_type != 'MeshLambertMaterial') {
-                    obj.material = new THREE.MeshLambertMaterial()
+                    obj.material = new THREE.MeshLambertMaterial({transparent: true,blending: THREE.NormalBlending})
                 }
                 break;
             case 'phong':
                 if (mat_type != 'MeshPhongMaterial') {
-                    obj.material = new THREE.MeshPhongMaterial()
+                    obj.material = new THREE.MeshPhongMaterial({transparent: true,blending: THREE.NormalBlending})
                 }
                 break;
             case 'basic':
                 if (mat_type != 'MeshBasicMaterial') {
-                    obj.material = new THREE.MeshBasicMaterial()
+                    obj.material = new THREE.MeshBasicMaterial({transparent: true,blending: THREE.NormalBlending})
                 }
                 break;
 
@@ -350,7 +369,7 @@ class Interpretor {
         var nfc = []
         for (var i = 0; i < faces.length; i++) {
             var f = faces[i]
-            console.log(f.length)
+            // console.log(f.length)
             if (f.length == 3) {
                 nfc.push(fc[i])
             }

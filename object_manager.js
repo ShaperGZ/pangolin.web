@@ -67,6 +67,20 @@ class ObjectManager {
         return null
     }
 
+    get_flag_object(id, create_if_not_exist=false){
+        var obj;
+        if (id in this.objects) {
+            return this.objects[id];
+        }
+        else if(create_if_not_exist){
+            obj = makeFlagLabel()
+            this.objects[id] = obj
+            this.model_container.add(obj)
+            return obj;
+        }
+        return null
+    }
+
     get_mesh_object(id, create_if_not_exist=false){
         var obj;
         if (id in this.objects) {
