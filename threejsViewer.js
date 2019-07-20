@@ -39,12 +39,13 @@ Viewer = function () {
         this.controls.maxPolarAngle = Math.PI / 2;
 
 
+
         this.drag_control =  new THREE.DragControls(this.camera, this.renderer.domElement,self)
         this.drag_control.activate()
 
 
         this.transformWidget = new TransformWidget(this.manager, this.camera, this.domElement)
-
+        this.bboxWidget = new BBoxWidget(this)
 
         //selector to select object
         var selector = new SelectionControls(this.camera, this.renderer.domElement, this)
@@ -307,13 +308,16 @@ Viewer = function () {
             self.manager.set_selected_objects(selected_objects);
             // var sel = selected_objects[0].object;
             var sel = selected_objects[0];
+            self.bboxWidget.set(sel)
             var objid = self.manager.get_id_by_threejs_object(sel);
             self.inspect_object(objid);
             socket.send('scene.select_id("' + objid + '")')
+
             // self.transformControl.attach(selected_objects[0])
             // self.scene.add(self.transformControl)
         } else {
             self.datgui.clear_inspector()
+            self.bboxWidget.set(null)
             // self.transformControl.dettach(this.selected_objects[0])
             // self.scene.remove(self.transformControl)
         }
@@ -323,11 +327,11 @@ Viewer = function () {
 
     this.inspect_object = function (objid) {
         // console.log('inspecting:' + objid);
-        // url = 'http://localhost:5567/inspector?id='+objid 
+        // url = 'http://localhost:5567/inspector?id='+objid
         // console.log(url)
         // parent.frames[0].location=url
         msg = 'scene.inspect_id("' + objid + '")'
-        console.log(msg)
+        // console.log(msg)
         socket.send(msg)
     }
 

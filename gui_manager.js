@@ -42,6 +42,7 @@ class DATGUIS{
 
 
     set_inspector(data, id){
+        // console.log('set_inspector(data,id)', 'data= ',data, ' id=',id)
         var mode = 0
         if(id == this.inspecting_id) 
         {
@@ -54,14 +55,19 @@ class DATGUIS{
 
             // add button to inspect parent object
             var container_obj={}
-            var obj = this.viewer.manager.model_container.getObjectByName(id)
-            if(obj == undefined) return
+            var obj
+            if (id in this.viewer.manager.objects)
+                obj = this.viewer.manager.objects[id]
+            else if (id in this.viewer.component_lib.objects)
+                obj = this.viewer.component_lib.objects[id]
+            else return
+
+
             var gui = this.object_inspector
-            if (obj.parent != this.viewer.manager.model_container){
+            if (obj.parent!=null && obj.parent != this.viewer.manager.model_container){
                 var parent_id = obj.parent.name
                 
                 container_obj['◄◄ parent']=function(){
-                    console.log('asking to insepect ',parent_id)
                     self.viewer.inspect_object(parent_id)
                 }
                 var control = gui.add(container_obj,'◄◄ parent')
@@ -229,7 +235,7 @@ class DATGUIS{
         var callback = function () {
             var value = [gui_obj[x],gui_obj[y],gui_obj[z]]
             var msg = 'GraphNode.set_state_value("' + id + '","' + key + '",[' + value + '])'
-            console.log(msg)
+            // console.log(msg)
             socket.send(msg)
         }
         control.onChange(callback)
@@ -240,6 +246,10 @@ class DATGUIS{
             var value = gui_obj[key]
             if (typeof(value) == 'string'){
                 value = '"'+value+'"';
+            }
+            else if (typeof(value)== 'boolean'){
+                if(value==true) value='True'
+                if(value==false) value='False'
             }
             var msg = 'GraphNode.set_state_value("' + id + '","' + key + '",' + value + ')'
             // console.log(msg)

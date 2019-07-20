@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+< lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-    <link rel="stylesheet" type="text/css"href="ArchProto.css">
+    <!--<link rel="stylesheet" type="text/css"href="ArchProto.css">-->
     <style>
         .label{
                     color: #FFF;
@@ -12,8 +12,9 @@
                     background: rgba( 0, 0, 0, .6 );
                 }
     </style>
-    <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/socket.io/1.3.6/socket.io.min.js"></script>
+    <!--<script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/socket.io/1.3.6/socket.io.min.js"></script>-->
 </head>
+<script src ='libs/socketio.js'></script>
 <script src="three.min.js"></script>
 <script src="controls/TrackballControls.js"></script>
 <script src="controls/DragControls.js"></script>
@@ -24,6 +25,7 @@
 <script src="object_manager.js"></script>
 <script src="threejsViewer.js"></script>
 <script src="widgets/transform.js"></script>
+<script src="widgets/bbox_widget.js"></script>
 <script src="utilities.js"></script>
 <script src="materials.js"></script>
 <script src="tests/test_geometries.js"></script>
@@ -182,17 +184,22 @@
         function assign_item_on_click(div, id){
             div.addEventListener('mouseup', function(){
                 console.log('inspecting:',id)
+                // select the object
+                socket.send('scene.select_id("' + id + '")')
+
+                //inspect the object
                 viewer.inspect_object(id);
+
             }, false);
         }
 
-        var lib = viewer.component_lib
-        for(var key in lib.objects){
+        var lib = viewer.manager.objects['component_library']
+        for(var key in lib.children){
             div = document.createElement('div')
             div.style.cursor = 'pointer'
-            div.innerHTML = lib.objects[key].ref_key
+            div.innerHTML = lib.children[key].ref_key
             browser.appendChild(div)
-            assign_item_on_click(div, key)
+            assign_item_on_click(div, lib.children[key].name)
         }
 
 
@@ -296,10 +303,9 @@
         var id = parameters['root']['id']
         // console.log('scene.set_gui', id,parameters)
         viewer.datgui.set_inspector(parameters, id)
-        viewer.transformWidget.create(parameters['root'].value['Transform'].value, id)
+        if(id in manager.objects)
+            viewer.bboxWidget.set(manager.objects[id])
     }
-
-
 
 
     //

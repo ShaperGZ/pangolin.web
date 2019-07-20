@@ -32,16 +32,11 @@ class ObjectManager {
     get_selectable_objects() {
         // console.log('getting selectables')
         var selectables = []
-        var objects = this.objects
-        for (var key in objects) {
-            var obj = objects[key]
-            if (Array.isArray(obj)) {
-                // console.log(obj)
-                selectables = selectables.concat(obj)
-            }
-            else {
-                selectables.push(obj)
-            }
+        // selectables = this.get_all_descending_children(this.model_container)
+
+        for (var key in this.objects) {
+            var obj = this.objects[key]
+            selectables.push(obj)
         }
         return selectables
     }
@@ -81,6 +76,26 @@ class ObjectManager {
         return null
     }
 
+    get_object_by_type(id,obj_type){
+        // console.log('trying to get:',obj_type)
+        var obj
+        switch (obj_type){
+            case 'mesh':
+                obj = this.get_mesh_object(id,true)
+                break;
+            case 'polyline':
+                obj = this.get_line_object(id,true)
+                break;
+            case 'segments':
+                obj = this.get_segment_object(id,true)
+                break
+            default:
+                obj = null;
+        }
+        // console.log('got obj:',obj)
+        return obj
+    }
+
     get_mesh_object(id, create_if_not_exist=false){
         var obj;
         if (id in this.objects) {
@@ -107,8 +122,27 @@ class ObjectManager {
         }
         else if(create_if_not_exist){
             var geometry = new THREE.Geometry()
-            var mat = new THREE.LineBasicMaterial();
+            var mat = new THREE.LineBasicMaterial({color: 0xffffff});
             obj = new THREE.Line(geometry, mat)
+            obj.name = id
+            this.objects[id] = obj
+            this.model_container.add(obj)
+            obj.castShadow = false;
+            obj.receiveShadow = false;
+            return obj
+        }
+        return null
+    }
+
+    get_segment_object(id, create_if_not_exist=false){
+        var obj
+        if (id in this.objects) {
+            return this.objects[id];
+        }
+        else if(create_if_not_exist){
+            var geometry = new THREE.BufferGeometry()
+                var mat = new THREE.LineBasicMaterial({color:0xffffff, vertexColors: THREE.VertexColors})
+            obj = new THREE.LineSegments(geometry, mat)
             obj.name = id
             this.objects[id] = obj
             this.model_container.add(obj)

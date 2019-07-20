@@ -234,3 +234,29 @@ function test_textured_plane(){
     id = manager.set_polygon_mesh(data)
     return id
 }
+
+function test_segments(){
+    var g = new THREE.BufferGeometry()
+    var mat = new THREE.LineBasicMaterial(
+        {color:0xffffff,
+        vertexColors: THREE.VertexColors,
+            transparent: true
+        })
+    var o = new THREE.LineSegments(g,mat)
+
+
+    var pts=[]
+    var colors=[]
+
+    pts.push(0,0,0,100,0,100)
+    pts.push(100,0,100,100,0,0)
+
+    colors.push(1,0,0,1,1,0,0,0.6)
+    colors.push(1,0,0,0.4,1,1,0,0.2)
+
+    g.addAttribute('position',new THREE.Float32BufferAttribute(pts,3))
+    g.addAttribute('color',new THREE.Float32BufferAttribute(colors,4))
+
+    return o
+
+}

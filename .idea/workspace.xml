@@ -2,12 +2,16 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="9704c9cd-3809-4f65-afd7-cb5d8155de3a" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/libs/labels_oudated.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libs/socketio.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_editor.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/widgets/bbox_widget.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app.html" beforeDir="false" afterPath="$PROJECT_DIR$/app.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gui_manager.js" beforeDir="false" afterPath="$PROJECT_DIR$/gui_manager.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/interpretor.js" beforeDir="false" afterPath="$PROJECT_DIR$/interpretor.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/libs/labels.js" beforeDir="false" afterPath="$PROJECT_DIR$/libs/labels.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/object_manager.js" beforeDir="false" afterPath="$PROJECT_DIR$/object_manager.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/test_geometries.js" beforeDir="false" afterPath="$PROJECT_DIR$/tests/test_geometries.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/threejsViewer.js" beforeDir="false" afterPath="$PROJECT_DIR$/threejsViewer.js" afterDir="false" />
     </list>
     <ignored path=".idea/dataSources.local.xml" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -28,70 +32,8 @@
       <file leaf-file-name="interpretor.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/interpretor.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="268">
-              <caret line="14" column="26" lean-forward="true" selection-start-line="14" selection-start-column="26" selection-end-line="14" selection-end-column="26" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="OrbitControls.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/controls/OrbitControls.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state>
-              <caret line="527" column="33" selection-start-line="527" selection-start-column="33" selection-end-line="527" selection-end-column="33" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="app.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="781">
-              <caret line="304" column="4" lean-forward="true" selection-start-line="304" selection-start-column="6" selection-end-line="318" selection-end-column="33" />
-              <folding>
-                <element signature="n#div#0;n#body#0;n#html#0;n#!!top" />
-                <element signature="n#div#1;n#div#1;n#body#0;n#html#0;n#!!top" />
-                <element signature="n#style#0;n#div#1;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#input#0;n#div#1;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#div#2;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#input#0;n#div#2;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#input#1;n#div#2;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#div#3;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#div#0;n#div#3;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#div#1;n#div#3;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#div#2;n#div#3;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#div#3;n#div#3;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#div#4;n#div#3;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#div#5;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#div#2;n#body#0;n#html#0;n#!!top" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="labels.js" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/libs/labels.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="646">
-              <caret line="74" column="75" lean-forward="true" selection-start-line="74" selection-start-column="75" selection-end-line="74" selection-end-column="75" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="labels_oudated.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/libs/labels_oudated.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="400">
-              <caret line="25" selection-start-line="25" selection-end-line="25" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="SelectionControls.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/controls/SelectionControls.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1152">
-              <caret line="72" column="36" selection-start-line="72" selection-start-column="36" selection-end-line="72" selection-end-column="36" />
+            <state relative-caret-position="251">
+              <caret line="238" selection-start-line="238" selection-end-line="238" />
             </state>
           </provider>
         </entry>
@@ -99,8 +41,43 @@
       <file leaf-file-name="gui_manager.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/gui_manager.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="848">
-              <caret line="53" selection-start-line="52" selection-start-column="46" selection-end-line="53" />
+            <state relative-caret-position="2304">
+              <caret line="208" selection-start-line="208" selection-end-line="208" />
+              <folding>
+                <element signature="e#4615#5467#0" />
+                <element signature="e#5532#6532#0" />
+                <element signature="e#6600#7830#0" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="test_geometries.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/tests/test_geometries.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="3872">
+              <caret line="242" column="29" selection-start-line="242" selection-start-column="29" selection-end-line="242" selection-end-column="29" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="app.html" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/app.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="398">
+              <caret line="309" lean-forward="true" selection-start-line="309" selection-end-line="309" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="node_editor.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/node_editor.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="544">
+              <caret line="72" column="43" selection-start-line="72" selection-start-column="43" selection-end-line="72" selection-end-column="43" />
+              <folding>
+                <element signature="n#style#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -108,26 +85,8 @@
       <file leaf-file-name="object_manager.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/object_manager.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="303">
-              <caret line="65" column="9" lean-forward="true" selection-start-line="65" selection-start-column="9" selection-end-line="65" selection-end-column="9" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="DragControls.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/controls/DragControls.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1616">
-              <caret line="120" column="52" selection-start-line="120" selection-start-column="27" selection-end-line="120" selection-end-column="52" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="threejsViewer.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/threejsViewer.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-375">
-              <caret line="189" column="18" selection-start-line="189" selection-start-column="18" selection-end-line="189" selection-end-column="18" />
+            <state relative-caret-position="624">
+              <caret line="39" selection-start-line="39" selection-end-line="39" />
             </state>
           </provider>
         </entry>
@@ -144,18 +103,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>lighting_setup</find>
-      <find>scale</find>
-      <find>_camera</find>
-      <find>_camera.</find>
-      <find>_viewer</find>
-      <find>this.object</find>
-      <find>camera</find>
-      <find>translation</find>
-      <find>target</find>
-      <find>this.pan</find>
-      <find>target0</find>
-      <find>scope.target</find>
       <find>onDocumentMouseDown</find>
       <find>addEvent</find>
       <find>selected</find>
@@ -169,12 +116,27 @@
       <find>children</find>
       <find>.object</find>
       <find>_obj_mouse_offset</find>
-      <find>select</find>
       <find>.log(</find>
       <find>canvas</find>
       <find>asdasd</find>
       <find>spriteContainer</find>
+      <find>material</find>
+      <find>select</find>
+      <find>get_transform_widget</find>
+      <find>transformWidget</find>
+      <find>bboxW</find>
+      <find>nob</find>
+      <find>combo</find>
+      <find>File</find>
+      <find>knob</find>
+      <find>widget</find>
+      <find>set_object_parent</find>
+      <find>Interpretor.</find>
+      <find>set_scen</find>
     </findStrings>
+    <replaceStrings>
+      <replace>this.</replace>
+    </replaceStrings>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -195,7 +157,6 @@
         <option value="D:/SketchupRuby/ArchProto/msgpack.rb" />
         <option value="$PROJECT_DIR$/loaded_textures.js" />
         <option value="$PROJECT_DIR$/tests/app_test_recieve_image.html" />
-        <option value="$PROJECT_DIR$/tests/test_geometries.js" />
         <option value="$PROJECT_DIR$/tests/test_recieve_image.html" />
         <option value="$PROJECT_DIR$/thoughts" />
         <option value="$PROJECT_DIR$/InterpretGeometry.js" />
@@ -210,14 +171,23 @@
         <option value="$PROJECT_DIR$/widgets/transform.js" />
         <option value="$PROJECT_DIR$/controls/SelectionControls.js" />
         <option value="$PROJECT_DIR$/controls/DragControls.js" />
-        <option value="$PROJECT_DIR$/gui_manager.js" />
-        <option value="$PROJECT_DIR$/threejsViewer.js" />
         <option value="$PROJECT_DIR$/controls/OrbitControls.js" />
         <option value="$PROJECT_DIR$/libs/labels_oudated.js" />
-        <option value="$PROJECT_DIR$/app.html" />
+        <option value="$PROJECT_DIR$/libs/labels.js" />
+        <option value="$PROJECT_DIR$/widgets/bbox_helper.js" />
+        <option value="$PROJECT_DIR$/widgets/bbox_widget.js" />
+        <option value="$PROJECT_DIR$/threejsViewer.js" />
+        <option value="$PROJECT_DIR$/libs/socketio.js" />
+        <option value="$PROJECT_DIR$/node_editor.js" />
+        <option value="$PROJECT_DIR$/libs/litegraph/style.css" />
+        <option value="$PROJECT_DIR$/libs/litegraph/css/litegraph-editor.css" />
+        <option value="$PROJECT_DIR$/libs/litegraph/css/litegraph.css" />
+        <option value="$PROJECT_DIR$/node_editor.html" />
+        <option value="$PROJECT_DIR$/tests/test_geometries.js" />
+        <option value="$PROJECT_DIR$/gui_manager.js" />
         <option value="$PROJECT_DIR$/object_manager.js" />
         <option value="$PROJECT_DIR$/interpretor.js" />
-        <option value="$PROJECT_DIR$/libs/labels.js" />
+        <option value="$PROJECT_DIR$/app.html" />
       </list>
     </option>
   </component>
@@ -228,10 +198,9 @@
     <sorting>DEFINITION_ORDER</sorting>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="-248" />
-    <option name="y" value="-1439" />
-    <option name="width" value="1966" />
-    <option name="height" value="1400" />
+    <option name="x" value="102" />
+    <option name="width" value="2898" />
+    <option name="height" value="2030" />
   </component>
   <component name="ProjectLevelVcsManager">
     <ConfirmationsSetting value="2" id="Add" />
@@ -262,6 +231,11 @@
             <path>
               <item name="pangolin.web" type="b2602c69:ProjectViewProjectNode" />
               <item name="pangolin.web" type="462c0819:PsiDirectoryNode" />
+              <item name="tests" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="pangolin.web" type="b2602c69:ProjectViewProjectNode" />
+              <item name="pangolin.web" type="462c0819:PsiDirectoryNode" />
               <item name="widgets" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -277,6 +251,7 @@
   <component name="PropertiesComponent">
     <property name="DefaultHtmlFileTemplate" value="HTML File" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="SearchEverywhereHistoryKey" value="TransformWidget&#9;null&#9;null&#10;get_transform_&#9;null&#9;null&#10;get_transform_widget&#9;null&#9;null" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
@@ -371,17 +346,27 @@
       <workItem from="1561510973194" duration="27693000" />
       <workItem from="1561600750702" duration="1453000" />
       <workItem from="1561715248634" duration="23802000" />
+      <workItem from="1561944752708" duration="5178000" />
+      <workItem from="1562049447605" duration="9069000" />
+      <workItem from="1562287419009" duration="2066000" />
+      <workItem from="1562289875013" duration="2577000" />
+      <workItem from="1562727215841" duration="10846000" />
+      <workItem from="1563158527879" duration="3331000" />
+      <workItem from="1563179214144" duration="461000" />
+      <workItem from="1563339051478" duration="15021000" />
+      <workItem from="1563506785635" duration="17100000" />
+      <workItem from="1563601025698" duration="8709000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="236570000" />
+    <option name="totallyTimeSpent" value="310928000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-248" y="-1439" width="1966" height="1400" extended-state="0" />
+    <frame x="51" y="0" width="1449" height="1015" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.45555556" visible="true" weight="0.0948718" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.4453303" visible="true" weight="0.32125434" />
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Docker" order="11" show_stripe_button="false" />
       <window_info anchor="bottom" id="Event Log" order="7" side_tool="true" />
@@ -389,10 +374,11 @@
       <window_info anchor="bottom" id="Database Changes" order="12" />
       <window_info anchor="bottom" id="Version Control" order="10" />
       <window_info anchor="bottom" id="Run" order="2" />
-      <window_info active="true" id="Structure" order="1" sideWeight="0.54444444" side_tool="true" visible="true" weight="0.0948718" />
+      <window_info active="true" id="Structure" order="1" sideWeight="0.5546697" side_tool="true" visible="true" weight="0.32125434" />
       <window_info anchor="bottom" id="Terminal" order="9" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
+      <window_info anchor="bottom" id="TypeScript" order="13" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.24981189" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="right" id="Commander" order="0" weight="0.4" />
@@ -419,113 +405,12 @@
   <component name="VcsContentAnnotationSettings">
     <option name="myLimit" value="2678400000" />
   </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <option name="time" value="3" />
+    </breakpoint-manager>
+  </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/widgets/ring.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="208">
-          <caret line="13" column="5" selection-start-line="13" selection-start-column="5" selection-end-line="13" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/object_manager.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="6000">
-          <caret line="375" column="36" selection-start-line="375" selection-start-column="36" selection-end-line="375" selection-end-column="36" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/threejsViewer.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="4560">
-          <caret line="285" column="5" selection-start-line="285" selection-start-column="5" selection-end-line="285" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/controls/DragControls.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1040">
-          <caret line="65" column="61" selection-start-line="65" selection-start-column="61" selection-end-line="65" selection-end-column="61" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2352">
-          <caret line="147" selection-start-line="147" selection-end-line="147" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/gui_manager.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2832">
-          <caret line="177" column="25" lean-forward="true" selection-start-line="177" selection-start-column="25" selection-end-line="177" selection-end-column="25" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app_local.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="800">
-          <caret line="50" column="38" selection-start-line="50" selection-start-column="38" selection-end-line="50" selection-end-column="38" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/widgets/ring.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="208">
-          <caret line="13" column="5" selection-start-line="13" selection-start-column="5" selection-end-line="13" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/object_manager.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="6000">
-          <caret line="375" column="36" lean-forward="true" selection-start-line="375" selection-start-column="36" selection-end-line="375" selection-end-column="36" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/threejsViewer.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="4560">
-          <caret line="285" column="5" selection-start-line="285" selection-start-column="5" selection-end-line="285" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/controls/DragControls.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="976">
-          <caret line="65" column="61" selection-start-line="65" selection-start-column="61" selection-end-line="65" selection-end-column="61" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/MasterApp.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="260">
-          <caret line="16" column="7" selection-start-line="16" selection-start-column="7" selection-end-line="16" selection-end-column="7" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/widgets/ring.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="608">
-          <caret line="38" column="1" selection-start-line="38" selection-start-column="1" selection-end-line="38" selection-end-column="1" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/widgets/map_selector.html" />
-    <entry file="file://$PROJECT_DIR$/app_local.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="880">
-          <caret line="55" column="6" selection-start-line="55" selection-start-column="6" selection-end-line="55" selection-end-column="6" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/baidu_component/map.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="336">
-          <caret line="21" column="23" selection-start-line="21" selection-start-column="23" selection-end-line="21" selection-end-column="23" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/baidu_component/map_data.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="80">
@@ -551,13 +436,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="112">
           <caret line="7" column="9" selection-start-line="7" selection-start-column="9" selection-end-line="7" selection-end-column="9" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/tests/test_geometries.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3728">
-          <caret line="233" column="25" selection-start-line="233" selection-start-column="25" selection-end-line="233" selection-end-column="25" />
         </state>
       </provider>
     </entry>
@@ -673,94 +551,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/widgets/transform.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="186">
-          <caret line="70" column="16" lean-forward="true" selection-start-line="70" selection-start-column="16" selection-end-line="70" selection-end-column="16" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/gui_manager.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="848">
-          <caret line="53" selection-start-line="52" selection-start-column="46" selection-end-line="53" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/library.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="16">
-          <caret line="1" column="6" selection-start-line="1" selection-start-column="6" selection-end-line="1" selection-end-column="6" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/texture_library.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret column="31" lean-forward="true" selection-start-column="31" selection-end-column="31" />
-          <folding>
-            <element signature="n#!!block;n#load_file#0;n#TextureLibrary#0" />
-            <element signature="n#!!block;n#load_bytes#0;n#TextureLibrary#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/component_library.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="64">
-          <caret line="4" column="4" selection-start-line="4" selection-start-column="4" selection-end-line="4" selection-end-column="4" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/controls/SelectionControls.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1152">
-          <caret line="72" column="36" selection-start-line="72" selection-start-column="36" selection-end-line="72" selection-end-column="36" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/threejsViewer.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-375">
-          <caret line="189" column="18" selection-start-line="189" selection-start-column="18" selection-end-line="189" selection-end-column="18" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/controls/DragControls.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1616">
+        <state relative-caret-position="1856">
           <caret line="120" column="52" selection-start-line="120" selection-start-column="27" selection-end-line="120" selection-end-column="52" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="781">
-          <caret line="304" column="4" lean-forward="true" selection-start-line="304" selection-start-column="6" selection-end-line="318" selection-end-column="33" />
-          <folding>
-            <element signature="n#div#0;n#body#0;n#html#0;n#!!top" />
-            <element signature="n#div#1;n#div#1;n#body#0;n#html#0;n#!!top" />
-            <element signature="n#style#0;n#div#1;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#input#0;n#div#1;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#div#2;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#input#0;n#div#2;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#input#1;n#div#2;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#div#3;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#div#0;n#div#3;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#div#1;n#div#3;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#div#2;n#div#3;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#div#3;n#div#3;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#div#4;n#div#3;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#div#5;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#div#2;n#body#0;n#html#0;n#!!top" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/controls/OrbitControls.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret line="527" column="33" selection-start-line="527" selection-start-column="33" selection-end-line="527" selection-end-column="33" />
         </state>
       </provider>
     </entry>
@@ -771,24 +565,214 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/object_manager.js">
+    <entry file="file://$PROJECT_DIR$/library.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="303">
-          <caret line="65" column="9" lean-forward="true" selection-start-line="65" selection-start-column="9" selection-end-line="65" selection-end-column="9" />
+        <state relative-caret-position="16">
+          <caret line="9" column="4" selection-start-line="9" selection-start-column="4" selection-end-line="9" selection-end-column="4" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/interpretor.js">
+    <entry file="file://$PROJECT_DIR$/texture_library.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="268">
-          <caret line="14" column="26" lean-forward="true" selection-start-line="14" selection-start-column="26" selection-end-line="14" selection-end-column="26" />
+        <state relative-caret-position="224">
+          <caret line="14" column="22" selection-start-line="14" selection-start-column="22" selection-end-line="14" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/controls/OrbitControls.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="8432">
+          <caret line="527" column="33" selection-start-line="527" selection-start-column="33" selection-end-line="527" selection-end-column="33" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/three.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="276">
+          <caret line="8572" column="8" selection-start-line="8572" selection-start-column="8" selection-end-line="8572" selection-end-column="8" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/libs/labels.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="646">
-          <caret line="74" column="75" lean-forward="true" selection-start-line="74" selection-start-column="75" selection-end-line="74" selection-end-column="75" />
+        <state relative-caret-position="1184">
+          <caret line="74" column="75" selection-start-line="74" selection-start-column="75" selection-end-line="74" selection-end-column="75" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/widgets/transform.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="160">
+          <caret line="10" column="27" selection-start-line="10" selection-start-column="8" selection-end-line="10" selection-end-column="27" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/threejsViewer.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="752">
+          <caret line="47" column="46" selection-start-line="47" selection-start-column="46" selection-end-line="47" selection-end-column="46" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/component_library.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="64">
+          <caret line="4" column="4" selection-start-line="4" selection-start-column="4" selection-end-line="4" selection-end-column="4" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://D:/from明陽/server.rb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1616">
+          <caret line="24" column="40" selection-start-line="24" selection-start-column="40" selection-end-line="24" selection-end-column="40" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/libs/socketio.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1061">
+          <caret line="2" column="987" selection-start-line="2" selection-start-column="987" selection-end-line="2" selection-end-column="987" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://D:/GitHubMasters/litegraph/src/litegraph-editor.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-853">
+          <caret line="119" column="34" selection-start-line="119" selection-start-column="34" selection-end-line="119" selection-end-column="34" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://D:/GitHubMasters/litegraph/demo/examples/features.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret column="1779" selection-start-column="1773" selection-end-column="1779" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/libs/litegraph/src/litegraph.d.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="605">
+          <caret line="767" column="4" selection-start-line="767" selection-start-column="4" selection-end-line="767" selection-end-column="4" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/libs/litegraph/css/litegraph.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1669">
+          <caret line="137" column="1" lean-forward="true" selection-start-line="137" selection-start-column="1" selection-end-line="137" selection-end-column="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/libs/litegraph/style.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="496">
+          <caret line="31" column="16" lean-forward="true" selection-start-line="31" selection-start-column="16" selection-end-line="31" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/libs/FileSaver.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="22">
+          <caret line="1" column="6" selection-start-line="1" selection-start-column="2" selection-end-line="1" selection-end-column="6" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/libs/litegraph/css/litegraph-editor.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2912">
+          <caret line="182" column="17" selection-start-line="182" selection-start-column="17" selection-end-line="182" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/widgets/bbox_widget.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="288">
+          <caret line="18" selection-start-line="18" selection-end-line="18" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://D:/GitHubMasters/litegraph/demo/js/code.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="64">
+          <caret line="4" column="28" selection-start-line="4" selection-start-column="28" selection-end-line="4" selection-end-column="28" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://D:/GitHubMasters/litegraph/demo/js/demos.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="16">
+          <caret line="1" column="9" selection-start-line="1" selection-start-column="9" selection-end-line="1" selection-end-column="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://D:/GitHubMasters/litegraph/demo/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="112">
+          <caret line="7" column="4" selection-start-line="7" selection-start-column="4" selection-end-line="9" selection-end-column="60" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/controls/SelectionControls.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="503">
+          <caret line="55" column="55" selection-start-line="55" selection-start-column="55" selection-end-line="55" selection-end-column="55" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://D:/GitHubMasters/litegraph/build/litegraph.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="16">
+          <caret line="21832" column="18" selection-start-line="21832" selection-start-column="18" selection-end-line="21832" selection-end-column="18" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tests/test_geometries.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3872">
+          <caret line="242" column="29" selection-start-line="242" selection-start-column="29" selection-end-line="242" selection-end-column="29" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/gui_manager.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2304">
+          <caret line="208" selection-start-line="208" selection-end-line="208" />
+          <folding>
+            <element signature="e#4615#5467#0" />
+            <element signature="e#5532#6532#0" />
+            <element signature="e#6600#7830#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/node_editor.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="544">
+          <caret line="72" column="43" selection-start-line="72" selection-start-column="43" selection-end-line="72" selection-end-column="43" />
+          <folding>
+            <element signature="n#style#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/object_manager.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="624">
+          <caret line="39" selection-start-line="39" selection-end-line="39" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/interpretor.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="251">
+          <caret line="238" selection-start-line="238" selection-end-line="238" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="398">
+          <caret line="309" lean-forward="true" selection-start-line="309" selection-end-line="309" />
         </state>
       </provider>
     </entry>

@@ -1,7 +1,9 @@
+
 class Interpretor {
     constructor(viewer, manager) {
         this.viewer = viewer
         this.manager = manager
+        this.unclaimed_parent={}
     }
 
     parse(jsonMessage, parse = true) {
@@ -14,31 +16,29 @@ class Interpretor {
 
         switch (msg.cmd) {
             case 'set_flag':
-                console.log(msg)
-                Interpretor.set_flag(this.viewer,msg)
+                this.set_flag(this.viewer, msg)
                 break;
             case 'set_scene_info':
-                Interpretor.set_scene_info(this.viewer, msg)
+                this.set_scene_info(this.viewer, msg)
                 break;
             case 'set_camera':
-                Interpretor.set_camera(this.viewer, msg)
+                this.set_camera(this.viewer, msg)
                 break;
             case 'remove':
-                Interpretor.remove(this.manager, msg);
+                this.remove(this.manager, msg);
                 break;
             case 'hud':
-                Interpretor.set_hud(msg);
+                this.set_hud(msg);
                 break;
             case 'set_object':
                 // console.log(msg)
-                Interpretor.set_object(this.viewer, this.manager, msg);
+                this.set_object(this.viewer, this.manager, msg);
                 break;
             case 'set_lib_component':
-                // console.log(msg)
-                Interpretor.set_object(this.viewer, this.viewer.component_lib, msg)
+                console.log(msg)
+                this.set_object(this.viewer, this.viewer.component_lib, msg)
                 break;
             case 'inspect_inplace':
-                // console.log(msg)
                 set_gui(msg['parameters'])
                 break;
             case 'set_lib_textures':
@@ -73,20 +73,21 @@ class Interpretor {
         return ids;
     }
 
-    static set_scene_info(viewer, msg){
+
+    set_scene_info(viewer, msg) {
 
         var dom_txt = document.getElementById('txt_reloader')
         dom_txt.value = msg.module
 
         var dom_bt = document.getElementById('bt_reloader')
-        dom_bt.onclick = function(){
+        dom_bt.onclick = function () {
             var dom_txt = document.getElementById('txt_reloader')
             viewer.clear_scene()
-            socket.send("load_scene('"+dom_txt.value+"')")
+            socket.send("load_scene('" + dom_txt.value + "')")
         }
     }
 
-    static set_camera(viewer, msg) {
+    set_camera(viewer, msg) {
         // viewer.camera.position.set(msg.position[0],msg.position[2],-msg.position[1] )
         // viewer.camera.lookAt(msg.target[0],msg.target[2],-msg.target[1])
         if (msg.name == 'main') {
@@ -108,25 +109,18 @@ class Interpretor {
 
     }
 
-    static remove(manager, msg) {
-        // console.log('remove msg:',msg)
-        if ('parent' in msg) {
-            var parent = manager.get_mesh_object(msg.parent)
-            var subject = manager.get_mesh_object(msg.id)
-            // console.log('parent =', parent)
-            // console.log('pre remove subject =', subject, 'parent=', subject.parent)
-            parent.remove(subject)
-            // console.log('post remove subject =', subject, 'parent=', subject.parent)
-        }
-        else {
-            manager.delete(msg['id'])
+    remove(manager, msg) {
+        if(msg.id in manager.objects){
+            var obj= manager.objects[msg.id]
+            obj.parent.remove(obj)
+            delete manager.objects[msg.id]
         }
     }
 
-    static set_flag(viewer, data){
+    set_flag(viewer, data) {
         var obj = viewer.manager.get_flag_object(data.id, true)
 
-        setFlagLabel(obj,data.text, data.height, data.radius, data.style)
+        setFlagLabel(obj, data.text, data.height, data.radius, data.style)
 
         var parent = data.parent
         if (parent in manager.objects && parent != obj.parent) {
@@ -134,175 +128,289 @@ class Interpretor {
             parent.add(obj)
         }
 
-        obj.position.set(data.position[0],data.position[2],data.position[1])
+        obj.position.set(data.position[0], data.position[2], data.position[1])
 
     }
 
-    static set_object(viewer, manager, data) {
+    set_object(viewer, manager, data) {
         // console.log('setting object id=', data.id, 'msg=', data)
 
+        //如果是個構建，那麽就不顯示，所以需要鼠標選擇，所以不用計算bounding sphere
+        var compute_bounding_sphere = true
+        if ('ref_key' in data)compute_bounding_sphere = false
+
+        var obj= manager.get_object_by_type(data.id,data.type)
+        if(obj==null)return
 
         if ('ref' in data) {
-            Interpretor.set_mesh_component_object_reference(manager, data.id, data.ref)
+            this.set_mesh_component_object_reference(manager, obj, data.ref)
         }
         else {
             if ('geometry' in data) {
                 var geo_data = data.geometry
-                switch (geo_data.type) {
+                switch (data.type) {
                     case 'mesh':
-                        Interpretor.set_mesh_object_geometry(manager, data.id, geo_data)
+                        this.set_mesh_object_geometry(obj, geo_data, compute_bounding_sphere)
                         break;
                     case 'polyline':
-                        Interpretor.set_line_object_geometry(manager,data.id,geo_data)
+                        this.set_line_object_geometry(obj, geo_data)
+                        break;
+                    case 'segments':
+                        this.set_segment_object_geometry(obj, geo_data)
+                        break;
                     default:
                         break;
                 }
             }
             if ('material' in data) {
-                Interpretor.set_object_material(viewer, manager, data.id, data.material)
+                this.set_object_material(viewer,obj, data.material)
             }
             if ('line_style' in data) {
-                Interpretor.set_object_line_style(viewer, manager, data.id, data.line_style)
+                this.set_object_line_style(obj, data.line_style)
             }
-            if ('segments' in data) {
-
+            if('visible' in data){
+                this.set_object_visible(obj,data)
             }
-
-            if('ref_key' in data){
-                manager.objects[data.id].ref_key = data.ref_key
-            }
-
         }
 
         if ('transform' in data) {
-            Interpretor.set_object_transform(manager, data.id, data.transform)
+            this.set_object_transform(obj, data.transform)
         }
 
         if ('parent' in data) {
-            Interpretor.set_object_parent(manager, data.id, data.parent)
+            this.set_object_parent(manager, obj, data.parent)
         }
+
+        if ('ref_key' in data) {
+            // 證明這是一個component
+            // console.log('data with ref_key')
+            // console.log(data)
+            manager.objects[data.id].ref_key = data.ref_key
+            // 這個update是儅component有子物體時使用，因爲 component裏如果有子物體時，服務器不管理這些子物體
+            this._update_associated_objects(manager,data.ref_key,manager.objects[data.id])
+        }
+
 
 
     }
 
-    static set_object_line_style(viewer, manager, id, style_data) {
-        if(style_data == null){
+    set_object_line_style(obj, style_data) {
+        if (style_data == null) {
             console.log('style_data is null');
             return;
         }
-        var obj = manager.get_line_object(id, true)
         obj.material.color = style_data.color
 
     }
 
-    static set_mesh_component_object_reference(manager, id, ref) {
-        var obj = manager.get_mesh_object(id, true)
+    _update_associated_objects(manager, ref_key, comp){
+        // 這個update是儅component有子物體時使用，因爲 component裏如果有子物體時，服務器不管理這些子物體
+        var refs = this._find_associated_object(manager, ref_key)
+        if(refs != undefined && refs.length>0){
+            for(var i in refs){
+                var ref = refs[i]
+                this._create_ref_sub_ojects(manager,ref,comp)
+            }
+        }
+    }
+    _find_associated_object(manager, component_key){
+        // finds all objects that referenced the given coponent_key
+        var data={pool:[]}
+        var get_all=function(o,data){
+            if(o.component_key != undefined && o.component_key==component_key) data.pool.push(o)
+            if (o.children.length>0){
+                for(var i in o.children){
+                    get_all(o.children[i],data)
+                }
+            }
+        }
+        get_all(manager.model_container,data)
+        return data.pool
+    }
+
+    _create_ref_sub_ojects(manager, obj, comp) {
+        // delete extract objects
+        // console.log('comp=',comp,comp.length)
+
+        var diff = obj.children.length - comp.children.length
+        if (diff > 0) {
+            for(var i=0;i<diff;i++){
+                obj.children.pop()
+            }
+        }
+        for (var i = 0; i < comp.children.length; i++) {
+
+            if (i >= obj.children.length) {
+                var sub;
+                switch(comp.children[i].type){
+                    case "Mesh":
+                        sub = new THREE.Mesh(new THREE.Geometry(),new THREE.MeshBasicMaterial())
+                        // console.log('create mesh got:',sub)
+                        break;
+                    case "Line":
+                        sub = new THREE.Line(new THREE.Geometry(),new THREE.LineBasicMaterial())
+                        break;
+                    case "LineSegments":
+                        sub = new THREE.LineSegments(new THREE.BufferGeometry(),new THREE.LineBasicMaterial())
+                        break
+                    default:
+                        console.log('experience unknown type')
+                        sub = null
+                        break
+                }
+                obj.add(sub)
+            }
+
+            if(true)
+            {
+                sub = obj.children[i]
+                sub.scale.copy(comp.children[i].scale)
+                sub.position.copy(comp.children[i].position)
+                sub.rotation.copy(comp.children[i].rotation)
+                sub.geometry = comp.children[i].geometry
+                sub.material = comp.children[i].material
+
+                if(comp.children[i].children.length>0){
+                    var sub_comp = comp.children[i]
+                    this._create_ref_sub_ojects(manager,sub,sub_comp)
+                }
+            }
+            else{
+                // console.log('unable to create sub object, comp.child type=',comp.children[i].type)
+
+            }
+
+        }
+    }
+
+    set_mesh_component_object_reference(manager, obj, ref) {
         var found = false;
-        console.log('looking for ',ref)
-        for(var key in  viewer.component_lib.objects){
-            if (ref ==  viewer.component_lib.objects[key].ref_key){
-                var component = viewer.component_lib.objects[key];
+        var lib = manager.get_mesh_object('component_library',false)
+        if (lib == undefined){
+            console.log('! ! ! component_library in undefined')
+
+        }
+
+        var found = false
+        for (var key in  lib.children) {
+            if ( ref == lib.children[key].ref_key){
+                var component = lib.children[key];
                 obj.geometry = component.geometry
                 obj.material = component.material
+                if (component.children.length>0){
+                    // console.log('creating sub object count=:', component.children.length, obj.children.length)
+                    this._create_ref_sub_ojects(manager, obj, component)
+                }
+
                 found = true
-                console.log('ref found')
+                obj.component_key = ref
             }
         }
 
-        // if (ref in viewer.component_lib.objects) {
-        //     var component = viewer.component_lib.objects[ref];
-        //     obj.geometry = component.geometry
-        //     obj.material = component.material
-        // }
-        if (! found) {
-            console.log('ERROR! component for found for ' + ref)
-            obj.geometry = new THREE.CubeGeometry(1,1,1)
-            obj.material = new THREE.MeshBasicMaterial({'color':'darkred'})
+
+        if (!found) {
+            console.log('ERROR! component not found for ' + ref)
+            obj.geometry = new THREE.CubeGeometry(1, 1, 1)
+            obj.material = new THREE.MeshBasicMaterial({'color': 'darkred'})
+            obj.component_key = null
             return;
         }
     }
 
-    static set_line_object_geometry(manager, id ,geo_data){
-        var obj = manager.get_line_object(id, true)
-        Interpretor._set_geometry_vertices(obj.geometry, geo_data.p)
+    set_line_object_geometry(obj, geo_data) {
+        this._set_geometry_vertices(obj.geometry, geo_data.p)
         obj.geometry.computeBoundingSphere();
     }
 
-    static set_mesh_object_geometry(manager, id, geo_data) {
-        // console.log('manager=', manager)
-        var obj = manager.get_mesh_object(id, true)
+    set_segment_object_geometry(obj, geo_data){
+        this._set_buffergeometry_vertices(obj.geometry,geo_data.p)
+        this._set_segment_colors(obj.geometry,geo_data.sc)
+        obj.geometry.computeBoundingSphere();
+    }
+
+
+    set_object_visible(obj, data){
+        obj.visible = data.visible
+
+    }
+
+    set_mesh_object_geometry(obj, geo_data, compute_bounding_sphere) {
         var faces = geo_data.f
 
-        faces = Interpretor._convert_face_index_to_face3(faces)
-        Interpretor._set_geometry_vertices(obj.geometry, geo_data.p)
-        Interpretor._set_geometry_faces(obj.geometry, faces)
+        faces = this._convert_face_index_to_face3(faces)
+        this._set_geometry_vertices(obj.geometry, geo_data.p)
+        this._set_geometry_faces(obj.geometry, faces)
 
-        if ('fuv' in geo_data) Interpretor._set_geometry_face_uv(obj.geometry, geo_data.fuv)
+        if ('fuv' in geo_data) this._set_geometry_face_uv(obj.geometry, geo_data.fuv)
         if ('fc' in geo_data) {
             obj.material.vertexColors = THREE.VertexColors
-            var fc = Interpretor._convert_fc_to_fc3(geo_data)
-            Interpretor._set_geometry_face_color(obj.geometry, fc)
+            var fc = this._convert_fc_to_fc3(geo_data)
+            this._set_geometry_face_color(obj.geometry, fc)
             obj.material.needsUpdate = true
         }
         else {
             obj.material.vertexColors = 0
             obj.material.needsUpdate = true
         }
-        obj.geometry.computeBoundingSphere();
+        if(compute_bounding_sphere) obj.geometry.computeBoundingSphere();
         obj.geometry.computeVertexNormals();
     }
 
-    static set_object_parent(manager, id, parent) {
-        // var obj = manager.get_mesh_object(id, false)
-        var obj = manager.get_mesh_object(id, true)
-        // console.log('parent = ', parent)
+    set_object_parent(manager, obj, parent) {
         if (parent in manager.objects) {
             parent = manager.objects[parent]
             parent.add(obj)
         }
-        else{
-            console.warn('parent not exist:', parent)
+        else {
+            if(! (parent in this.unclaimed_parent)){
+                this.unclaimed_parent[parent]=[]
+            }
+            this.unclaimed_parent[parent].push(obj)
+            console.warn('parent not exist:', parent,'manager=',manager)
+
         }
     }
 
-    static set_object_transform(manager, id, transform_data) {
-        if(true){
-        // if (id in manager.objects) {
-            var obj = manager.get_mesh_object(id, true)
-            // console.log('created obj:',id)
-            // var obj = manager.objects[id]
+    set_object_transform(obj, transform_data) {
+        var position = transform_data.t
+        obj.position.set(position[0], position[2], position[1])
 
-            var position = transform_data.t
-            obj.position.set(position[0], position[2], position[1])
+        var scale = transform_data.s
+        obj.scale.set(scale[0], scale[2], scale[1])
 
-            var scale = transform_data.s
-            obj.scale.set(scale[0], scale[2], scale[1])
-        }
-
+        var rot = transform_data.r
+        var factor = 0.017
+        obj.rotation.set(rot[0] * factor, rot[2] * factor, rot[1] * factor)
     }
 
-    static set_object_material(viewer, manager, id, mat_data) {
-        var obj = manager.objects[id];
-        if (obj == undefined) return
-
+    set_object_material(viewer, obj, mat_data) {
         var mat_type = obj.material.type;
         switch (mat_data.type) {
             case 'lambert':
                 if (mat_type != 'MeshLambertMaterial') {
-                    obj.material = new THREE.MeshLambertMaterial({transparent: true,blending: THREE.NormalBlending})
+                    obj.material = new THREE.MeshLambertMaterial({transparent: true, blending: THREE.NormalBlending})
                 }
                 break;
             case 'phong':
                 if (mat_type != 'MeshPhongMaterial') {
-                    obj.material = new THREE.MeshPhongMaterial({transparent: true,blending: THREE.NormalBlending})
+                    obj.material = new THREE.MeshPhongMaterial({transparent: true, blending: THREE.NormalBlending})
                 }
                 break;
             case 'basic':
                 if (mat_type != 'MeshBasicMaterial') {
-                    obj.material = new THREE.MeshBasicMaterial({transparent: true,blending: THREE.NormalBlending})
+                    obj.material = new THREE.MeshBasicMaterial({transparent: true, blending: THREE.NormalBlending})
                 }
                 break;
-
+            case 'linevertexcolor':
+                if (mat_type != 'LineBasicMaterial') {
+                    obj.material = new THREE.LineBasicMaterial({color:0xffffff, vertexColors: THREE.VertexColors})
+                }
+                break;
+            case 'linebasic':
+                if (true) {
+                    obj.material = new THREE.LineBasicMaterial({color:0xffffff})
+                }
+                break;
         }
 
         if (mat_data.textures.diffuse != null && mat_data.textures.diffuse != '') {
@@ -311,15 +419,37 @@ class Interpretor {
         }
     }
 
-    static _set_geometry_vertices(geometry, vertices) {
+    _set_geometry_vertices(geometry, vertices) {
         geometry.vertices = [];
         vertices.forEach(function (p) {
             geometry.vertices.push(new THREE.Vector3(p[0], p[2], p[1]))
         });
         geometry.verticesNeedUpdate = true
+
     }
 
-    static _set_geometry_faces(geometry, faces) {
+    _set_buffergeometry_vertices(geometry, vertices) {
+        var buffered_vertices = [];
+        vertices.forEach(function (p) {
+            buffered_vertices.push(p[0], p[2], p[1])
+        });
+        // console.log('vertices=',buffered_vertices)
+        geometry.addAttribute('position', new THREE.Float32BufferAttribute( buffered_vertices, 3 ))
+    }
+
+    _set_segment_colors(geometry, segment_colors){
+        var colors=[],c
+        for(var i in segment_colors){
+            c = segment_colors[i]
+            colors.push(c[0],c[1],c[2]) // one for start point
+            colors.push(c[0],c[1],c[2]) // one for end point
+        }
+        // console.log('colors=',colors)
+        // console.log('geometry=',geometry)
+        geometry.addAttribute('color',new THREE.Float32BufferAttribute(colors, 3 ))
+    }
+
+    _set_geometry_faces(geometry, faces) {
         // set vertices for a given geometry
         geometry.faces = []
         faces.forEach(function (f) {
@@ -332,7 +462,7 @@ class Interpretor {
         geometry.elementsNeedUpdate = true
     }
 
-    static _set_geometry_face_uv(geometry, fuv) {
+    _set_geometry_face_uv(geometry, fuv) {
         // set texture face uv for a given geometry
         geometry.faceVertexUvs[0] = []
         for (var i = 0; i < geometry.faces.length; i++) {
@@ -349,7 +479,7 @@ class Interpretor {
         geometry.uvsNeedUpdate = true;
     }
 
-    static _set_geometry_face_color(geometry, face_color) {
+    _set_geometry_face_color(geometry, face_color) {
         for (var i in geometry.faces) {
             var f = geometry.faces[i]
             var color = face_color[i]
@@ -363,7 +493,7 @@ class Interpretor {
         geometry.colorsNeedUpdate = true
     }
 
-    static _convert_fc_to_fc3(data) {
+    _convert_fc_to_fc3(data) {
         var fc = data.fc
         var faces = data.f
         var nfc = []
@@ -381,7 +511,7 @@ class Interpretor {
         return nfc
     }
 
-    static _convert_face_index_to_face3(faces) {
+    _convert_face_index_to_face3(faces) {
         var nfaces = []
 
         for (var i = 0; i < faces.length; i++) {
@@ -422,7 +552,7 @@ class Interpretor {
         return nfaces
     }
 
-    static set_hud(data) {
+    set_hud(data) {
         var hud = document.getElementById('hud01_content')
         var contents = data['contents']
         var innerhtml = ''
@@ -432,7 +562,7 @@ class Interpretor {
         hud.innerHTML = innerhtml
     }
 
-    static set_sky() {
+    set_sky() {
     }
 
 
