@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src='../../libs/d3.min.js'></script>
+    <script src='plotter_bar.js'></script>
+    <script src='plotter_scatter.js'></script>
+    <script src='plotter_text.js'></script>
+    <script src='planing_data_vis.js'></script>
+
+</head>
+<body>
+    <input id="bt_gen_data" type="button" value="REGEN">
+    <input id="bt_sort_score" type="button" value="Score">
+    <input id="bt_sort_gfa" type="button" value="GFA">
+    <input id="bt_sort_ca" type="button" value="Coverage">
+    <svg id='canvas' width="50px", height="50px"></svg>
+</body>
+<script>
+    var svg = d3.select('svg')
+    svg.style('background-color','yellowgreen')
+
+    //test data
+
+    //這個mapper用來定義如何顯示數據裏的key
+    var name_mapper={
+        far_t:'目標容積率',
+        far_a:'實際容積率',
+        far_d:'容積率差',
+        gfa_t:'目標GFA',
+        gfa_a:'實際GFA',
+        gfa_d:'GFA差',
+        coverage_t:'目標覆蓋面積',
+        coverage_a:'實際覆蓋率',
+        coverage_d:'覆蓋率差',
+        sales_price:'縂銷售金額',
+        ca_t:'目標基底面積',
+        ca_a:'實際基底面積',
+        ca_d:'基底面積差',
+        t1:'戶型1',
+        t2:'戶型2',
+        t3:'戶型3',
+    };
+
+    var gen_data = function(){
+        // 以下是模擬一組100個entry的數據
+        var data=[];
+        var entry;
+        var site_area =50000 //模擬一個5萬方的場地
+        for(var i=0;i<100;i++){
+            entry = {};
+            entry['_x']=i //這個序列號是用來做排序動畫的
+            entry['far_t']=Math.random()*6+3; //模擬一個3-9的容積率
+            entry['far_a']=entry.far_t*(1.1 - Math.random()*0.2); //模擬幅度上下10%的偏差
+            entry['far_d']=entry.far_a - entry.far_t;
+            entry['gfa_t']=entry.far_t*site_area;
+            entry['gfa_a']=entry.far_a*site_area;
+            entry['gfa_d']=entry.far_d*site_area;
+            entry['coverage_t']=Math.random()*0.3 + 0.3; //模擬一個30% - 60%的覆蓋率
+            entry['coverage_a']=entry.coverage_t*(1.1 - Math.random()*0.2); //模擬幅度上下10%的偏差
+            entry['coverage_d']=entry.coverage_a - entry.coverage_t;
+            entry['ca_t']=entry.coverage_t * site_area;
+            entry['ca_a']=entry.coverage_a * site_area;
+            entry['ca_d']=entry.coverage_d * site_area;
+            entry['score'] = 1 - ((Math.abs(entry.gfa_d)/entry.gfa_t + Math.abs(entry.ca_d)/entry.ca_t)/2)
+            var t1c = 1 + Math.round(Math.random()*13)
+            var t2c = 1 + Math.round(Math.random()*13)
+            var t3c = 1 + Math.round(Math.random()*13)
+            entry['t1'] = Array(t1c).join('█') + ' '+ t1c
+            entry['t2'] = Array(t2c).join('█') + ' '+ t2c
+            entry['t3'] = Array(t3c).join('█') + ' '+ t3c
+            entry['t1_a']=t1c * 1100
+            entry['t2_a']=t2c * 1200
+            entry['t3_a']=t3c * 1400
+            entry['sales'] = (entry.t1_a) * 3 + (entry.t2_a) * 2.4 + (entry.t3_a) * 4
+
+            data.push(entry)
+        }
+        return data
+    }
+
+
+    // 構建數據visualizer
+    vis = new PlaningDataVis('#canvas')
+    // 讓visualizer根據窗口調整大小
+    window.onresize = function () {
+        vis.onWindowResize();
+    }
+
+
+    var data = gen_data()
+    // console.log(data)
+    // set name mapper for display
+    // 這個不給也行，有缺省值
+    vis.set_name_mapper(name_mapper)
+    // 賦予真正要visualize的數據
+    vis.set_data(data)
+    // 生成所有的繪圖
+    vis.update_plots()
+
+
+    var sort_data=function(data, key, ascending=true){
+        var dup=[]
+        for(var i in data){
+            dup[i]=data[i];
+        }
+        dup.sort(function(a,b){
+            if (ascending) return b[key]-a[key]
+            else return a[key]-b[key]
+        })
+
+        for(var i=0;i<data.length;i++){
+            var _x = dup[i]._x
+          data[_x]['order']=i;
+        }
+        return data
+    }
+
+
+
+    d3.select('#bt_gen_data').on('mouseup',function(){
+        var data = gen_data()
+        vis.set_data(data)
+        vis.update_plots()
+    });
+
+    d3.select('#bt_sort_score').on('mouseup',function(){
+        // var data = sort_data(vis.data, 'score')
+        // vis.update_sorted(data)
+        vis.sort_data('score')
+    });
+    d3.select('#bt_sort_gfa').on('mouseup',function(){
+        // var data = sort_data(vis.data, 'gfa_d')
+        // vis.update_sorted(data)
+        vis.sort_data('gfa_d')
+    });
+    d3.select('#bt_sort_ca').on('mouseup',function(){
+        // var data = sort_data(vis.data, 'ca_d')
+        // vis.update_sorted(data)
+        vis.sort_data('ca_d')
+
+    });
+
+
+
+
+</script>
+</html>

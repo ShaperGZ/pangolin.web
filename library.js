@@ -14,7 +14,7 @@ class Library{
         else
             item = new this.item_type()
         this.data[key] = item
-        this.on_set(item, data)
+        this.on_set(item, data, key)
         // the following line might need to be called in 'on_set' duel to async callbacks
         // this.update_related_objects(key)
     }

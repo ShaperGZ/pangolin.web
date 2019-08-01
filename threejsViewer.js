@@ -88,10 +88,8 @@ Viewer = function () {
             points.push(point.x, point.y, point.z);
 
         }
-
-        this.scene.background = new THREE.Color(0xaaaaaa);
-
-
+        this.scene_background_color = new THREE.Color(0xaaaaaa);
+        this.scene.background = this.scene_background_color
 
 
         //lighting
@@ -126,6 +124,21 @@ Viewer = function () {
     //     return label
     // }
 
+    this.set_scene_background = function(cube_map_name){
+//        console.log('cube_map_name=',cube_map_name)
+        if(cube_map_name == null){
+            this.scene.background = this.scene_background_color;
+            return;
+        }
+        var background = this.scene.background;
+        var texture_lib = this.texture_lib;
+        var scene= this.scene
+        this.texture_lib.assign(cube_map_name, function(){
+            scene.background = texture_lib.data[cube_map_name];
+        });
+        
+    }
+    
     this.animate = function () {
 
         requestAnimationFrame(self.animate);
@@ -144,7 +157,9 @@ Viewer = function () {
             else color = 'grey'
 
             var id = 'js_hud_states_'+key
-            document.getElementById(id).style.backgroundColor = color
+            var dom = document.getElementById(id)
+            if(dom!=undefined && dom!=null)
+                dom.style.backgroundColor = color
             // if(state)
             //     document.getElementById(id).style.color = 'steelblue'
         }
@@ -343,8 +358,8 @@ Viewer = function () {
     }
 
     this.set_selected_transform = function(transform_type,value){
-        let msg = 'scene.set_selected_transform("'+transform_type+'",['+value+'])';
-        socket.send(msg)
+        var msg = 'scene.set_selected_transform("'+transform_type+'",['+value+'])';
+        socket.send(msg);
     }
 
 

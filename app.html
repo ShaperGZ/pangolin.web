@@ -16,6 +16,10 @@
 </head>
 <script src ='libs/socketio.js'></script>
 <script src="three.min.js"></script>
+<script src="libs/jszip.js"></script>
+<script src="libs/mesh_line_2d.js"></script>
+<script src ='libs/colladaexporter.js'></script>
+<script src ='libs/THREE.MeshLine.js'></script>
 <script src="controls/TrackballControls.js"></script>
 <script src="controls/DragControls.js"></script>
 <script src="controls/OrbitControls.js"></script>
@@ -29,6 +33,7 @@
 <script src="utilities.js"></script>
 <script src="materials.js"></script>
 <script src="tests/test_geometries.js"></script>
+
 
 <script src="libs/dat.gui/dat.gui.min.js"></script>
 <script src="libs/postprocessing/EffectComposer.js"></script>
@@ -138,9 +143,10 @@
     <div id='js_hud_states' class="overlayMessagePanel content"
          style="width:250px; font-size: 12px; height:20px; margin-left:60px ; margin-top: 45px">
         <div id='js_hud_states_sr' style="width:30px; height:15px; display: inline; background-color: orange"> 選組(I) </div>
-        <div id='js_hud_states_mv' style="width:30px; height:15px; display: inline; margin-left: 5px; background-color: grey"> MV </div>
-        <div id='js_hud_states_rt' style="width:30px; height:15px; display: inline; margin-left: 5px; background-color: grey"> RT </div>
-        <div id='js_hud_states_sc' style="width:30px; height:15px; display: inline; margin-left: 5px; background-color: grey"> SC </div>
+        <div id='js_hud_export' style="width:30px; height:15px; margin-left: 5px;display: inline; background-color: yellowgreen"> Collada </div>
+        <!--<div id='js_hud_states_mv' style="width:30px; height:15px; display: inline; margin-left: 5px; background-color: grey"> MV </div>-->
+        <!--<div id='js_hud_states_rt' style="width:30px; height:15px; display: inline; margin-left: 5px; background-color: grey"> RT </div>-->
+        <!--<div id='js_hud_states_sc' style="width:30px; height:15px; display: inline; margin-left: 5px; background-color: grey"> SC </div>-->
         <div id='open_component_browser' style="width:30px; height:15px; display: inline; margin-left: 5px; background-color: cornflowerblue"> COMPONENTS </div>
     </div>
 
@@ -307,6 +313,46 @@
             viewer.bboxWidget.set(manager.objects[id])
     }
 
+    var exporter = new THREE.ColladaExporter();
+    function assign_bt_export(){
+        var dom = document.getElementById('js_hud_export')
+        dom.onclick=function(){
+            var model = viewer.manager.model_container
+            exportCollada(model)
+        }
+
+    }
+    assign_bt_export()
+
+    function exportCollada(model) {
+        console.log('exporting model')
+        var result = exporter.parse( model );
+        saveString( result.data, 'export_model.dae' );
+
+        result.textures.forEach( tex => {
+            saveArrayBuffer( tex.data, `${ tex.name }.${ tex.ext }` );
+        } );
+        console.log('save complete')
+
+    }
+
+    function save( blob, filename ) {
+        link.href = URL.createObjectURL( blob );
+        link.download = filename;
+        link.click();
+    }
+
+    function saveString( text, filename ) {
+        save( new Blob( [ text ], { type: 'text/plain' } ), filename );
+    }
+
+    function saveArrayBuffer( buffer, filename ) {
+        save( new Blob( [ buffer ], { type: 'application/octet-stream' } ), filename );
+    }
+
+    var link = document.createElement( 'a' );
+    link.style.display = 'none';
+    document.body.appendChild( link );
 
     //
     // flag1 = makeFlagLabel()
@@ -324,7 +370,42 @@
     // setFlagLabel(flag3,'藍色 30號 半徑為0',60,0,{backgroundColor:{r:0.3,g:0.3,b:1,a:1}, isChinese:true, fontsize:30})
     // flag3.position.set(8,0,18)
 
+
     viewer.update_camera([-150,-130,145])
+
+
+
+//    var geometry = new THREE.CubeGeometry( 10, 10, 10);
+//    var cubeMaterials =
+//        [
+//            new THREE.MeshBasicMaterial( { map: new THREE.TextureLoader( ).load( 'file:///D:/PangolinProjects/pangolin.web/examples/skybox/pano_r.jpg' ), side: THREE.DoubleSide } ), // Right side
+//            new THREE.MeshBasicMaterial( { map: new THREE.TextureLoader( ).load( 'examples/skybox/pano_l.jpg' ), side: THREE.DoubleSide } ), // Left side
+//            new THREE.MeshBasicMaterial( { map: new THREE.TextureLoader( ).load( 'examples/skybox/pano_f.jpg' ), side: THREE.DoubleSide } ), // Top side
+//            new THREE.MeshBasicMaterial( { map: new THREE.TextureLoader( ).load( 'examples/skybox/pano_b.jpg' ), side: THREE.DoubleSide } ), // Bottom side
+//            new THREE.MeshBasicMaterial( { map: new THREE.TextureLoader( ).load( 'examples/skybox/pano_u.jpg' ), side: THREE.DoubleSide } ), // Front side
+//            new THREE.MeshBasicMaterial( { map: new THREE.TextureLoader( ).load( 'examples/skybox/pano_d.jpg' ), side: THREE.DoubleSide } ) // Back side
+//        ];
+//    // Create a MeshFaceMaterial, which allows the cube to have different materials on each face
+//    var cubeMaterial = new THREE.MeshFaceMaterial( cubeMaterials );
+//    var cube = new THREE.Mesh( geometry, cubeMaterial );
+//    viewer.scene.add( cube );
+
+//    var light1 = new THREE.PointLight( 0xff0040, 4, 50 );
+//    viewer.scene.add( light1 );
+
+    // // test sky bx
+//     var loader = new THREE.CubeTextureLoader();
+//     var cubemap = loader.load([
+//         'examples/skybox/pano_r.jpg',
+//         'examples/skybox/pano_l.jpg',
+//         'examples/skybox/pano_u.jpg',
+//         'examples/skybox/pano_d.jpg',
+//         'examples/skybox/pano_f.jpg',
+//         'examples/skybox/pano_b.jpg',
+//     ])
+//     cubemap.format = THREE.RGBFormat;
+//     viewer.scene.background = cubemap;
+
 
 </script>
 </html>

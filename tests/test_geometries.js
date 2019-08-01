@@ -1,3 +1,5 @@
+// import {Material} from "../three.module";
+
 function test_lines(manager){
     console.log('testing lines')
 
@@ -260,3 +262,140 @@ function test_segments(){
     return o
 
 }
+
+function test_mesh_line(camera){
+    var data={}
+    data['p']=[[0,0,0]]
+    var g = new THREE.Geometry()
+    var material = new MeshLineMaterial({color: new THREE.Color('red')})
+    var pts = []
+//    pts.push(new THREE.Vector3(0,0,0))
+//    pts.push(new THREE.Vector3(10,0,5))
+//    pts.push(new THREE.Vector3(20,0,-5))
+    pts.push(new THREE.Vector3(0,0,0))
+    pts.push(new THREE.Vector3(1,0,0.5))
+    pts.push(new THREE.Vector3(1,0,-0.5))
+    
+    g.vertices=pts;
+    // var obj = new THREE.Mesh(g,material)
+    var line = new MeshLine()
+    line.setGeometry(g,function( p ) { return 2; } )
+    console.log('test geometries.line.geometry:',line.geometry)
+    console.log('pts=',pts)
+    
+    var obj = new THREE.Mesh(line.geometry,material)
+    obj.scale.set(10,10,10)
+    return obj
+}
+
+function test_mesh_line2(camera){
+    var g = new THREE.Geometry()
+    var material = new MeshLineMaterial({color: new THREE.Color('red')})
+    var pts = []
+    pts.push(new THREE.Vector3(0,0,0))
+    pts.push(new THREE.Vector3(10,0,5))
+    pts.push(new THREE.Vector3(20,0,-5))
+    g.vertices=pts;
+    // var obj = new THREE.Mesh(g,material)
+    var line = new MeshLine()
+    line.setGeometry(g,function( p ) { return 2; } )
+    console.log('test geometries.line.geometry:',line.geometry)
+    console.log('pts=',pts)
+    var obj = new THREE.Mesh(line.geometry,material)
+    return obj
+}
+
+function test_offset(){
+    // var pts = [
+    //     new THREE.Vector3(0,0,0),
+    //     new THREE.Vector3(20,0,20),
+    //     new THREE.Vector3(50,0,-50),
+    //     new THREE.Vector3(0,0,0),
+    // ]
+
+    pts = [
+        new THREE.Vector3(0,4,0),
+        new THREE.Vector3(10,4,0),
+        new THREE.Vector3(12,4,17),
+        new THREE.Vector3(20,4,25),
+        new THREE.Vector3(30,4,30),
+    ]
+    var line_width = 1
+
+    var hv1,hv2,concavity
+    const up=new THREE.Vector3(0,1,0)
+    var vertices=[]
+    var faces = []
+    var vcount=0
+    var last_hv2=null
+
+    for(var i=0;i<pts.length-1;i++){
+        var j = i+1;
+        var radians = Math.PI / 2 //90 degree
+
+        var p0 = pts[i]
+        var p1 = pts[j]
+        var dir = p1.clone().sub(p0)
+        if(last_hv2==null)
+            hv1 = dir.clone().normalize().cross(up)
+        else
+            hv1=last_hv2
+        var cordlength = line_width
+
+        if (i<pts.length-2){
+            console.log('cal angle i=',i)
+            var k = j+1
+            // angle betwen vects
+            v1 = pts[i].clone().sub(pts[j]).normalize()
+            v2 = pts[k].clone().sub(pts[j]).normalize()
+
+
+            radians = v1.angleTo(v2) / 2
+
+
+            console.log('['+i+']v2=',v2)
+             //get half angle
+
+            if (radians!=0)
+            {
+                cordlength = line_width/Math.sin(radians)
+                hv2 = v1.clone().add(v2).multiplyScalar(0.5).normalize().multiplyScalar(cordlength)
+            }
+            else{
+                hv2 = hv1;
+            }
+            if(v1.clone().cross(v2).y<0) {
+                hv2.multiplyScalar(-1)
+            }
+            console.log('['+i+']radians=',radians)
+            console.log('['+i+']half angle=',radians*(180/Math.PI))
+            console.log('['+i+']concavity=',v1.clone().cross(v2).y>0)
+
+        }
+        else{
+            hv2 = dir.clone().normalize().cross(up)
+        }
+
+
+        vertices.push(p0.clone().add(hv1))
+        vertices.push(p0.clone().sub(hv1))
+        vertices.push(p1.clone().add(hv2))
+        vertices.push(p1.clone().sub(hv2))
+
+
+        last_hv2 = hv2
+
+
+        faces.push(new THREE.Face3(vcount,vcount+2,vcount+1))
+        faces.push(new THREE.Face3(vcount+1,vcount+2,vcount+3))
+        vcount = vertices.length
+    }
+    console.log(vertices)
+    var g = new THREE.Geometry()
+    g.vertices = vertices
+    g.faces = faces
+    g.verticesNeedUpdate = true
+    var o = new THREE.Mesh(g,new THREE.MeshBasicMaterial())
+    return o
+}
+

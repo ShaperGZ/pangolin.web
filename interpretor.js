@@ -52,7 +52,11 @@ class Interpretor {
                     this.viewer.component_lib.set(key, msg.content[key])
                 }
                 break;
+            case 'set_skybox':
+                this.viewer.set_scene_background(msg.textures)
+                break;
             default:
+                // console.log('msg:',msg)
                 break
         }
     }
@@ -142,6 +146,15 @@ class Interpretor {
         var obj= manager.get_object_by_type(data.id,data.type)
         if(obj==null)return
 
+        if ('parent' in data) {
+            this.set_object_parent(manager, obj, data.parent)
+        }
+
+        if ('transform' in data) {
+            this.set_object_transform(obj, data.transform)
+        }
+
+
         if ('ref' in data) {
             this.set_mesh_component_object_reference(manager, obj, data.ref)
         }
@@ -158,6 +171,9 @@ class Interpretor {
                     case 'segments':
                         this.set_segment_object_geometry(obj, geo_data)
                         break;
+                    case 'mesh_line':
+                        this.set_mesh_line_object_geometry(obj,geo_data, data.line_style)
+                        break;
                     default:
                         break;
                 }
@@ -173,13 +189,7 @@ class Interpretor {
             }
         }
 
-        if ('transform' in data) {
-            this.set_object_transform(obj, data.transform)
-        }
 
-        if ('parent' in data) {
-            this.set_object_parent(manager, obj, data.parent)
-        }
 
         if ('ref_key' in data) {
             // 證明這是一個component
@@ -191,7 +201,6 @@ class Interpretor {
         }
 
 
-
     }
 
     set_object_line_style(obj, style_data) {
@@ -199,7 +208,9 @@ class Interpretor {
             console.log('style_data is null');
             return;
         }
+//        console.log('style data= ',style_data)
         obj.material.color = style_data.color
+        obj.material.needsUpdate = true
 
     }
 
@@ -327,7 +338,21 @@ class Interpretor {
         this._set_segment_colors(obj.geometry,geo_data.sc)
         obj.geometry.computeBoundingSphere();
     }
+    set_mesh_line_object_geometry(obj,geo_data, line_style){
+//        console.log('setting mesh_line obj:',geo_data)
+////        return;
+        var pts=[]
+        for(var i in geo_data.p){
+            var point = geo_data.p[i]
+            pts.push( new THREE.Vector3(point[0],point[2],point[1]) )
+        }
 
+        var ml = new MeshLine2d()
+        var line_width = line_style.line_width
+        ml.set_geometry(pts,line_width,obj)
+
+            
+    }
 
     set_object_visible(obj, data){
         obj.visible = data.visible
@@ -388,17 +413,21 @@ class Interpretor {
         switch (mat_data.type) {
             case 'lambert':
                 if (mat_type != 'MeshLambertMaterial') {
+                    console.log('recreating MeshLamberMaterial')
                     obj.material = new THREE.MeshLambertMaterial({transparent: true, blending: THREE.NormalBlending})
                 }
                 break;
             case 'phong':
                 if (mat_type != 'MeshPhongMaterial') {
+                    console.log('recreating MeshPhongMaterial')
                     obj.material = new THREE.MeshPhongMaterial({transparent: true, blending: THREE.NormalBlending})
                 }
                 break;
             case 'basic':
                 if (mat_type != 'MeshBasicMaterial') {
+                    console.log('recreating MeshBasicMaterial')
                     obj.material = new THREE.MeshBasicMaterial({transparent: true, blending: THREE.NormalBlending})
+
                 }
                 break;
             case 'linevertexcolor':
@@ -412,11 +441,26 @@ class Interpretor {
                 }
                 break;
         }
+        //console.log('mat=',obj.material)
+        if (mat_data.color != undefined){
+            var c = mat_data.color
+            obj.material.color=new THREE.Color(c[0],c[1],c[2]);
+            obj.material.colorsNeedUpdate = true;
+        }
+
 
         if (mat_data.textures.diffuse != null && mat_data.textures.diffuse != '') {
-            obj.material.map = viewer.texture_lib.data[mat_data.textures.diffuse]
-            obj.material.needsUpdate = true
+
+            viewer.texture_lib.assign(mat_data.textures.diffuse, function(){
+                console.log('flag4 executing assigment:',viewer.texture_lib.data[mat_data.textures.diffuse])
+                obj.material.map = viewer.texture_lib.data[mat_data.textures.diffuse]
+                obj.material.needsUpdate = true
+            });
+            // console.log(viewer.texture_lib.data[mat_data.textures.diffuse])
+            // obj.material.map = viewer.texture_lib.data[mat_data.textures.diffuse]
+            // obj.material.needsUpdate = true
         }
+        obj.material.needsUpdate = true
     }
 
     _set_geometry_vertices(geometry, vertices) {
@@ -564,6 +608,8 @@ class Interpretor {
 
     set_sky() {
     }
+
+
 
 
 }

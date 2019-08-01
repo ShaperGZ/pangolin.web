@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src='../../libs/d3.min.js'></script>
+    <script src ='../../libs/socketio.js'></script>
+    <script src='plotter_bar.js'></script>
+    <script src='plotter_scatter.js'></script>
+    <script src='plotter_text.js'></script>
+    <script src='planing_data_vis.js'></script>
+
+
+</head>
+<body>
+    <input id="bt_gen_data" type="button" value="REGEN">
+    <input id="bt_sort_score" type="button" value="Score">
+    <input id="bt_sort_gfa" type="button" value="GFA">
+    <input id="bt_sort_ca" type="button" value="Coverage">
+    <svg id='canvas' width="50px", height="50px"></svg>
+</body>
+<script>
+
+    // 構建數據visualizer
+    var vis = new PlaningDataVis('#canvas')
+    // 讓visualizer根據窗口調整大小
+    window.onresize = function () {
+        vis.onWindowResize();
+    }
+
+
+    var set_Data = function(data){
+        vis.set_data(data)
+    }
+
+    // socketIO
+    //create socketio and handling functions
+    handle_connect=function(data){
+        console.log('connected');
+        socket.send('scene.quantity_solver.send_data()')
+    }
+    handle_message=function(data){
+        // console.log('recieved:'+data)
+        // console.log(typeof(data))
+        if(data.includes('[') && data.includes('{')){
+            //console.log(jsonMessage)
+            var messages = JSON.parse(data)
+            var self = this
+            messages.forEach(function (msg) {
+                if (msg.cmd=='set_planning_quantity_data')
+                    // console.log(msg)
+                    this.set_Data(msg.data)
+            });
+        }
+    }
+    socket = io('http://localhost:5567/',false)
+    socket.on('connect',handle_connect)
+    socket.on('message',handle_message)
+    // socket.send('hello server')
+    vis.socket = socket
+
+
+
+
+
+
+
+
+
+
+
+    // assign buttons
+    d3.select('#bt_gen_data').on('mouseup',function(){
+        var data = gen_data()
+        vis.set_data(data)
+        vis.update_plots()
+    });
+
+    d3.select('#bt_sort_score').on('mouseup',function(){
+        // var data = sort_data(vis.data, 'score')
+        // vis.update_sorted(data)
+        vis.sort_data('score')
+    });
+    d3.select('#bt_sort_gfa').on('mouseup',function(){
+        // var data = sort_data(vis.data, 'gfa_d')
+        // vis.update_sorted(data)
+        vis.sort_data('gfa_d')
+    });
+    d3.select('#bt_sort_ca').on('mouseup',function(){
+        // var data = sort_data(vis.data, 'ca_d')
+        // vis.update_sorted(data)
+        vis.sort_data('ca_d')
+
+    });
+
+
+
+
+</script>
+</html>

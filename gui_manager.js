@@ -82,24 +82,24 @@ class DATGUIS{
                 folder.close()
                 this._inspection_object_folders.push(folder)
                 
-                for(var i in obj.children){
-                    // console.log('i=',i)
-                    var child = obj.children[i]
-                    if(child.name != undefined && child.name.length == 36)
-                    {
-                        // console.log('added child.name = ',child.name)
-                        var short_id = child.name.split('-')[1]
-                        var assign_button_callback=function(child){
-                            container_obj[short_id]=function(){
-                                console.log('gui send: inspect',child.name)
-                                self.viewer.inspect_object(child.name)
-                            }
-                        }
-                        assign_button_callback(child)
-                        var control = folder.add(container_obj,short_id)
-                        this._inspection_controls[short_id]=control
-                    }
-                } // end for i
+//                for(var i in obj.children){
+//                    // console.log('i=',i)
+//                    var child = obj.children[i]
+//                    if(child.name != undefined && child.name.length == 36)
+//                    {
+//                        // console.log('added child.name = ',child.name)
+//                        var short_id = child.name.split('-')[1]
+//                        var assign_button_callback=function(child){
+//                            container_obj[short_id]=function(){
+//                                console.log('gui send: inspect',child.name)
+//                                self.viewer.inspect_object(child.name)
+//                            }
+//                        }
+//                        assign_button_callback(child)
+//                        var control = folder.add(container_obj,short_id)
+//                        this._inspection_controls[short_id]=control
+//                    }
+//                } // end for i
             }
         }
         this.inspecting_id = id

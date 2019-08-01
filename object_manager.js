@@ -88,12 +88,36 @@ class ObjectManager {
                 break;
             case 'segments':
                 obj = this.get_segment_object(id,true)
-                break
+                break;
+            case 'mesh_line':
+                obj = this.get_mesh_object(id,true)
+                break;
             default:
                 obj = null;
         }
         // console.log('got obj:',obj)
         return obj
+    }
+
+    get_mesh_line(id,create_if_not_exist=false){
+        console.log('creating mesh line')
+        var obj;
+        if (id in this.objects) {
+            return this.objects[id];
+        }
+        else if(create_if_not_exist){
+            var g = new THREE.Geometry()
+            var material = new MeshLineMaterial({color: new THREE.Color('white')})
+            obj = new THREE.Mesh(g, material)
+            obj.name = id
+            this.objects[id] = obj
+            this.scene.add(obj) // this thing only works if added to scene
+//            this.model_container.add(obj)
+            obj.castShadow = false;
+            obj.receiveShadow = false;
+            return obj
+        }
+        return null
     }
 
     get_mesh_object(id, create_if_not_exist=false){
