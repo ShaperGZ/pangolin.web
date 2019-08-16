@@ -15,6 +15,9 @@ class Interpretor {
         // console.log(msg)
 
         switch (msg.cmd) {
+            case 'tween_camera':
+                this.viewer.tween_camera(msg.to_campos,msg.to_trgpos)
+                break;
             case 'set_flag':
                 this.set_flag(this.viewer, msg)
                 break;
@@ -79,7 +82,6 @@ class Interpretor {
 
 
     set_scene_info(viewer, msg) {
-
         var dom_txt = document.getElementById('txt_reloader')
         dom_txt.value = msg.module
 
@@ -87,6 +89,8 @@ class Interpretor {
         dom_bt.onclick = function () {
             var dom_txt = document.getElementById('txt_reloader')
             viewer.clear_scene()
+            var component_panel = document.getElementById('component_browser')
+            component_panel.style.display = 'none';
             socket.send("load_scene('" + dom_txt.value + "')")
         }
     }
@@ -101,6 +105,8 @@ class Interpretor {
             if ('target' in msg) {
                 trg = msg['target']
                 self.camera.lookAt(new THREE.Vector3(trg[0], trg[2], -trg[1]))
+                if (self.controls!=undefined)
+                    self.controls.target.set(trg[0], trg[2], -trg[1])
             }
 
             viewer.camera.fov = msg.fov

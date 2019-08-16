@@ -1,0 +1,93 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="litegraph.css">
+    <link rel="stylesheet" type="text/css" href="libs/litegraph/css/litegraph.css">
+    <link rel="stylesheet" type="text/css" href="libs/litegraph/css/litegraph-editor.css">
+    <link rel="stylesheet" type="text/css" href="libs/litegraph/style.css">
+    <script src ='libs/socketio.js'></script>
+    <script type="text/javascript" src="libs/litegraph/build/litegraph.js"></script>
+    <script type="text/javascript" src="libs/litegraph/src/litegraph-editor.js"></script>
+    <script type="text/javascript" src="libs/FileSaver.js"></script>
+    <script type="text/javascript" src="rule_visualizer.js"></script>
+</head>
+<body style='width:100%; height:100%'>
+<div id="main">
+    <!--<canvas id='mycanvas' width='1024' height='720' style='border: 1px solid'></canvas>-->
+    <script>
+        //node constructor class
+        var editor = new LiteGraph.Editor("main");
+        var graphcanvas = editor.graphcanvas;
+        var graph = editor.graph;
+        window.addEventListener("resize", function() { editor.graphcanvas.resize(); } );
+        //window.addEventListener("keydown", editor.graphcanvas.processKey.bind(editor.graphcanvas) );
+        window.onbeforeunload = function(){
+            var data = JSON.stringify( graph.serialize() );
+            localStorage.setItem("litegraphg demo backup", data );
+        }
+
+        var file_selector = document.createElement('input');
+        file_selector.type = 'file'
+
+        var elem = document.createElement("span");
+        elem.className = "selector";
+        elem.innerHTML = "Demo  <button id='save'>Save</button><button id='load'>Load</button>";
+        editor.tools.appendChild(elem);
+
+        elem.querySelector("#save").addEventListener("click",function(){
+            console.log("saved");
+            var data = JSON.stringify( graph.serialize() );
+            var blob = new Blob([data], {type:"text/plain;charset=utf-8"});
+            saveAs(blob,'flow.xml');
+            console.log('saved as:',data);
+        });
+
+        elem.querySelector("#load").addEventListener("click",function(){
+            var data = localStorage.getItem( "graphdemo_save" );
+            if(data)
+                graph.configure( JSON.parse( data ) );
+            console.log("loaded");
+        });
+
+        //register in the system
+        var rvg = new RuleVisGraph(graph);
+        rvg.set_data(test_data);
+        // rvg.create_graph();
+        graph.start();
+
+
+        //create socketio and handling functions
+        handle_connect=function(data){
+        }
+
+        handle_message=function(data){
+
+            if(data.includes('[') && data.includes('{')){
+                //console.log(jsonMessage)
+                var messages = JSON.parse(data)
+
+                messages.forEach(function (msg) {
+                    if (msg.cmd=='visualize_rules')
+                        console.log('msg=',msg)
+                        if(msg.data == undefined) console.log('msg.data == undefined')
+                        else{
+                            rvg.clear()
+                            rvg.set_data(msg.data)
+                        }
+
+                });
+            }
+        }
+
+
+        socket = io('http://localhost:5567/',false)
+        socket.on('connect',handle_connect)
+        socket.on('message',handle_message)
+
+
+
+
+
+    </script>
+</body>
+</html>

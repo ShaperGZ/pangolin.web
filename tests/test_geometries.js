@@ -1,4 +1,38 @@
+
+
 // import {Material} from "../three.module";
+
+function test_tween_camera(campos=null, trgpos=null){
+    var control = viewer.controls
+    
+    // var campos = control.object.position
+    
+    
+    if(campos !=null){
+        campos={x:campos[0],y:campos[2],z:campos[1] }
+        var org_campos = control.object.position.clone()
+        // var trgpos = {x:control.target.x,y:control.target.y,z:control.target.z}
+        var tween = new TWEEN.Tween(org_campos).to(campos,1000)
+        tween.onUpdate(function(){
+            console.log(this.x,this.y,this.z)
+            control.object.position.set(this.x,this.y,this.z);
+        })
+        tween.start()
+    }
+
+    if(trgpos !=null){
+        trgpos={x:trgpos[0],y:trgpos[2],z:trgpos[1] }
+        var org_trgpos = control.target
+        // var trgpos = {x:control.target.x,y:control.target.y,z:control.target.z}
+        var tween = new TWEEN.Tween(org_trgpos).to(trgpos,1000)
+        tween.onUpdate(function(){
+            // control.target.set(this.x,this.y,this.z)
+            control.update()
+        })
+        tween.start()
+    }
+   
+}
 
 function test_lines(manager){
     console.log('testing lines')

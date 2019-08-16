@@ -9,11 +9,15 @@ class DATGUIS{
         // this.application_monitor = new dat.GUI();
         this.object_inspector = new dat.GUI();
         // this.tool_bar_1 = new dat.GUI();
-        this._inspection_object_folders = []
-        this.inspecting_id = null
-        this._inspection_controls = {}
-        this._inspection_groups = {}
-        this._inspection_control_callbacks = {}
+        this._inspection_object_folders = [];
+        this.inspecting_id = null;
+        this._inspection_controls = {};
+        this._inspection_groups = {};
+        this._inspection_control_callbacks = {};
+        this.actuator=null;
+
+        this._new_controls={};
+        this._new_folders={};
 
         // this.set_tool_bar()
         // this.set_app_monitor()
@@ -44,13 +48,19 @@ class DATGUIS{
     set_inspector(data, id){
         // console.log('set_inspector(data,id)', 'data= ',data, ' id=',id)
         var mode = 0
-        if(id == this.inspecting_id) 
-        {
-            mode = 1
-            // console.log('set values for existing GUI')
-        }
-        else{
+        if(id != this.inspecting_id){
             this.clear_inspector()
+
+        }
+        // console.log('+:',this._new_controls)
+        // if(id == this.inspecting_id)
+        // {
+        //     mode = 1
+        //     console.log('set values for existing GUI')
+        // }
+        // else{
+        if(true){
+            // this.clear_inspector()
             // console.log('creating new GUI')
 
             // add button to inspect parent object
@@ -64,7 +74,7 @@ class DATGUIS{
 
 
             var gui = this.object_inspector
-            if (obj.parent!=null && obj.parent != this.viewer.manager.model_container){
+            if (id != this.inspecting_id && obj.parent!=null && obj.parent != this.viewer.manager.model_container){
                 var parent_id = obj.parent.name
                 
                 container_obj['◄◄ parent']=function(){
@@ -74,34 +84,40 @@ class DATGUIS{
                 this._inspection_controls['parent']=control
             }
         }
+
         this._set_inspector_recursion(data,null,id,mode)
 
-        if(mode ==0){
-            if (obj.children.length>0){
-                var folder = gui.addFolder('►► children('+obj.children.length+')')
-                folder.close()
-                this._inspection_object_folders.push(folder)
-                
-//                for(var i in obj.children){
-//                    // console.log('i=',i)
-//                    var child = obj.children[i]
-//                    if(child.name != undefined && child.name.length == 36)
-//                    {
-//                        // console.log('added child.name = ',child.name)
-//                        var short_id = child.name.split('-')[1]
-//                        var assign_button_callback=function(child){
-//                            container_obj[short_id]=function(){
-//                                console.log('gui send: inspect',child.name)
-//                                self.viewer.inspect_object(child.name)
-//                            }
-//                        }
-//                        assign_button_callback(child)
-//                        var control = folder.add(container_obj,short_id)
-//                        this._inspection_controls[short_id]=control
-//                    }
-//                } // end for i
+        // console.log('-:',this._new_controls)
+        for(var k in this._inspection_controls){
+            if (! k in this._new_controls){
+                //TODO: remove widget
+                console.log('removeing widget:',k)
+                try{
+                    gui.remove(this._inspection_controls[k])
+                    delete this._inspection_controls[k]
+                    delete this._inspection_control_callbacks[k]
+                }
+                catch(err){
+                    // console.log('ERROR! f=',this._inspection_object_folders[f])
+                }
             }
         }
+        // TODO:remove non existing
+        for(var k in this._inspection_object_folders){
+            if (! k in this._new_folders){
+                //TODO: remove widget
+                try{
+                    gui.removeFolder(this._inspection_object_folders[k])
+                    delete this._inspection_object_folders[k]
+                }
+                catch(err){
+                    // console.log('ERROR! f=',this._inspection_object_folders[f])
+                }
+            }
+        }
+        this._new_controls={};
+        this._new_folders={};
+
         this.inspecting_id = id
         
     }
@@ -125,47 +141,52 @@ class DATGUIS{
         var gui_obj={}
         for(var key in data){
             var value = data[key]['value']
-            // if value is a dictionary
+            // if value is a folder
             if (!(value instanceof Array) && (value instanceof Object)){
                 var name = key
-                if(mode==0){
-                    if(key=='root') {
-                        name += data[key]['id'].split('-')[1]
-                    }
+                if(key=='root') {
+                    name += ' : ' + data[key]['id'].split('-')[1]
+                }
+                if(this._inspection_groups[name]==undefined ){
                     var group = gui.addFolder(name)
                     // console.log(name,group)
                     if(key=='root' || key.indexOf('rule')>=0) {
                         group.open()
                     }
                     this._inspection_groups[name]=group
+                    this._new_folders[name]=group
                     this._inspection_object_folders.push(group)
                     this._set_inspector_recursion(value, group, data[key]['id'], mode)
-
-                }
-                else{
-                    if(key!='root') {
-                        var group = this._inspection_groups[name]
-                        group.name = key
-                    }
                 }
             }
-            else {
-                if('selections' in data[key]){
+            // if value is a widget
+            else if(data[key]!='' || data[key]!=null) {
+                if(data[key].value_type=='StateButton'){
+                    gui_obj[key]=this._assign_button_callback(gui_obj, key, id)
+                    // this._assign_button_callback(gui_obj,key,id)
+                    var control = gui.add(gui_obj,key).name(key)
+                    this._inspection_controls[id+'.'+key] = control
+                    this._new_controls[id+'.'+key] = control
+                    this._inspection_control_callbacks[id+'.'+key] = null
+                }
+                else if('selections' in data[key]){
                     var selections = data[key]['selections']
-                    console.log('mode:', mode, ' selections:', selections)
+                    // console.log('mode:', mode, ' selections:', selections)
 
                     var gui_obj={}
                     gui_obj[key]=value
-                    if(mode == 0){
+                    if(this._inspection_controls[id+'.'+key] == undefined){
                         var control = gui.add(gui_obj,key,selections).name(key)
                         control.setValue(value)
                         console.log('control',control)
                         callback = this._assign_value_change_handler(id,key,control,gui_obj)
                         this._inspection_controls[id+'.'+key] = control
+                        this._new_controls[id+'.'+key] = control
                         this._inspection_control_callbacks[id+'.'+key] = callback
                     }
-                    else{
+                    else if(key != self.actuator){
                         var control = this._inspection_controls[id+'.'+key]
+                        this._new_controls[id+'.'+key] = control
                         var callback = this._inspection_control_callbacks[id+'.'+key]
                         this.set_control_value(control, value, callback)
                     }
@@ -173,7 +194,7 @@ class DATGUIS{
                 else if (value instanceof Array && value.length==3){
                     var xyz = ['x','y','z']
                     var sub_gui_obj={'x':value[0],'y':value[1],'z':value[2]}
-                    if (mode ==0 ){
+                    if (this._inspection_controls[id+'.'+key+'.'+k] == undefined ){
                         var group = gui.addFolder(key)
                         group.open()
                         for(var i in xyz){
@@ -181,22 +202,27 @@ class DATGUIS{
                             var control = group.add(sub_gui_obj,k)
                             var callback = this._assign_vector_value_change_handler(id,key,'x','y','z',control,sub_gui_obj)
                             this._inspection_controls[id+'.'+key+'.'+k] = control
+                            this._new_controls[id+'.'+key+'.'+k] = control
                             this._inspection_control_callbacks[id+'.'+key+'.'+k] = callback
                         }
                     }
                     else{
                         for(var i in xyz){
                             var k=xyz[i]
-                            var control = this._inspection_controls[id+'.'+key+'.'+k]
-                            var callback = this._inspection_control_callbacks[id+'.'+key+'.'+k]
-                            var v = sub_gui_obj[k]
-                            this.set_control_value(control, v, callback)
+                            if(id+'.'+key+'.'+k ==self.actuator){
+                                var control = this._inspection_controls[id+'.'+key+'.'+k]
+                                this._new_controls[id+'.'+key] = control
+                                var callback = this._inspection_control_callbacks[id+'.'+key+'.'+k]
+                                var v = sub_gui_obj[k]
+                                this.set_control_value(control, v, callback)
+                            }
                         } 
                     }
                 }
                 else{
                     gui_obj[key]=value
-                    if(mode == 0){
+                    if(this._inspection_controls[id+'.'+key] == undefined){
+                        gui_obj[key]=value
                         var control, callback
                         // console.log('gui_obj=',gui_obj)
                         // control = gui.add(gui_obj,key)
@@ -214,16 +240,25 @@ class DATGUIS{
                         
                         callback = this._assign_value_change_handler(id,key,control,gui_obj)
                         this._inspection_controls[id+'.'+key] = control
+                        this._new_controls[id+'.'+key] = control
                         this._inspection_control_callbacks[id+'.'+key] = callback
                     }
-                    else{
-                        var control_key = id+'.'+key
-                        console.log('control key =',control_key)
-                        var control = this._inspection_controls[id+'.'+key]
-                        var callback = this._inspection_control_callbacks[id+'.'+key]
-                        this.set_control_value(control, value, callback)
+                    else {
+                        console.log('update_existing widget')
+                        console.log('?',this.actuator != key)
+                        this._new_controls[id+'.'+key] = control
+                        if(this.actuator != key){
+                            gui_obj[key]=value
+                            var control = this._inspection_controls[id+'.'+key]
+                            var callback = this._inspection_control_callbacks[id+'.'+key]
+
+                            this.set_control_value(control, value, callback)
+                        }
+                        else{
+                            console.log('skipping: actuator=',this.actuator, '   key=',key)
+                        }
                     }
-                    
+
                 }
                
             }
@@ -231,8 +266,20 @@ class DATGUIS{
         }
     }
 
+    _assign_button_callback(gui_obj, key, id){
+        return function(){
+            var msg = 'GraphNode.created_objects["'+id+'"].in_nodes["'+key+'"].state_on_click()'
+            socket.send(msg)
+        }
+    }
+
     _assign_vector_value_change_handler(id, key, x, y, z, control, gui_obj){
+        var self = this;
+        var set_actuator = this._set_actuator;
+        // var get_actuator = this._get_actuator;
+
         var callback = function () {
+            set_actuator(self,key);
             var value = [gui_obj[x],gui_obj[y],gui_obj[z]]
             var msg = 'GraphNode.set_state_value("' + id + '","' + key + '",[' + value + '])'
             // console.log(msg)
@@ -242,7 +289,13 @@ class DATGUIS{
         return callback
     }
     _assign_value_change_handler(id, key, control, gui_obj){
+        var self = this;
+        var set_actuator = this._set_actuator;
+        // var get_actuator = this._get_actuator;
+
         var callback = function () {
+            set_actuator(self,key);
+            // console.log('after set, self.actuator=',self.actuator)
             var value = gui_obj[key]
             if (typeof(value) == 'string'){
                 value = '"'+value+'"';
@@ -259,6 +312,16 @@ class DATGUIS{
         control.onChange(callback)
         return callback
     }
+
+    _set_actuator(self,key){
+        // console.log('setting actuator, self:',self,'key=',key)
+        self.actuator = key;
+    }
+
+    _get_actuator(){
+        return this.actuator;
+    }
+
 
     clear_inspector(){
         var gui = this.object_inspector

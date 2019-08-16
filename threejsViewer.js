@@ -1,3 +1,5 @@
+
+
 Viewer = function () {
     this.container = document.getElementById("threejs_container")
     //var size = this.get_container_size()
@@ -37,7 +39,6 @@ Viewer = function () {
         this.controls.minDistance = 10
         this.controls.maxDistance = 500;
         this.controls.maxPolarAngle = Math.PI / 2;
-
 
 
         this.drag_control =  new THREE.DragControls(this.camera, this.renderer.domElement,self)
@@ -139,11 +140,11 @@ Viewer = function () {
         
     }
     
-    this.animate = function () {
+    this.animate = function (time) {
 
         requestAnimationFrame(self.animate);
-
-        self.render();
+        TWEEN.update(time);
+        self.render(time);
 
     }
 
@@ -235,11 +236,13 @@ Viewer = function () {
         this.sun.position.multiplyScalar(10000);
         this.scene.add(this.sun);
         this.scene.add(this.sun.target);
+        this.last_camera_length=null;
 
         this.sun.castShadow = true;
         var d = 1000
-        // var mapSize = 2048
-        var mapSize = 4096
+        // var mapSize = 1024
+        var mapSize = 2048
+        // var mapSize = 4096
         this.sun.shadow.camera.top = d;
         this.sun.shadow.camera.bottom =-d;
         this.sun.shadow.camera.left = -d;
@@ -260,6 +263,34 @@ Viewer = function () {
         return self.sun;
     };
 
+    this.onMouseMoveCallback = function(){
+
+        msg1 = 'scene.cameras["main"].transform.set("translation",('+ self.controls.object.position.toArray() + '),False)'
+        msg2 = 'scene.cameras["main"].target_position.set(('+ self.controls.target.toArray() + '),False)'
+        socket.send(msg1)
+        socket.send(msg2)
+    }
+    this.onMouseZoomCallback = function(){
+        var cam_length = self.controls.object.position.distanceTo(self.controls.target)
+        if(self.last_camera_length == null || Math.abs((cam_length-self.last_camera_length)/self.last_camera_length)>0.1){
+            self.last_camera_length = cam_length
+            // console.log(cam_length)
+            var d = cam_length*0.6
+            self.sun.shadow.camera.top = d;
+            self.sun.shadow.camera.bottom =-d;
+            self.sun.shadow.camera.left = -d;
+            self.sun.shadow.camera.right =d;
+            self.sun.shadow.camera.needsUpdate = true;
+            self.sun.shadow.map=null;
+        }
+
+
+        msg1 = 'scene.cameras["main"].transform.set("translation",('+ self.controls.object.position.toArray() + '),False)'
+        msg2 = 'scene.cameras["main"].target_position.set(('+ self.controls.target.toArray() + '),False)'
+        socket.send(msg1)
+        socket.send(msg2)
+    }
+
     this.sky_ground_setup = function () {
         // GROUND
 
@@ -273,6 +304,30 @@ Viewer = function () {
         scene.add(ground);
 
         ground.receiveShadow = true;
+    };
+
+    this.tween_camera = function(campos=null, trgpos=null){
+        var control = self.controls;
+        
+        if(campos !=null){
+            campos={x:campos[0],y:campos[2],z:campos[1] };
+            var org_campos = control.object.position.clone()
+            var tween = new TWEEN.Tween(org_campos).to(campos,1000)
+            tween.onUpdate(function(){
+                control.object.position.set(this.x,this.y,this.z);
+            })
+            tween.start();
+        }
+
+        if(trgpos !=null){
+            trgpos={x:trgpos[0],y:trgpos[2],z:trgpos[1] };
+            var org_trgpos = control.target;
+            var tween = new TWEEN.Tween(org_trgpos).to(trgpos,1000)
+            tween.onUpdate(function(){
+                control.update();
+            })
+            tween.start();
+        }
     };
 
     this.update_camera = function (pos, trg = [0, 0, 0], fov = null, cull=null, near=null, far=null) {

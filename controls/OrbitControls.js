@@ -16,6 +16,7 @@
 THREE.OrbitControls = function ( object, domElement ) {
 
 	this.object = object;
+    this.onMouseMoveCallbacks = []
 
 	this.domElement = ( domElement !== undefined ) ? domElement : document;
 
@@ -767,12 +768,17 @@ THREE.OrbitControls = function ( object, domElement ) {
 				break;
 
 		}
-        msg1 = 'scene.cameras["main"].transform.set("translation",('+ scope.object.position.toArray() + '),False)'
-        msg2 = 'scene.cameras["main"].target_position.set(('+ scope.target.toArray() + '),False)'
-        socket.send(msg1)
-        socket.send(msg2)
+		// for (var i in this.onMouseMoveCallbacks)
+		// {
+         //    this.onMouseMoveCallbacks[i]()
+		// }
 
 
+        // msg1 = 'scene.cameras["main"].transform.set("translation",('+ scope.object.position.toArray() + '),False)'
+        // msg2 = 'scene.cameras["main"].target_position.set(('+ scope.target.toArray() + '),False)'
+        // socket.send(msg1)
+        // socket.send(msg2)
+		viewer.onMouseMoveCallback()
 	}
 
 	function onMouseUp( event ) {
@@ -803,10 +809,11 @@ THREE.OrbitControls = function ( object, domElement ) {
 
 		scope.dispatchEvent( endEvent );
 
-        msg1 = 'scene.cameras["main"].transform.set("translation",('+ scope.object.position.toArray() + '),False)'
-        msg2 = 'scene.cameras["main"].target_position.set(('+ scope.target.toArray() + '),False)'
-        socket.send(msg1)
-        socket.send(msg2)
+        // msg1 = 'scene.cameras["main"].transform.set("translation",('+ scope.object.position.toArray() + '),False)'
+        // msg2 = 'scene.cameras["main"].target_position.set(('+ scope.target.toArray() + '),False)'
+        // socket.send(msg1)
+        // socket.send(msg2)
+        viewer.onMouseZoomCallback()
 
 	}
 

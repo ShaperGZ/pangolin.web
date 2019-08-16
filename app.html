@@ -14,12 +14,12 @@
     </style>
     <!--<script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/socket.io/1.3.6/socket.io.min.js"></script>-->
 </head>
-<script src ='libs/socketio.js'></script>
+<script src='libs/socketio.js'></script>
 <script src="three.min.js"></script>
 <script src="libs/jszip.js"></script>
 <script src="libs/mesh_line_2d.js"></script>
-<script src ='libs/colladaexporter.js'></script>
-<script src ='libs/THREE.MeshLine.js'></script>
+<script src='libs/colladaexporter.js'></script>
+<script src='libs/THREE.MeshLine.js'></script>
 <script src="controls/TrackballControls.js"></script>
 <script src="controls/DragControls.js"></script>
 <script src="controls/OrbitControls.js"></script>
@@ -33,6 +33,7 @@
 <script src="utilities.js"></script>
 <script src="materials.js"></script>
 <script src="tests/test_geometries.js"></script>
+<script src="libs/tween.js"></script>
 
 
 <script src="libs/dat.gui/dat.gui.min.js"></script>
@@ -151,11 +152,11 @@
     </div>
 
     <div id='hud01' class="overlayMessagePanel content"
-            style="width:250px; height:200px; margin-left:60px; margin-top: 65px">
+            style="width:250px; margin-left:60px; margin-top: 65px">
             <div id="hud01_content">server generated contents ... </div>
     </div>
     <div id="component_browser" class="overlayMessagePanel content"
-               style="width:250px; background-color: grey; font-size:16px ; color:white; height:400px; margin-left:60px; margin-top: 65px">
+               style="width:250px; background-color: grey; font-size:16px ; color:white; margin-left:60px; margin-top: 65px">
     <div>item 1 </div>
 </div>
 
